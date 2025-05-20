@@ -1,3 +1,5 @@
+type PayinAmountType = "fiat" | "token";
+
 export interface PayinQueryParams {
   paymentMethodId?: string;
   fromWallet?: string;
@@ -18,20 +20,27 @@ export interface PayinResponse {
 }
 
 export interface PayinType {
-  payinId: string;
-  merchantId: string;
-  amount: string;
-  amountType: "fiat" | "token";
-  billDate: number;
-  invoiceId: string;
-  description?: string | null;
-  externalInvoiceRef?: string | null;
-  payinType: "subscription" | "invoice";
-  payinStatus: "scheduled" | "pending" | "completed" | "failed" | "canceled" | "uncollectible" | "draft";
-  transaction?: Transaction | null;
-  paymentMethod: PaymentMethod;
-  payoutDestination: PayoutDestination;
-  dateCreated: number;
+    payinId: string;
+    merchantId: string;
+    amount: string;
+    amountType: PayinAmountType;
+    billDate: number;
+    invoiceId: string;
+    description?: string | null;
+    externalInvoiceRef?: string | null;
+    payinType: "subscription" | "invoice";
+    payinStatus:
+        | "scheduled"
+        | "pending"
+        | "completed"
+        | "failed"
+        | "canceled"
+        | "uncollectible"
+        | "draft";
+    transaction?: Transaction | null;
+    paymentMethod: PaymentMethod;
+    payoutDestination: PayoutDestination;
+    dateCreated: number;
 }
 
 export interface Transaction {
@@ -78,13 +87,23 @@ export interface PayoutDestination {
 }
 
 export interface PayinBodyParams {
-  merchantId: string; // The identifier of the merchant that this payin will be associated with
-  amount: string; // Payment amount in cents (for fiat) or including decimal places (for tokens)
-  amountType: "fiat" | "token"; // Type of the amount ("fiat" or "token")
-  billDate: number; // The date the payment should take place, represented as a Unix timestamp
-  payoutDestinationId?: string; // The payout destination for the funds, optional
-  customerId?: string; // The ID of the customer to charge for this payin (optional, or paymentMethodId must be provided)
-  paymentMethodId?: string; // The ID of the customer's payment method to use for this payin (optional, or customerId must be provided)
-  invoiceRefId?: string; // An invoice reference ID used to tie this payin to an external system (optional)
-  description?: string; // A description or note for the payin, up to 500 characters (optional)
+    merchantId: string; // The identifier of the merchant that this payin will be associated with
+    amount: string; // Payment amount in cents (for fiat) or including decimal places (for tokens)
+    amountType: PayinAmountType; // Type of the amount ("fiat" or "token")
+    billDate: number; // The date the payment should take place, represented as a Unix timestamp
+    payoutDestinationId?: string; // The payout destination for the funds, optional
+    customerId?: string; // The ID of the customer to charge for this payin (optional, or paymentMethodId must be provided)
+    paymentMethodId?: string; // The ID of the customer's payment method to use for this payin (optional, or customerId must be provided)
+    invoiceRefId?: string; // An invoice reference ID used to tie this payin to an external system (optional)
+    description?: string; // A description or note for the payin, up to 500 characters (optional)
+}
+
+export interface UpdatePayinBodyParams {
+    status?: string;
+    amount?: string;
+    amountType?: PayinAmountType;
+    billDate?: number;
+    paymentMethodId?: string;
+    externalInvoiceRef?: string;
+    description?: string;
 }

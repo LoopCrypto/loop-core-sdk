@@ -83,10 +83,11 @@ export type {
 } from "./resources/paymentmethod/types.ts";
 
 export type {
-  PayinQueryParams,
-  PayinResponse,
-  PayinType,
-  PayinBodyParams,
+    PayinQueryParams,
+    PayinResponse,
+    PayinType,
+    PayinBodyParams,
+    UpdatePayinBodyParams,
 } from "./resources/payin/types.ts";
 
 export type {
