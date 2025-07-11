@@ -1,14 +1,16 @@
+import { SortDir } from "../common-types";
+
 export interface ApiKeyQueryParams {
     apiKeyId?: string;
     apiKeyName?: string;
-    page?: number; // Using number instead of double in TypeScript
-    limit?: number; // Using number instead of double in TypeScript
+    page?: number;
+    limit?: number;
     sortBy?: "id" | "name" | "dateCreated";
-    sortDir?: "asc" | "desc";
+    sortDir?: SortDir;
 }
 
 export interface ApiKeyResponse {
-    totalResults: number; // Using number instead of double in TypeScript
+    totalResults: number;
     apiKeys: ApiKeyType[];
 }
 
