@@ -1,100 +1,109 @@
 import { Payout } from "../src/resources/payout";
 import {
-  PayoutPayload,
-  PayoutQueryParams,
-  PayoutDestinationResponse,
-  PayoutDestinationListResponse,
+    PayoutPayload,
+    PayoutQueryParams,
+    PayoutDestinationResponse,
+    PayoutDestinationListResponse,
 } from "../src/resources/payout/types";
 
 describe("Payout API", () => {
-  let payoutApi: Payout;
-  let requestMock: jest.Mock;
+    let payoutApi: Payout;
+    let requestMock: jest.Mock;
 
-  beforeEach(() => {
-    payoutApi = new Payout({ entityId: "test", apiKey: "secret" });
-    requestMock = jest.fn() as jest.Mock;
-    (payoutApi as unknown as { request: jest.Mock }).request = requestMock;
-  });
-
-  test("should fetch payout destinations", async () => {
-    const queryParams: PayoutQueryParams = { page: 1, limit: 10 };
-    const mockResponse: PayoutDestinationListResponse = {
-      totalResults: 1,
-      paymentTypes: [
-        {
-          payoutDestinationId: "payout-123",
-          merchantId: "mer-123",
-          networkId: 137,
-          walletAddress: "0xabcdef1234567890",
-          isDefault: false,
-          dateCreated: 1700000000,
-        },
-      ],
-    };
-
-    requestMock.mockResolvedValue(mockResponse);
-
-    const result = await payoutApi.search(queryParams);
-    expect(requestMock).toHaveBeenCalledWith("payout-destinations?page=1&limit=10", { method: "GET" });
-    expect(result).toEqual(mockResponse);
-  });
-
-  test("should create a new payout destination", async () => {
-    const requestBody: PayoutPayload = {
-      isDefault: true,
-      merchantId: "mer-123",
-      networkId: 137,
-      walletAddress: "0xabcdef1234567890",
-    };
-
-    const mockResponse: PayoutDestinationResponse = {
-      payoutDestinationId: "payout-456",
-      merchantId: "mer-123",
-      networkId: 137,
-      walletAddress: "0xabcdef1234567890",
-      isDefault: true,
-      dateCreated: 1700000000,
-    };
-
-    requestMock.mockResolvedValue(mockResponse);
-
-    const result = await payoutApi.create(requestBody);
-    expect(requestMock).toHaveBeenCalledWith("payout-destination", {
-      data: requestBody,
-      method: "POST",
+    beforeEach(() => {
+        payoutApi = new Payout({ entityId: "test", apiKey: "secret" });
+        requestMock = jest.fn() as jest.Mock;
+        (payoutApi as unknown as { request: jest.Mock }).request = requestMock;
     });
-    expect(result).toEqual(mockResponse);
-  });
 
-  test("should retrieve a payout destination by ID", async () => {
-    const payoutId = "payout-123";
-    const mockResponse: PayoutDestinationResponse = {
-      payoutDestinationId: "payout-123",
-      merchantId: "mer-123",
-      networkId: 137,
-      walletAddress: "0xabcdef1234567890",
-      isDefault: false,
-      dateCreated: 1700000000,
-    };
+    test("should fetch payout destinations", async () => {
+        const queryParams: PayoutQueryParams = { page: 1, limit: 10 };
+        const mockResponse: PayoutDestinationListResponse = {
+            totalResults: 1,
+            paymentTypes: [
+                {
+                    payoutDestinationId: "payout-123",
+                    merchantId: "mer-123",
+                    networkId: 137,
+                    walletAddress: "0xabcdef1234567890",
+                    isDefault: false,
+                    dateCreated: 1700000000,
+                },
+            ],
+        };
 
-    requestMock.mockResolvedValue(mockResponse);
+        requestMock.mockResolvedValue(mockResponse);
 
-    const result = await payoutApi.retrieve(payoutId);
-    expect(requestMock).toHaveBeenCalledWith(`payout-destination/${payoutId}`, { method: "GET" });
-    expect(result).toEqual(mockResponse);
-  });
+        const result = await payoutApi.search(queryParams);
+        expect(requestMock).toHaveBeenCalledWith(
+            "payout-destinations?page=1&limit=10",
+            { method: "GET" },
+        );
+        expect(result).toEqual(mockResponse);
+    });
 
-  test("should delete a payout destination", async () => {
-    const payoutId = "payout-123";
-    const mockResponse: PayoutDestinationListResponse = {
-      totalResults: 0,
-      paymentTypes: [],
-    };
+    test("should create a new payout destination", async () => {
+        const requestBody: PayoutPayload = {
+            isDefault: true,
+            merchantId: "mer-123",
+            networkId: 137,
+            walletAddress: "0xabcdef1234567890",
+        };
 
-    requestMock.mockResolvedValue(mockResponse);
+        const mockResponse: PayoutDestinationResponse = {
+            payoutDestinationId: "payout-456",
+            merchantId: "mer-123",
+            networkId: 137,
+            walletAddress: "0xabcdef1234567890",
+            isDefault: true,
+            dateCreated: 1700000000,
+        };
 
-    const result = await payoutApi.delete(payoutId);
-    expect(requestMock).toHaveBeenCalledWith(`payout-destination/${payoutId}`, { method: "DELETE" });
-    expect(result).toEqual(mockResponse);
-  });
+        requestMock.mockResolvedValue(mockResponse);
+
+        const result = await payoutApi.create(requestBody);
+        expect(requestMock).toHaveBeenCalledWith("payout-destination", {
+            data: requestBody,
+            method: "POST",
+        });
+        expect(result).toEqual(mockResponse);
+    });
+
+    test("should retrieve a payout destination by ID", async () => {
+        const payoutId = "payout-123";
+        const mockResponse: PayoutDestinationResponse = {
+            payoutDestinationId: "payout-123",
+            merchantId: "mer-123",
+            networkId: 137,
+            walletAddress: "0xabcdef1234567890",
+            isDefault: false,
+            dateCreated: 1700000000,
+        };
+
+        requestMock.mockResolvedValue(mockResponse);
+
+        const result = await payoutApi.retrieve(payoutId);
+        expect(requestMock).toHaveBeenCalledWith(
+            `payout-destination/${payoutId}`,
+            { method: "GET" },
+        );
+        expect(result).toEqual(mockResponse);
+    });
+
+    test("should delete a payout destination", async () => {
+        const payoutId = "payout-123";
+        const mockResponse: PayoutDestinationListResponse = {
+            totalResults: 0,
+            paymentTypes: [],
+        };
+
+        requestMock.mockResolvedValue(mockResponse);
+
+        const result = await payoutApi.delete(payoutId);
+        expect(requestMock).toHaveBeenCalledWith(
+            `payout-destination/${payoutId}`,
+            { method: "DELETE" },
+        );
+        expect(result).toEqual(mockResponse);
+    });
 });
