@@ -20,103 +20,89 @@ export interface ApiKeyType {
     apiKey: string;
 }
 
+type EntityPermissions =
+    | "CreateEntities"
+    | "UpdateEntities"
+    | "GetEntities"
+    | "CreateChildEntities";
+
+type ApiKeyPermissions =
+    | "CreateApiKeys"
+    | "UpdateApiKey"
+    | "GetApiKeys"
+    | "DeactivateApiKey";
+
+type MerchantPermissions =
+    | "CreateMerchants"
+    | "UpdateMerchants"
+    | "GetMerchants";
+
+type PaymentTypePermissions =
+    | "CreatePaymentTypes"
+    | "UpdatePaymentTypes"
+    | "GetPaymentTypes"
+    | "DeletePaymentTypes";
+
+type PayoutDestinationPermissions =
+    | "CreatePayoutDestinations"
+    | "UpdatePayoutDestinations"
+    | "GetPayoutDestinations"
+    | "DeletePayoutDestinations";
+
+type PaymentMethodPermissions =
+    | "CreatePaymentMethods"
+    | "UpdatePaymentMethods"
+    | "GetPaymentMethods"
+    | "DeletePaymentMethods";
+
+type PayinPermissions = "CreatePayins" | "UpdatePayins" | "GetPayins";
+
+type CustomerPermissions = "CreateCustomers" | "GetCustomers";
+
+type WebhookPermissions =
+    | "CreateWebhooks"
+    | "GetWebhooks"
+    | "DeleteWebhooks"
+    | "UpdateWebhooks"
+    | "CreateWebhookSecret"
+    | "GetWebhookSecret";
+
+type TokenPermissions = "GetTokens";
+
+type AuthTokenPermissions = "CreateAuthTokens";
+
+type CheckoutSessionPermissions =
+    | "CreateCheckoutSessions"
+    | "UpdateCheckoutSessions"
+    | "GetCheckoutSessions"
+    | "DeleteCheckoutSessions"
+    | "ListCheckoutSessions";
+
+type UserPermissions = "CreateUsers" | "GetUsers" | "DeleteUsers";
+
+type Permissions =
+    | EntityPermissions
+    | MerchantPermissions
+    | PaymentTypePermissions
+    | PayoutDestinationPermissions
+    | PaymentMethodPermissions
+    | PayinPermissions
+    | CustomerPermissions
+    | WebhookPermissions
+    | TokenPermissions
+    | AuthTokenPermissions
+    | CheckoutSessionPermissions
+    | UserPermissions
+    | ApiKeyPermissions
+    | UserPermissions;
+
 export interface ApiKeyRequestBody {
     name: string;
-    grantPermissions: (
-        | "CreateEntities"
-        | "UpdateEntities"
-        | "CreateApiKeys"
-        | "UpdateApiKey"
-        | "GetApiKeys"
-        | "DeactivateApiKey"
-        | "CreateMerchants"
-        | "UpdateMerchants"
-        | "GetMerchants"
-        | "CreatePaymentTypes"
-        | "GetPaymentTypes"
-        | "DeletePaymentTypes"
-        | "CreatePayoutDestinations"
-        | "GetPayoutDestinations"
-        | "DeletePayoutDestinations"
-        | "CreatePaymentMethods"
-        | "GetPaymentMethods"
-        | "DeletePaymentMethods"
-        | "CreatePayins"
-        | "GetPayins"
-        | "CreateCustomers"
-        | "GetCustomers"
-        | "CreateWebhooks"
-        | "GetWebhooks"
-        | "DeleteWebhooks"
-        | "UpdateWebhooks"
-        | "CreateWebhookSecret"
-        | "GetWebhookSecret"
-        | "GetTokens"
-    )[];
+    grantPermissions: Permissions[];
 }
 
 export interface ApiKeyUpdateRequestBody {
     name?: string;
-    grantPermissions?: (
-        | "CreateEntities"
-        | "UpdateEntities"
-        | "CreateApiKeys"
-        | "UpdateApiKey"
-        | "GetApiKeys"
-        | "DeactivateApiKey"
-        | "CreateMerchants"
-        | "UpdateMerchants"
-        | "GetMerchants"
-        | "CreatePaymentTypes"
-        | "GetPaymentTypes"
-        | "DeletePaymentTypes"
-        | "CreatePayoutDestinations"
-        | "GetPayoutDestinations"
-        | "DeletePayoutDestinations"
-        | "CreatePaymentMethods"
-        | "GetPaymentMethods"
-        | "DeletePaymentMethods"
-        | "CreatePayins"
-        | "GetPayins"
-        | "CreateCustomers"
-        | "GetCustomers"
-        | "CreateWebhooks"
-        | "GetWebhooks"
-        | "DeleteWebhooks"
-        | "UpdateWebhooks"
-        | "CreateWebhookSecret"
-        | "GetWebhookSecret"
-        | "GetTokens"
-    )[];
-    revokePermissions?: (
-        | "CreateEntities"
-        | "UpdateEntities"
-        | "CreateApiKeys"
-        | "UpdateApiKey"
-        | "GetApiKeys"
-        | "DeactivateApiKey"
-        | "CreateMerchants"
-        | "UpdateMerchants"
-        | "GetMerchants"
-        | "CreatePaymentTypes"
-        | "GetPaymentTypes"
-        | "DeletePaymentTypes"
-        | "CreatePayoutDestinations"
-        | "GetPayoutDestinations"
-        | "DeletePayoutDestinations"
-        | "CreatePaymentMethods"
-        | "GetPaymentMethods"
-        | "DeletePaymentMethods"
-        | "CreatePayins"
-        | "GetPayins"
-        | "CreateCustomers"
-        | "GetCustomers"
-        | "CreateWebhooks"
-        | "GetWebhooks"
-        | "DeleteWebhooks"
-        | "UpdateWebhooks"
-        | "CreateWebhookSecret"
-        | "GetWebhookSecret"
-        | "GetTokens"
-    )[];
+    grantPermissions?: Permissions[];
+    revokePermissions?: Permissions[];
 }
