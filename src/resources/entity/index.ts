@@ -1,8 +1,8 @@
 import { Base } from "../base.ts";
 import {
     EntityResponse,
-    EntityCreationRequest,
-    EntityUpdateRequest,
+    CreateEntityRequest,
+    UpdateEntityRequest,
 } from "./types.ts";
 
 export class Entity extends Base {
@@ -10,14 +10,14 @@ export class Entity extends Base {
         return this.request(`entity`, { method: "GET" });
     }
 
-    create(payload: EntityCreationRequest): Promise<EntityResponse> {
+    create(payload: CreateEntityRequest): Promise<EntityResponse> {
         return this.request(`entity`, {
             data: payload,
             method: "POST",
         });
     }
 
-    update(updateData: EntityUpdateRequest): Promise<EntityResponse> {
+    update(updateData: UpdateEntityRequest): Promise<EntityResponse> {
         return this.request(`entity`, {
             method: "PATCH",
             data: updateData,

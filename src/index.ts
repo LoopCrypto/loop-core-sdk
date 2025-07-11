@@ -99,8 +99,8 @@ export type {
 
 export type {
     EntityResponse,
-    EntityCreationRequest,
-    EntityUpdateRequest,
+    CreateEntityRequest,
+    UpdateEntityRequest,
 } from "./resources/entity/types.ts";
 
 export type {
