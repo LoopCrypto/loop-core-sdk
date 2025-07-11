@@ -4,5 +4,4 @@ export default {
     moduleFileExtensions: ["ts", "js"],
     testMatch: ["**/__tests__/**/*.test.ts"],
     verbose: true,
-  };
-  
+};
