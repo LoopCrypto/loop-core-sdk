@@ -19,7 +19,7 @@ export interface PaymentTypeQueryParams {
     sortDir?: SortDirection; // Sorting direction
 }
 
-export interface PaymentType {
+export interface PaymentTypeResponse {
     merchantId: string; // The merchant ID associated with this payment type
     tokenId: string; // The unique identifier for the token used by the payment type
     networkId: number; // The blockchain network ID the token is associated with
@@ -31,7 +31,7 @@ export interface PaymentType {
 
 export interface PaymentTypResponse {
     totalResults: number; // The total count of payment types matching the search criteria
-    paymentTypes: PaymentType[]; // The list of payment types grouped by merchant and network
+    paymentTypes: PaymentTypeResponse[]; // The list of payment types grouped by merchant and network
 }
 
 export type BlockchainNetwork =

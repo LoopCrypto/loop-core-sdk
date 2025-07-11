@@ -1,3 +1,6 @@
+import { NetworkIds } from "../common-types";
+import { TokenResponse } from "../token/types";
+
 export type SortByFields =
     | "paymentMethodId"
     | "paymentMethodName"
@@ -28,7 +31,7 @@ export interface ExchangeRate {
     timestamp: number; // Unix timestamp (in seconds) when this exchange rate was last updated
 }
 
-export interface PreAuthorization {
+export interface PaymentMethodPreAuthorization {
     balance: string; // Balance of the payment method in token amount
     authorization: string; // Authorization amount of the payment method in token amount
 }
@@ -41,21 +44,23 @@ export interface Token {
     exchangeRates: ExchangeRate[]; // List of exchange rates for the token
 }
 
-export interface PaymentMethodType {
+export interface PaymentMethodResponse {
     paymentMethodId: string; // Unique identifier for the payment method
     merchantId: string; // Unique identifier of the associated merchant
     paymentMethodName: string; // Name of the payment method
-    networkId: number; // Blockchain network ID associated with the payment method
+    active: boolean;
+    customer: unknown; //<----------
+    networkId: NetworkIds; // Blockchain network ID associated with the payment method
     walletAddress: string; // Blockchain wallet address where payments will be sent from
     isDefault: boolean; // Indicates if this is the default payment method for the wallet address
-    token: Token; // Token associated with the payment method
-    preAuthorization: PreAuthorization | null; // Wallet balance and authorization status
-    dateCreated: number; // Unix timestamp in seconds indicating when the payment method was created
+    token: TokenResponse; // Token associated with the payment method
+    preAuthorization: PaymentMethodPreAuthorization | null; // Wallet balance and authorization status
+    dateCreated: number;
 }
 
-export interface PaymentMethodResponse {
+export interface PaymentMethodsResponse {
     totalResults: number; // Total count of payment methods matching the search criteria
-    paymentMethods: PaymentMethodType[]; // List of payment methods grouped by merchant and network
+    paymentMethods: PaymentMethodResponse[]; // List of payment methods grouped by merchant and network
 }
 
 export interface CreatePaymentMethodRequest {

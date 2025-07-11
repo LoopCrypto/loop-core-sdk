@@ -1,8 +1,8 @@
 import { Base } from "../base.ts";
-import { TokenQueryParams, TokenResponse } from "./types.ts";
+import { TokenQueryParams, TokensResponse } from "./types.ts";
 
 export class Token extends Base {
-    search(queryParams?: TokenQueryParams): Promise<TokenResponse> {
+    search(queryParams?: TokenQueryParams): Promise<TokensResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,

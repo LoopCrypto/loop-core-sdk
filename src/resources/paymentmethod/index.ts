@@ -1,15 +1,15 @@
 import { Base } from "../base.ts";
 import {
     PaymentMethodQueryParams,
-    PaymentMethodResponse,
+    PaymentMethodsResponse,
     CreatePaymentMethodRequest,
-    PaymentMethodType,
+    PaymentMethodResponse,
 } from "./types.ts";
 
 export class PaymentMethod extends Base {
     search(
         queryParams?: PaymentMethodQueryParams,
-    ): Promise<PaymentMethodResponse> {
+    ): Promise<PaymentMethodsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
@@ -18,20 +18,22 @@ export class PaymentMethod extends Base {
         return this.request(`payment-methods${queryString}`, { method: "GET" });
     }
 
-    create(payload: CreatePaymentMethodRequest): Promise<PaymentMethodType> {
+    create(
+        payload: CreatePaymentMethodRequest,
+    ): Promise<PaymentMethodResponse> {
         return this.request(`payment-method`, {
             data: payload,
             method: "POST",
         });
     }
 
-    retrieve(paymentMethodId: string): Promise<PaymentMethodType> {
+    retrieve(paymentMethodId: string): Promise<PaymentMethodResponse> {
         return this.request(`payment-method/${paymentMethodId}`, {
             method: "GET",
         });
     }
 
-    delete(paymentMethodId: string): Promise<PaymentMethodResponse> {
+    delete(paymentMethodId: string): Promise<PaymentMethodsResponse> {
         return this.request(`payment-method/${paymentMethodId}`, {
             method: "DELETE",
         });

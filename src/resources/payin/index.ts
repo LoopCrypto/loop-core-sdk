@@ -1,13 +1,14 @@
 import { Base } from "../base.ts";
 import {
     PayinQueryParams,
+    PayinsResponse,
     PayinResponse,
-    PayinType,
-    PayinBodyParams,
+    CreatePayinRequest,
+    UpdatePayinRequest,
 } from "./types.ts";
 
 export class Payin extends Base {
-    search(queryParams?: PayinQueryParams): Promise<PayinResponse> {
+    search(queryParams?: PayinQueryParams): Promise<PayinsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
@@ -16,16 +17,26 @@ export class Payin extends Base {
         return this.request(`payins${queryString}`, { method: "GET" });
     }
 
-    create(payload: PayinBodyParams): Promise<PayinType> {
+    create(payload: CreatePayinRequest): Promise<PayinResponse> {
         return this.request(`payin`, {
             data: payload,
             method: "POST",
         });
     }
 
-    retrieve(payinId: string): Promise<PayinType> {
+    retrieve(payinId: string): Promise<PayinResponse> {
         return this.request(`payin/${payinId}`, {
             method: "GET",
+        });
+    }
+
+    update(
+        payinId: string,
+        updateData: UpdatePayinRequest,
+    ): Promise<PayinsResponse> {
+        return this.request(`payin/${payinId}`, {
+            method: "PATCH",
+            data: updateData,
         });
     }
 }

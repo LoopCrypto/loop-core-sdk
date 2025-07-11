@@ -1,6 +1,6 @@
 import { Base } from "../base.ts";
 import {
-    MerchantRequest,
+    CreateMerchantRequest,
     MerchantResponse,
     MerchantQueryParams,
     MerchantResponseList,
@@ -17,7 +17,7 @@ export class Merchant extends Base {
         return this.request(`merchants${queryString}`, { method: "GET" });
     }
 
-    create(payload: MerchantRequest): Promise<MerchantResponse> {
+    create(payload: CreateMerchantRequest): Promise<MerchantResponse> {
         return this.request(`merchant`, {
             data: payload,
             method: "POST",

@@ -1,3 +1,16 @@
+import { PaymentMethodResponse, PayoutDestinationResponse } from "../..";
+import { SortDir } from "../common-types";
+import { TokenExchangeRateResponse } from "../token/types";
+
+/**
+ * Payin Common
+ */
+
+type AmountType = "fiat" | "token";
+
+/**
+ * Payin Request
+ */
 export interface PayinQueryParams {
     paymentMethodId?: string;
     fromWallet?: string;
@@ -5,26 +18,70 @@ export interface PayinQueryParams {
     merchantId?: string;
     customerId?: string;
     customerRefId?: string;
+    status?: string;
     page?: number; // Default is 1
     limit?: number; // Default is 25, max is 100
     sortBy?: string; // Default is "dateCreated"
-    sortDir?: "asc" | "desc"; // Default is "desc"
+    sortDir?: SortDir;
+}
+
+export interface CreatePayinRequest {
+    merchantId: string; // The identifier of the merchant that this payin will be associated with
+    amount: string; // Payment amount in cents (for fiat) or including decimal places (for tokens)
+    amountType: AmountType; // Type of the amount ("fiat" or "token")
+    billDate: number; // The date the payment should take place, represented as a Unix timestamp
+    payoutDestinationId?: string; // The payout destination for the funds, optional
+    customerId?: string; // The ID of the customer to charge for this payin (optional, or paymentMethodId must be provided)
+    paymentMethodId?: string; // The ID of the customer's payment method to use for this payin (optional, or customerId must be provided)
+    subscriptionRefId?: string; // An external subscription reference ID used to tie this payin to a subscription in an external system.
+    invoiceRefId?: string; // An invoice reference ID used to tie this payin to an external system (optional)
+    description?: string; // A description or note for the payin, up to 500 characters (optional)
+}
+
+export interface UpdatePayinRequest {
+    status?: "scheduled" | "canceled";
+    amount?: string; // Payment amount in cents (for fiat) or including decimal places (for tokens)
+    amountType?: AmountType; // Type of the amount ("fiat" or "token")
+    billDate: number; // The date the payment should take place, represented as a Unix timestamp
+    paymentMethodId?: string; // The ID of the customer's payment method to use for this payin (optional, or customerId must be provided)
+    externalInvoiceRef?: string; //  An invoice reference ID used to tie this payin to an invoice in an external system.
+    description?: string; // A description or note for the payin, up to 500 characters (optional)
+}
+
+/**
+ * Payin Response
+ */
+
+export interface PayinPaymentMethodResponse
+    extends Omit<PaymentMethodResponse, "merchantId" | "dateCreated"> {
+    status:
+        | "ok"
+        | "insufficient_balance"
+        | "insufficient_authorization"
+        | "insufficient_balance_authorization";
+}
+
+export interface PreAuthorization {
+    balance: string;
+    authorization: string;
+}
+
+export interface PayinTransactionResponse {
+    transactionId: string;
+    transactionUrl: string;
+    amountTransferred: string | null;
+    exchangeRate: TokenExchangeRateResponse | null;
 }
 
 export interface PayinResponse {
-    totalResults: number;
-    payins: PayinType[];
-}
-
-export interface PayinType {
     payinId: string;
     merchantId: string;
     amount: string;
-    amountType: "fiat" | "token";
+    amountType: AmountType;
     billDate: number;
     invoiceId: string;
-    description?: string | null;
-    externalInvoiceRef?: string | null;
+    description: string | null;
+    externalInvoiceRef: string | null;
     payinType: "subscription" | "invoice";
     payinStatus:
         | "scheduled"
@@ -34,67 +91,20 @@ export interface PayinType {
         | "canceled"
         | "uncollectible"
         | "draft";
-    transaction?: Transaction | null;
-    paymentMethod: PaymentMethod;
-    payoutDestination: PayoutDestination;
+    transaction: PayinTransactionResponse | null;
+    paymentMethod: PayinPaymentMethodResponse;
+    payoutDestination: Omit<
+        PayoutDestinationResponse,
+        | "merchantId"
+        | "fiatSettlementAccount"
+        | "isDefault"
+        | "isArchived"
+        | "dateCreated"
+    >;
     dateCreated: number;
 }
 
-export interface Transaction {
-    transactionId: string;
-    transactionUrl: string;
-    amountTransferred?: string | null;
-    exchangeRate?: ExchangeRate | null;
-}
-
-export interface ExchangeRate {
-    currency: "USD";
-    price: string;
-    timestamp: number;
-}
-
-export interface PaymentMethod {
-    networkId: number;
-    paymentMethodId: string;
-    paymentMethodName: string;
-    walletAddress: string;
-    isDefault: boolean;
-    token: Token;
-    preAuthorization: PreAuthorization;
-    status:
-        | "ok"
-        | "insufficient_balance"
-        | "insufficient_authorization"
-        | "insufficient_balance_authorization";
-}
-
-export interface Token {
-    symbol: string;
-    tokenId: string;
-    address: string;
-    decimals: number;
-    exchangeRates: ExchangeRate[];
-}
-
-export interface PreAuthorization {
-    balance: string;
-    authorization: string;
-}
-
-export interface PayoutDestination {
-    networkId: number;
-    walletAddress: string;
-    payoutDestinationId: string;
-}
-
-export interface PayinBodyParams {
-    merchantId: string; // The identifier of the merchant that this payin will be associated with
-    amount: string; // Payment amount in cents (for fiat) or including decimal places (for tokens)
-    amountType: "fiat" | "token"; // Type of the amount ("fiat" or "token")
-    billDate: number; // The date the payment should take place, represented as a Unix timestamp
-    payoutDestinationId?: string; // The payout destination for the funds, optional
-    customerId?: string; // The ID of the customer to charge for this payin (optional, or paymentMethodId must be provided)
-    paymentMethodId?: string; // The ID of the customer's payment method to use for this payin (optional, or customerId must be provided)
-    invoiceRefId?: string; // An invoice reference ID used to tie this payin to an external system (optional)
-    description?: string; // A description or note for the payin, up to 500 characters (optional)
+export interface PayinsResponse {
+    totalResults: number;
+    payins: PayinResponse[];
 }
