@@ -1,3 +1,5 @@
+import { NetworkIds, SortDir } from "../common-types";
+
 export interface SDKOptions {
     apiKey: string;
     entityId: string;
@@ -10,7 +12,7 @@ export type WebhookEvent =
 
 export type WebhookSortBy = "postUrl" | "dateCreated";
 
-export type WebhookSortDir = "asc" | "desc";
+export type WebhookSortDir = SortDir;
 
 export interface WebHooksQueryParams {
     webhookId?: string;
@@ -44,16 +46,7 @@ export interface WebHooksUpdateQueryParams {
     events?: string;
 }
 
-export type BlockchainNetworkId =
-    | 1 // Ethereum
-    | 10 // Optimism
-    | 56 // BNB
-    | 137 // Polygon
-    | 8453 // Base
-    | 42161 // Arbitrum
-    | 900 // Solana (Demo environment only)
-    | 11155111 // Sepolia (Demo environment only)
-    | 901; // Solana Devnet (Demo environment only)
+export type BlockchainNetworkId = NetworkIds;
 
 export type WebhookCreateEvent = "payin.created" | "payment.processed";
 
