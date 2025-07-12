@@ -4,6 +4,7 @@ import {
     PaymentMethodsResponse,
     CreatePaymentMethodRequest,
     PaymentMethodResponse,
+    UpdatePaymentMethodRequest,
 } from "./types.ts";
 
 export class PaymentMethod extends Base {
@@ -24,6 +25,16 @@ export class PaymentMethod extends Base {
         return this.request(`payment-method`, {
             data: payload,
             method: "POST",
+        });
+    }
+
+    update(
+        paymentMethodId: string,
+        updateData: UpdatePaymentMethodRequest,
+    ): Promise<PaymentMethodResponse> {
+        return this.request(`payment-method/${paymentMethodId}`, {
+            method: "PATCH",
+            data: updateData,
         });
     }
 

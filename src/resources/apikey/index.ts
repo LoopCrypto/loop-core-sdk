@@ -1,14 +1,14 @@
 import { Base } from "../base.ts";
 import {
     ApiKeyQueryParams,
-    ApiKeyResponse,
-    ApiKeyRequestBody,
-    ApiKeyUpdateRequestBody,
+    ApiKeysResponse,
+    CreateApiKeyRequest,
+    UpdateApiKeyRequest,
     ApiKeyType,
 } from "./types.ts";
 
 export class ApiKey extends Base {
-    search(queryParams?: ApiKeyQueryParams): Promise<ApiKeyResponse> {
+    search(queryParams?: ApiKeyQueryParams): Promise<ApiKeysResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
@@ -17,14 +17,14 @@ export class ApiKey extends Base {
         return this.request(`api-keys${queryString}`, { method: "GET" });
     }
 
-    create(payload: ApiKeyRequestBody): Promise<ApiKeyType> {
+    create(payload: CreateApiKeyRequest): Promise<ApiKeyType> {
         return this.request(`api-key`, {
             data: payload,
             method: "POST",
         });
     }
 
-    delete(apiKeyId: string): Promise<ApiKeyResponse> {
+    delete(apiKeyId: string): Promise<ApiKeysResponse> {
         return this.request(`api-key/${apiKeyId}`, {
             method: "DELETE",
         });
@@ -32,7 +32,7 @@ export class ApiKey extends Base {
 
     update(
         apiKeyId: string,
-        payload: ApiKeyUpdateRequestBody,
+        payload: UpdateApiKeyRequest,
     ): Promise<ApiKeyType> {
         return this.request(`api-key/${apiKeyId}`, {
             data: payload,

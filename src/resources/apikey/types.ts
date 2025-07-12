@@ -1,26 +1,8 @@
 import { SortDir } from "../common-types";
 
-export interface ApiKeyQueryParams {
-    apiKeyId?: string;
-    apiKeyName?: string;
-    page?: number;
-    limit?: number;
-    sortBy?: "id" | "name" | "dateCreated";
-    sortDir?: SortDir;
-}
-
-export interface ApiKeyResponse {
-    totalResults: number;
-    apiKeys: ApiKeyType[];
-}
-
-export interface ApiKeyType {
-    dateCreated: number; // Unix timestamp in seconds
-    name: string;
-    id: string;
-    permissions: string[];
-    apiKey: string;
-}
+/**
+ * Api Key Common
+ */
 
 type EntityPermissions =
     | "CreateEntities"
@@ -98,13 +80,73 @@ type Permissions =
     | ApiKeyPermissions
     | UserPermissions;
 
-export interface ApiKeyRequestBody {
+/**
+ * Api Key Request
+ */
+
+export interface ApiKeyQueryParams {
+    apiKeyId?: string;
+    apiKeyName?: string;
+    page?: number;
+    limit?: number;
+    sortBy?: "id" | "name" | "dateCreated";
+    sortDir?: SortDir;
+}
+
+export interface CreateApiKeyRequest {
     name: string;
     grantPermissions: Permissions[];
 }
 
-export interface ApiKeyUpdateRequestBody {
+export interface UpdateApiKeyRequest {
     name?: string;
     grantPermissions?: Permissions[];
     revokePermissions?: Permissions[];
+}
+
+/**
+ * Api Key Response
+ */
+
+export interface ApiKeyType {
+    dateCreated: number; // Unix timestamp in seconds
+    name: string;
+    id: string;
+    permissions: string[];
+    apiKey: string;
+}
+
+export interface ApiKeyResponse {
+    /**
+     * The unique identifier for the API key
+     * @example "1234567890abcdef"
+     */
+    id: string;
+    /**
+     * The name that identifies the API key
+     * @example "Loop API key"
+     */
+    name: string;
+    /**
+     * The list of permissions that define what operations this API key can perform
+     * @example ["CreateEntity", "GetPaymentTypes"]
+     */
+    permissions: string[];
+    /**
+     * The date the API key was created, represented as a Unix timestamp in seconds.
+     * @example 1716211200
+     */
+    dateCreated: number;
+}
+
+export interface ApiKeysResponse {
+    /**
+     * The total count of API keys matching the search criteria, regardless of page size or number.
+     * @example 100
+     */
+    totalResults: number;
+    /**
+     * The list of API keys associated with the entity
+     */
+    apiKeys: ApiKeyResponse[];
 }

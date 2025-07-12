@@ -79,6 +79,7 @@ export type {
     PaymentMethodQueryParams,
     PaymentMethodsResponse,
     CreatePaymentMethodRequest,
+    UpdatePaymentMethodRequest,
     PaymentMethodResponse,
 } from "./resources/paymentmethod/types.ts";
 
@@ -106,15 +107,15 @@ export type {
 
 export type {
     CustomerQueryParams,
-    CustomerResponse,
-    CustomerType,
-    CustomerRequestBody,
+    MerchantCustomersResponse,
+    MerchantCustomerResponse,
+    CreateCustomerRequest,
 } from "./resources/customer/types.ts";
 
 export type {
     ApiKeyQueryParams,
-    ApiKeyResponse,
-    ApiKeyRequestBody,
-    ApiKeyUpdateRequestBody,
+    ApiKeysResponse,
+    CreateApiKeyRequest,
+    UpdateApiKeyRequest,
     ApiKeyType,
 } from "./resources/apikey/types.ts";

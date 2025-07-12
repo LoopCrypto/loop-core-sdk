@@ -25,7 +25,7 @@ export interface CreatePaymentMethodRequest {
     isDefault?: boolean;
     authorizationSignature: string;
 }
-export interface CustomerRequestBody {
+export interface CreateCustomerRequest {
     merchantId: string;
     customerRefId?: string;
     subscriptionRefId?: string;
@@ -81,14 +81,14 @@ interface PaymentMethodResponse {
     preAuthorization: PreAuthorization;
 }
 
-export interface CustomerType {
+export interface MerchantCustomerResponse {
     customerId: string;
     customerRefIds: MerchantCustomerRef[];
     paymentMethods: PaymentMethodResponse[];
     dateCreated: number;
 }
 
-export interface CustomerResponse {
+export interface MerchantCustomersResponse {
     totalResults: number;
-    customers: CustomerType[];
+    customers: MerchantCustomerResponse[];
 }
