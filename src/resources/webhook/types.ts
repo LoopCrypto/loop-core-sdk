@@ -1,4 +1,4 @@
-import { NetworkIds, SortDir } from "../common-types";
+import { NetworkIds, SortDirection } from "../common-types";
 
 export interface SDKOptions {
     apiKey: string;
@@ -12,7 +12,7 @@ export type WebhookEvent =
 
 export type WebhookSortBy = "postUrl" | "dateCreated";
 
-export type WebhookSortDir = SortDir;
+export type WebhookSortDir = SortDirection;
 
 export interface WebHooksQueryParams {
     webhookId?: string;

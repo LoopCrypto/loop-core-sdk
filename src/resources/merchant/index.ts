@@ -3,12 +3,12 @@ import {
     CreateMerchantRequest,
     MerchantResponse,
     MerchantQueryParams,
-    MerchantResponseList,
+    MerchantsResponse,
     UpdateMerchantRequest,
 } from "./types.ts";
 
 export class Merchant extends Base {
-    search(queryParams?: MerchantQueryParams): Promise<MerchantResponseList> {
+    search(queryParams?: MerchantQueryParams): Promise<MerchantsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,

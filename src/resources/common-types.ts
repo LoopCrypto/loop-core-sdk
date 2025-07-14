@@ -9,6 +9,6 @@ export type NetworkIds =
     | 11155111 // Sepolia (Demo environment only)
     | 901; // Solana Devnet (Demo environment only)
 
-export type SortDir = "asc" | "desc";
+export type SortDirection = "asc" | "desc";
 
 export type SettlementType = "Crypto" | "Fiat";

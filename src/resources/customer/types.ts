@@ -1,4 +1,4 @@
-import { NetworkIds, SortDir } from "../common-types";
+import { NetworkIds, SortDirection } from "../common-types";
 
 /**
  * Customer Request
@@ -13,7 +13,7 @@ export interface CustomerQueryParams {
     page?: number;
     limit?: number;
     sortBy?: "customerId" | "customerRefId" | "dateCreated";
-    sortDir?: SortDir;
+    sortDir?: SortDirection;
 }
 
 export interface CreatePaymentMethodRequest {

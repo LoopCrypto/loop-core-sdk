@@ -1,5 +1,9 @@
-import { SortDir } from "../common-types";
-import { PaymentTypeRequest, PaymentTypeResponse } from "../paymenttype/types";
+import { SortDirection } from "../common-types";
+import {
+    CreatePaymentTypeRequest,
+    PaymentTypeRequest,
+    PaymentTypeResponse,
+} from "../paymenttype/types";
 import {
     FiatSettlementAccountResponse,
     FiatSettlementSettingsRequest,
@@ -25,7 +29,7 @@ export interface MerchantQueryParams {
     page?: number; // Using number instead of double since TypeScript uses number for all numeric values
     limit?: number;
     sortBy?: "dateCreated" | "merchantId" | "merchantName" | "merchantRefId";
-    sortDir?: SortDir;
+    sortDir?: SortDirection;
 }
 
 export interface UpdateMerchantRequest {
@@ -46,7 +50,7 @@ export interface MerchantResponse {
     paymentTypes: PaymentTypeResponse[]; // The payment types supported by the merchant
 }
 
-export interface MerchantResponseList {
+export interface MerchantsResponse {
     totalResults: number; // Total count of payment methods matching the search criteria
     merchants: MerchantResponse[]; // List of payment methods grouped by merchant and network
 }

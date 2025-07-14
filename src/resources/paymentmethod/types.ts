@@ -1,4 +1,4 @@
-import { NetworkIds, SortDir } from "../common-types";
+import { NetworkIds, SortDirection } from "../common-types";
 import { MerchantCustomerResponse } from "../customer/types";
 import { TokenResponse } from "../token/types";
 
@@ -12,8 +12,6 @@ export type SortByFields =
     | "networkId"
     | "walletAddress"
     | "dateCreated";
-
-export type SortDirection = SortDir;
 
 export interface PaymentMethodQueryParams {
     merchantId?: string; // Optional filter for a specific merchant

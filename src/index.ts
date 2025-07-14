@@ -60,6 +60,7 @@ export type {
 export type {
     TokenQueryParams,
     TokensResponse,
+    TokenResponse,
 } from "./resources/token/types.ts";
 
 export type {
@@ -71,16 +72,18 @@ export type {
 
 export type {
     PaymentTypeQueryParams,
-    PaymentTypeRequest,
-    PaymentTypResponse,
+    CreatePaymentTypeRequest,
+    PaymentTypesResponse,
+    PaymentTypeResponse,
+    DefaultPaymentTypeRequest,
 } from "./resources/paymenttype/types.ts";
 
 export type {
     PaymentMethodQueryParams,
     PaymentMethodsResponse,
+    PaymentMethodResponse,
     CreatePaymentMethodRequest,
     UpdatePaymentMethodRequest,
-    PaymentMethodResponse,
 } from "./resources/paymentmethod/types.ts";
 
 export type {
@@ -95,7 +98,7 @@ export type {
     CreateMerchantRequest,
     MerchantResponse,
     MerchantQueryParams,
-    MerchantResponseList,
+    MerchantsResponse,
     UpdateMerchantRequest,
 } from "./resources/merchant/types.ts";
 

@@ -1,12 +1,16 @@
 import { Base } from "../base.ts";
 import {
     PaymentTypeQueryParams,
-    PaymentTypeRequest,
-    PaymentTypResponse,
+    CreatePaymentTypeRequest,
+    PaymentTypesResponse,
+    DefaultPaymentTypeRequest,
+    PaymentTypeResponse,
 } from "./types.ts";
 
 export class PaymentType extends Base {
-    search(queryParams?: PaymentTypeQueryParams): Promise<PaymentTypResponse> {
+    search(
+        queryParams?: PaymentTypeQueryParams,
+    ): Promise<PaymentTypesResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
@@ -15,16 +19,25 @@ export class PaymentType extends Base {
         return this.request(`payment-types${queryString}`, { method: "GET" });
     }
 
-    create(payload: PaymentTypeRequest): Promise<PaymentType> {
+    create(payload: CreatePaymentTypeRequest): Promise<PaymentTypeResponse> {
         return this.request(`payment-type`, {
             data: payload,
             method: "POST",
         });
     }
 
-    delete(merchantId: string, tokenId: string): Promise<PaymentTypResponse> {
+    delete(merchantId: string, tokenId: string): Promise<PaymentTypesResponse> {
         return this.request(`payment-type/${merchantId}/${tokenId}`, {
             method: "DELETE",
+        });
+    }
+
+    setDefaults(
+        defaultRequest: DefaultPaymentTypeRequest,
+    ): Promise<PaymentTypeResponse> {
+        return this.request(`payment-types/defaults`, {
+            method: "PATCH",
+            data: defaultRequest,
         });
     }
 }

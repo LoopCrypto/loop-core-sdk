@@ -1,4 +1,4 @@
-import { SortDir } from "../common-types";
+import { SortDirection } from "../common-types";
 
 /**
  * Api Key Common
@@ -90,7 +90,7 @@ export interface ApiKeyQueryParams {
     page?: number;
     limit?: number;
     sortBy?: "id" | "name" | "dateCreated";
-    sortDir?: SortDir;
+    sortDir?: SortDirection;
 }
 
 export interface CreateApiKeyRequest {

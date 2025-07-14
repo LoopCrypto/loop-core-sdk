@@ -1,5 +1,5 @@
 import { PaymentMethodResponse, PayoutDestinationResponse } from "../..";
-import { SortDir } from "../common-types";
+import { SortDirection } from "../common-types";
 import { TokenExchangeRateResponse } from "../token/types";
 
 /**
@@ -22,7 +22,7 @@ export interface PayinQueryParams {
     page?: number; // Default is 1
     limit?: number; // Default is 25, max is 100
     sortBy?: string; // Default is "dateCreated"
-    sortDir?: SortDir;
+    sortDir?: SortDirection;
 }
 
 export interface CreatePayinRequest {
