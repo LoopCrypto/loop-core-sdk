@@ -1,11 +1,11 @@
-import { Base } from "../base.ts";
+import { Base } from "../base";
 import {
     ApiKeyQueryParams,
     ApiKeysResponse,
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
     ApiKeyType,
-} from "./types.ts";
+} from "./types";
 
 export class ApiKey extends Base {
     search(queryParams?: ApiKeyQueryParams): Promise<ApiKeysResponse> {

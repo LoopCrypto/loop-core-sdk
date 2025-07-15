@@ -1,5 +1,5 @@
-import { Base } from "../base.ts";
-import { TokenQueryParams, TokensResponse } from "./types.ts";
+import { Base } from "../base";
+import { TokenQueryParams, TokensResponse } from "./types";
 
 export class Token extends Base {
     search(queryParams?: TokenQueryParams): Promise<TokensResponse> {

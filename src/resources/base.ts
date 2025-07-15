@@ -1,6 +1,6 @@
 // src/resources/base.ts
 import axios, { AxiosRequestConfig } from "axios";
-import { SDKOptions } from "./webhook/types";
+import { SDKOptions } from "./common-types";
 
 export abstract class Base {
     private apiKey: string;

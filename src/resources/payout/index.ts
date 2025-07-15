@@ -1,13 +1,16 @@
-import { Base } from "../base.ts";
+import { Base } from "../base";
 import {
     PayoutDestinationResponse,
-    PayoutPayload,
+    CreatePayoutDestinationRequest,
     PayoutQueryParams,
-    PayoutDestinationListResponse,
-} from "./types.ts";
+    PayoutDestinationsResponse,
+    UpdatePayoutDestinationRequest,
+} from "./types";
 
 export class Payout extends Base {
-    create(payload: PayoutPayload): Promise<PayoutDestinationResponse> {
+    create(
+        payload: CreatePayoutDestinationRequest,
+    ): Promise<PayoutDestinationResponse> {
         return this.request(`payout-destination`, {
             data: payload,
             method: "POST",
@@ -20,7 +23,7 @@ export class Payout extends Base {
         });
     }
 
-    delete(payoutId: string): Promise<PayoutDestinationListResponse> {
+    delete(payoutId: string): Promise<PayoutDestinationsResponse> {
         return this.request(`payout-destination/${payoutId}`, {
             method: "DELETE",
         });
@@ -28,7 +31,7 @@ export class Payout extends Base {
 
     search(
         queryParams?: PayoutQueryParams,
-    ): Promise<PayoutDestinationListResponse> {
+    ): Promise<PayoutDestinationsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
@@ -36,6 +39,16 @@ export class Payout extends Base {
             : "";
         return this.request(`payout-destinations${queryString}`, {
             method: "GET",
+        });
+    }
+
+    update(
+        payoutId: string,
+        updateData: UpdatePayoutDestinationRequest,
+    ): Promise<PayoutDestinationResponse> {
+        return this.request(`payout-destinations/${payoutId}`, {
+            method: "PATCH",
+            data: updateData,
         });
     }
 }

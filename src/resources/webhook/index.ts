@@ -1,16 +1,17 @@
 import {
-    WebHooksQueryParams,
+    WebhooksQueryParams,
     WebHooksResponse,
-    WebHookPayload,
-    UpdateWebHookPayload,
+    CreateWebhookRequest,
+    UpdateWebhookRequest,
     WebHooksUpdateQueryParams,
     Webhook,
     WebHookSecretResponse,
-} from "./types.ts";
-import { Base } from "../base.ts";
+    CreateClassicWebhookRequest,
+} from "./types";
+import { Base } from "../base";
 
 export class WebHook extends Base {
-    search(queryParams?: WebHooksQueryParams): Promise<WebHooksResponse> {
+    search(queryParams?: WebhooksQueryParams): Promise<WebHooksResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
@@ -19,12 +20,34 @@ export class WebHook extends Base {
         return this.request(`webhooks${queryString}`, { method: "GET" });
     }
 
-    create(payLoad: WebHookPayload): Promise<WebHooksResponse> {
+    searchClassic(
+        queryParams?: WebhooksQueryParams,
+    ): Promise<WebHooksResponse> {
+        const queryString = queryParams
+            ? `?${new URLSearchParams(
+                  queryParams as Record<string, string>,
+              ).toString()}`
+            : "";
+        return this.request(`webhooks/classic${queryString}`, {
+            method: "GET",
+        });
+    }
+
+    create(payLoad: CreateWebhookRequest): Promise<WebHooksResponse> {
         return this.request(`webhook`, { data: payLoad, method: "POST" });
     }
 
+    createClassic(
+        payLoad: CreateClassicWebhookRequest,
+    ): Promise<WebHooksResponse> {
+        return this.request(`webhooks/classic`, {
+            data: payLoad,
+            method: "POST",
+        });
+    }
+
     update(
-        payLoad: UpdateWebHookPayload,
+        payLoad: UpdateWebhookRequest,
         queryParams?: WebHooksUpdateQueryParams,
     ): Promise<Webhook> {
         const queryString = queryParams

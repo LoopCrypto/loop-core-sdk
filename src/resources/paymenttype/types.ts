@@ -1,4 +1,4 @@
-import { NetworkIds, SortDirection } from "../common-types";
+import { NetworkIds, SettlementType, SortDirection } from "../common-types";
 
 /**
  * Payment Type Request
@@ -62,7 +62,7 @@ export interface PaymentTypeRequest {
      * - `fiat` - The payment type will be settled in fiat currency
      * @example "crypto"
      */
-    settlementType?: "Crypto" | "Fiat";
+    settlementType?: SettlementType;
     /**
      * The blockchain wallet addresses where payments will be sent if the settlement type is `crypto`. Each address must be a valid address for the specified network.
      *

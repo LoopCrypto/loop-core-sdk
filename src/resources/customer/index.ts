@@ -1,10 +1,10 @@
-import { Base } from "../base.ts";
+import { Base } from "../base";
 import {
     CustomerQueryParams,
     MerchantCustomersResponse,
     MerchantCustomerResponse,
     CreateCustomerRequest,
-} from "./types.ts";
+} from "./types";
 
 export class Customer extends Base {
     search(

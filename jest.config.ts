@@ -1,7 +1,12 @@
 export default {
+    roots: ["./src", "./__tests__"],
+    collectCoverageFrom: ["./src/**/*.ts"],
     preset: "ts-jest",
     testEnvironment: "node",
-    moduleFileExtensions: ["ts", "js"],
-    testMatch: ["**/__tests__/**/*.test.ts"],
     verbose: true,
+    collectCoverage: true,
+    coverageDirectory: "coverage",
+    coverageProvider: "v8",
+    moduleDirectories: ["<rootDir>", "node_modules"],
+    testTimeout: 30000,
 };

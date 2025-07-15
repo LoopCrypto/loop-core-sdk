@@ -12,3 +12,8 @@ export type NetworkIds =
 export type SortDirection = "asc" | "desc";
 
 export type SettlementType = "Crypto" | "Fiat";
+
+export interface SDKOptions {
+    apiKey: string;
+    entityId: string;
+}

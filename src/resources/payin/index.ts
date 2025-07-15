@@ -1,11 +1,11 @@
-import { Base } from "../base.ts";
+import { Base } from "../base";
 import {
     PayinQueryParams,
     PayinsResponse,
     PayinResponse,
     CreatePayinRequest,
     UpdatePayinRequest,
-} from "./types.ts";
+} from "./types";
 
 export class Payin extends Base {
     search(queryParams?: PayinQueryParams): Promise<PayinsResponse> {

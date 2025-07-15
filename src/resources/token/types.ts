@@ -1,11 +1,15 @@
+import { SortDirection } from "../common-types";
+
+/**
+ * Token Request
+ */
+
 export type TokenSortBy =
     | "tokenId"
     | "networkId"
     | "symbol"
     | "address"
     | "decimals";
-
-export type TokenDir = "asc" | "desc";
 
 export interface TokenQueryParams {
     networkId?: string;
@@ -14,20 +18,7 @@ export interface TokenQueryParams {
     page?: number;
     limit?: number;
     sortBy?: TokenSortBy;
-    sortDir?: TokenDir;
-}
-
-export interface TokenResponse {
-    tokenId: string; // The unique identifier for the token used by the payment type
-    networkId: number; // The blockchain network ID the token is associated with
-    symbol: string; // The token symbol that identifies the token on the blockchain network
-    address: string; // The token contract address for the payment type
-    decimals: number; // The number of decimal places used to represent token amounts
-}
-
-export interface TokensResponse {
-    totalResults: number;
-    tokens: TokenResponse[];
+    sortDir?: SortDirection;
 }
 
 /**
@@ -61,4 +52,48 @@ export interface TokenExchangeRateResponse {
      * @example 1715731200
      */
     timestamp: number;
+}
+
+export interface TokenResponse {
+    /**
+     * The unique identifier for the token used by the payment type.
+     * @example "123e4567-e89b-12d3-a456-426614174000"
+     */
+    tokenId: string;
+    /**
+     * The blockchain network ID the token is associated with
+     * @example 1
+     */
+    networkId: number;
+    /**
+     * The token symbol that identifies the token on the blockchain network
+     * @example "USDC"
+     */
+    symbol: string;
+    /**
+     * The token contract address for the payment type
+     * @example "0x1234567890abcdef"
+     */
+    address: string;
+    /**
+     * The number of decimal places used to represent token amounts
+     * @example 6
+     */
+    decimals: number;
+    /**
+     * The exchange rate of the token
+     */
+    exchangeRates: TokenExchangeRateResponse[];
+}
+
+export interface TokensResponse {
+    /**
+     * The total count of tokens matching the search criteria, regardless of page size or number.
+     * @example 100
+     */
+    totalResults: number;
+    /**
+     * The list of tokens for each network
+     */
+    tokens: TokenResponse[];
 }

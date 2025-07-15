@@ -4,7 +4,6 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import { WebHook } from "./resources/webhook/index.ts";
-import { SDKOptions } from "./resources/webhook/types.ts";
 import { Token } from "./resources/token/index.ts";
 import { Payout } from "./resources/payout/index.ts";
 import { PaymentType } from "./resources/paymenttype/index.ts";
@@ -14,6 +13,7 @@ import { Merchant } from "./resources/merchant/index.ts";
 import { Entity } from "./resources/entity/index.ts";
 import { Customer } from "./resources/customer/index.ts";
 import { ApiKey } from "./resources/apikey/index.ts";
+import { SDKOptions } from "./resources/common-types.ts";
 
 export class LoopCrypto {
     webhooks: WebHook;
@@ -44,15 +44,13 @@ export class LoopCrypto {
 export default LoopCrypto;
 
 export type {
-    SDKOptions,
     WebHooksResponse,
     Webhook,
     WebhookEvent,
     WebhookSortBy,
-    WebhookSortDir,
-    WebHooksQueryParams,
-    WebHookPayload,
-    UpdateWebHookPayload,
+    WebhooksQueryParams,
+    CreateWebhookRequest,
+    UpdateWebhookRequest,
     WebHooksUpdateQueryParams,
     WebHookSecretResponse,
 } from "./resources/webhook/types.ts";
@@ -65,9 +63,9 @@ export type {
 
 export type {
     PayoutDestinationResponse,
-    PayoutPayload,
+    CreatePayoutDestinationRequest,
     PayoutQueryParams,
-    PayoutDestinationListResponse,
+    PayoutDestinationsResponse,
 } from "./resources/payout/types.ts";
 
 export type {
@@ -122,3 +120,5 @@ export type {
     UpdateApiKeyRequest,
     ApiKeyType,
 } from "./resources/apikey/types.ts";
+
+export type { SDKOptions } from "./resources/common-types";

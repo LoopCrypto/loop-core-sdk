@@ -1,9 +1,9 @@
-import { Base } from "../base.ts";
+import { Base } from "../base";
 import {
     EntityResponse,
     CreateEntityRequest,
     UpdateEntityRequest,
-} from "./types.ts";
+} from "./types";
 
 export class Entity extends Base {
     retrieve(): Promise<EntityResponse> {

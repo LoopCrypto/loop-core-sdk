@@ -1,11 +1,11 @@
-import { Base } from "../base.ts";
+import { Base } from "../base";
 import {
     PaymentTypeQueryParams,
     CreatePaymentTypeRequest,
     PaymentTypesResponse,
     DefaultPaymentTypeRequest,
     PaymentTypeResponse,
-} from "./types.ts";
+} from "./types";
 
 export class PaymentType extends Base {
     search(

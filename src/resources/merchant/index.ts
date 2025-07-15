@@ -1,11 +1,11 @@
-import { Base } from "../base.ts";
+import { Base } from "../base";
 import {
     CreateMerchantRequest,
     MerchantResponse,
     MerchantQueryParams,
     MerchantsResponse,
     UpdateMerchantRequest,
-} from "./types.ts";
+} from "./types";
 
 export class Merchant extends Base {
     search(queryParams?: MerchantQueryParams): Promise<MerchantsResponse> {
