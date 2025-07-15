@@ -1,9 +1,10 @@
 import { PaymentType } from "../src/resources/paymenttype";
 import {
+    CreatePaymentTypeRequest,
     PaymentTypeQueryParams,
     PaymentTypeRequest,
-    PaymentTypResponse,
-    PaymentType as PaymentTypeType,
+    PaymentTypeResponse,
+    PaymentTypesResponse,
 } from "../src/resources/paymenttype/types";
 
 describe("PaymentType API", () => {
@@ -19,7 +20,7 @@ describe("PaymentType API", () => {
 
     test("should fetch payment types", async () => {
         const queryParams: PaymentTypeQueryParams = { page: 1, limit: 10 };
-        const mockResponse: PaymentTypResponse = {
+        const mockResponse: PaymentTypesResponse = {
             totalResults: 1,
             paymentTypes: [
                 {
@@ -45,14 +46,14 @@ describe("PaymentType API", () => {
     });
 
     test("should create a new payment type", async () => {
-        const requestBody: PaymentTypeRequest = {
+        const requestBody: CreatePaymentTypeRequest = {
             merchantId: "mer-123",
             networkId: 137,
             tokenAddress: "0x123456",
             tokenSymbol: "USDT",
         };
 
-        const mockResponse: PaymentTypeType = {
+        const mockResponse: PaymentTypeResponse = {
             merchantId: "mer-123",
             tokenId: "token-002",
             networkId: 137,
@@ -75,7 +76,7 @@ describe("PaymentType API", () => {
     test("should delete a payment type", async () => {
         const merchantId = "mer-123";
         const tokenId = "token-001";
-        const mockResponse: PaymentTypResponse = {
+        const mockResponse: PaymentTypesResponse = {
             totalResults: 0,
             paymentTypes: [],
         };

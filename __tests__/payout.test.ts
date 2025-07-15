@@ -1,9 +1,9 @@
 import { Payout } from "../src/resources/payout";
 import {
-    PayoutPayload,
     PayoutQueryParams,
     PayoutDestinationResponse,
-    PayoutDestinationListResponse,
+    CreatePayoutDestinationRequest,
+    PayoutDestinationsResponse,
 } from "../src/resources/payout/types";
 
 describe("Payout API", () => {
@@ -18,7 +18,7 @@ describe("Payout API", () => {
 
     test("should fetch payout destinations", async () => {
         const queryParams: PayoutQueryParams = { page: 1, limit: 10 };
-        const mockResponse: PayoutDestinationListResponse = {
+        const mockResponse: PayoutDestinationsResponse = {
             totalResults: 1,
             paymentTypes: [
                 {
@@ -28,6 +28,9 @@ describe("Payout API", () => {
                     walletAddress: "0xabcdef1234567890",
                     isDefault: false,
                     dateCreated: 1700000000,
+                    settlementType: "Fiat",
+                    fiatSettlementAccount: null,
+                    isArchived: false,
                 },
             ],
         };
@@ -43,7 +46,7 @@ describe("Payout API", () => {
     });
 
     test("should create a new payout destination", async () => {
-        const requestBody: PayoutPayload = {
+        const requestBody: CreatePayoutDestinationRequest = {
             isDefault: true,
             merchantId: "mer-123",
             networkId: 137,
@@ -57,6 +60,9 @@ describe("Payout API", () => {
             walletAddress: "0xabcdef1234567890",
             isDefault: true,
             dateCreated: 1700000000,
+            settlementType: "Fiat",
+            fiatSettlementAccount: null,
+            isArchived: false,
         };
 
         requestMock.mockResolvedValue(mockResponse);
@@ -78,6 +84,9 @@ describe("Payout API", () => {
             walletAddress: "0xabcdef1234567890",
             isDefault: false,
             dateCreated: 1700000000,
+            settlementType: "Fiat",
+            fiatSettlementAccount: null,
+            isArchived: false,
         };
 
         requestMock.mockResolvedValue(mockResponse);
@@ -92,7 +101,7 @@ describe("Payout API", () => {
 
     test("should delete a payout destination", async () => {
         const payoutId = "payout-123";
-        const mockResponse: PayoutDestinationListResponse = {
+        const mockResponse: PayoutDestinationsResponse = {
             totalResults: 0,
             paymentTypes: [],
         };

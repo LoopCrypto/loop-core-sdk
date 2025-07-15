@@ -1,12 +1,12 @@
 import { WebHook } from "../src/resources/webhook";
 import {
-    WebHooksQueryParams,
-    WebHooksResponse,
-    WebHookPayload,
-    UpdateWebHookPayload,
-    WebHooksUpdateQueryParams,
-    WebHookSecretResponse,
+    CreateWebhookRequest,
+    UpdateWebhookRequest,
     Webhook,
+    WebHookSecretResponse,
+    WebhooksQueryParams,
+    WebHooksResponse,
+    WebHooksUpdateQueryParams,
 } from "../src/resources/webhook/types";
 
 describe("WebHook API", () => {
@@ -41,7 +41,7 @@ describe("WebHook API", () => {
     });
 
     test("should fetch webhooks with query parameters", async () => {
-        const queryParams: WebHooksQueryParams = { page: 1, limit: 10 };
+        const queryParams: WebhooksQueryParams = { page: 1, limit: 10 };
         const mockResponse: WebHooksResponse = {
             totalResults: 1,
             webhooks: [
@@ -65,7 +65,7 @@ describe("WebHook API", () => {
     });
 
     test("should create a new webhook", async () => {
-        const requestBody: WebHookPayload = {
+        const requestBody: CreateWebhookRequest = {
             postUrl: "https://example.com/webhook",
             networkIds: [137],
             events: ["payment.processed"],
@@ -95,7 +95,7 @@ describe("WebHook API", () => {
     });
 
     test("should update an existing webhook", async () => {
-        const requestBody: UpdateWebHookPayload = {
+        const requestBody: UpdateWebhookRequest = {
             postUrl: "https://new-webhook-url.com",
         };
 
