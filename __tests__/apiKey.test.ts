@@ -1,10 +1,11 @@
 import { ApiKey } from "../src/resources/apikey";
 import {
     ApiKeyQueryParams,
-    ApiKeyRequestBody,
     ApiKeyResponse,
+    ApiKeysResponse,
     ApiKeyType,
-    ApiKeyUpdateRequestBody,
+    CreateApiKeyRequest,
+    UpdateApiKeyRequest,
 } from "../src/resources/apikey/types";
 
 jest.mock("../src/resources/base");
@@ -25,7 +26,7 @@ describe("ApiKey", () => {
     });
 
     test("should fetch API keys with query params", async () => {
-        const mockResponse: ApiKeyResponse = {
+        const mockResponse: ApiKeysResponse = {
             totalResults: 2,
             apiKeys: [
                 {
@@ -33,14 +34,12 @@ describe("ApiKey", () => {
                     name: "Admin Key",
                     id: "apikey-123456",
                     permissions: ["read", "write", "delete"],
-                    apiKey: "sk_test_abcdef123456",
                 },
                 {
                     dateCreated: 1708458500,
                     name: "Read-Only Key",
                     id: "apikey-654321",
                     permissions: ["read"],
-                    apiKey: "sk_test_ghijkl789012",
                 },
             ],
         };
@@ -66,7 +65,7 @@ describe("ApiKey", () => {
     });
 
     test("should create an API key", async () => {
-        const payload: ApiKeyRequestBody = {
+        const payload: CreateApiKeyRequest = {
             name: "Admin API Key",
             grantPermissions: [
                 "CreateEntities",
@@ -99,7 +98,7 @@ describe("ApiKey", () => {
     });
 
     test("should delete an API key", async () => {
-        const mockResponse: ApiKeyResponse = {
+        const mockResponse: ApiKeysResponse = {
             totalResults: 2,
             apiKeys: [
                 {
@@ -107,14 +106,12 @@ describe("ApiKey", () => {
                     name: "Admin Key",
                     id: "apikey-123456",
                     permissions: ["read", "write", "delete"],
-                    apiKey: "sk_test_abcdef123456",
                 },
                 {
                     dateCreated: 1708458500,
                     name: "Read-Only Key",
                     id: "apikey-654321",
                     permissions: ["read"],
-                    apiKey: "sk_test_ghijkl789012",
                 },
             ],
         };
@@ -131,13 +128,12 @@ describe("ApiKey", () => {
 
     test("should update an API key", async () => {
         const apiKeyId = "123";
-        const payload: ApiKeyUpdateRequestBody = { name: "Updated Key" };
-        const mockResponse: ApiKeyType = {
+        const payload: UpdateApiKeyRequest = { name: "Updated Key" };
+        const mockResponse: ApiKeyResponse = {
             dateCreated: 1708454400,
             name: "Admin Key",
             id: "apikey-123456",
             permissions: ["read", "write", "delete"],
-            apiKey: "sk_test_abcdef123456",
         };
 
         mockRequest.mockResolvedValue(mockResponse);

@@ -1,6 +1,6 @@
+import { TokenExchangeRateResponse } from "src/resources/token/types";
 import { PaymentMethodResponse, PayoutDestinationResponse } from "../..";
 import { SortDirection } from "../common-types";
-import { ExchangeRateDetails } from "../token/types";
 
 /**
  * Payin Common
@@ -70,7 +70,7 @@ export interface PayinTransactionResponse {
     transactionId: string;
     transactionUrl: string;
     amountTransferred: string | null;
-    exchangeRate: ExchangeRateDetails | null;
+    exchangeRate: TokenExchangeRateResponse | null;
 }
 
 export interface PayinResponse {

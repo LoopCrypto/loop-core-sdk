@@ -1,8 +1,8 @@
 import { Entity } from "../src/resources/entity"; // Adjust path as needed
 import {
+    CreateEntityRequest,
     EntityResponse,
-    EntityCreationRequest,
-    EntityUpdateRequest,
+    UpdateEntityRequest,
 } from "../src/resources/entity/types";
 
 describe("Entity API", () => {
@@ -32,6 +32,7 @@ describe("Entity API", () => {
                     walletAddress: "0xabcdef1234567890",
                     isDefault: true,
                     payoutDestinationId: "payout-001",
+                    settlementType: "Fiat",
                 },
             ],
             paymentTypes: [
@@ -43,6 +44,7 @@ describe("Entity API", () => {
                     decimals: 6,
                 },
             ],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
@@ -53,7 +55,7 @@ describe("Entity API", () => {
     });
 
     test("should create a new entity", async () => {
-        const requestBody: EntityCreationRequest = {
+        const requestBody: CreateEntityRequest = {
             code: "auth-code-123",
             entityName: "New Entity",
             email: "new@example.com",
@@ -74,6 +76,7 @@ describe("Entity API", () => {
             contracts: [],
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
@@ -87,7 +90,7 @@ describe("Entity API", () => {
     });
 
     test("should update an existing entity", async () => {
-        const updateData: EntityUpdateRequest = {
+        const updateData: UpdateEntityRequest = {
             entityName: "Updated Entity",
             email: "updated@example.com",
             logoUrl: "https://example.com/new-logo.png",
@@ -100,6 +103,7 @@ describe("Entity API", () => {
             contracts: [],
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);

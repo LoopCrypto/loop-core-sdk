@@ -1,10 +1,10 @@
 import { Merchant } from "../src/resources/merchant";
 import {
-    MerchantRequest,
     MerchantResponse,
     MerchantQueryParams,
-    MerchantResponseList,
     UpdateMerchantRequest,
+    MerchantsResponse,
+    CreateMerchantRequest,
 } from "../src/resources/merchant/types";
 
 describe("Merchant API", () => {
@@ -20,7 +20,7 @@ describe("Merchant API", () => {
 
     test("should fetch merchant list", async () => {
         const queryParams: MerchantQueryParams = { page: 1, limit: 10 };
-        const mockResponse: MerchantResponseList = {
+        const mockResponse: MerchantsResponse = {
             totalResults: 1,
             merchants: [
                 {
@@ -29,6 +29,7 @@ describe("Merchant API", () => {
                     merchantRefId: "ref-001",
                     payoutDestinations: [],
                     paymentTypes: [],
+                    fiatSettlementAccount: null,
                 },
             ],
         };
@@ -43,7 +44,7 @@ describe("Merchant API", () => {
     });
 
     test("should create a new merchant", async () => {
-        const requestBody: MerchantRequest = {
+        const requestBody: CreateMerchantRequest = {
             merchantName: "New Merchant",
             merchantRefId: "ref-002",
             paymentTypes: [
@@ -61,6 +62,7 @@ describe("Merchant API", () => {
             merchantRefId: "ref-002",
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
@@ -81,6 +83,7 @@ describe("Merchant API", () => {
             merchantRefId: "ref-001",
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
@@ -104,6 +107,7 @@ describe("Merchant API", () => {
             merchantRefId: "ref-001",
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
