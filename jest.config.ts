@@ -1,6 +1,7 @@
 export default {
     roots: ["./src", "./__tests__"],
     collectCoverageFrom: ["./src/**/*.ts"],
+    setupFiles: ["<rootDir>/.jest/set-env-vars.ts"],
     preset: "ts-jest",
     testEnvironment: "node",
     verbose: true,

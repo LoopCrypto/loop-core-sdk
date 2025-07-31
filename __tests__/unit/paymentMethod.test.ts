@@ -16,6 +16,7 @@ describe("PaymentMethod API", () => {
             apiKey: "ghty",
         });
         requestMock = jest.fn();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (paymentMethodApi as any).request = requestMock;
     });
 

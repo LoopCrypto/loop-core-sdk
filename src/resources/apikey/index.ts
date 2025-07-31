@@ -14,18 +14,18 @@ export class ApiKey extends Base {
                 queryParams as Record<string, string>,
             ).toString()}`
             : "";
-        return this.request(`api-keys${queryString}`, { method: "GET" });
+        return this.request(`/v2/api-keys${queryString}`, { method: "GET" });
     }
 
     create(payload: CreateApiKeyRequest): Promise<ApiKeyType> {
-        return this.request(`api-key`, {
+        return this.request(`/v2/api-key`, {
             data: payload,
             method: "POST",
         });
     }
 
     delete(apiKeyId: string): Promise<ApiKeysResponse> {
-        return this.request(`api-key/${apiKeyId}`, {
+        return this.request(`/v2/api-key/${apiKeyId}`, {
             method: "DELETE",
         });
     }
@@ -34,7 +34,7 @@ export class ApiKey extends Base {
         apiKeyId: string,
         payload: UpdateApiKeyRequest,
     ): Promise<ApiKeyType> {
-        return this.request(`api-key/${apiKeyId}`, {
+        return this.request(`/v2/api-key/${apiKeyId}`, {
             data: payload,
             method: "PATCH",
         });

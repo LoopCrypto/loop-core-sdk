@@ -1,8 +1,8 @@
-import { ApiKey } from "src/resources/apikey";
+import { ApiKey } from "src/resources/apiKey";
 import {
     ApiKeyQueryParams,
     ApiKeysResponse,
-} from "src/resources/apikey/types";
+} from "src/resources/apiKey/types";
 
 describe("ApiKey", () => {
     let apiKeyInstance: ApiKey;
