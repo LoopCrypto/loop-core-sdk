@@ -1,5 +1,5 @@
-import { Token } from "../src/resources/token";
-import { TokenQueryParams, TokensResponse } from "../src/resources/token/types";
+import { Token } from "src/resources/token";
+import { TokenQueryParams, TokensResponse } from "src/resources/token/types";
 
 describe("Token API", () => {
     let tokenApi: Token;

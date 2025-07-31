@@ -1,9 +1,9 @@
-import { Customer } from "../src/resources/customer"; // Adjust path as needed
+import { Customer } from "src/resources/customer"; // Adjust path as needed
 import {
     CreateCustomerRequest,
     CustomerQueryParams,
     MerchantCustomerResponse,
-} from "../src/resources/customer/types";
+} from "src/resources/customer/types";
 
 describe("Customer API", () => {
     let customerApi: Customer;

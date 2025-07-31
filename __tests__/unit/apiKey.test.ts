@@ -1,4 +1,4 @@
-import { ApiKey } from "../src/resources/apiKey";
+import { ApiKey } from "src/resources/apiKey";
 import {
     ApiKeyQueryParams,
     ApiKeyResponse,
@@ -6,9 +6,9 @@ import {
     ApiKeyType,
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
-} from "../src/resources/apiKey/types";
+} from "src/resources/apiKey/types";
 
-jest.mock("../src/resources/base");
+jest.mock("src/resources/base");
 
 describe("ApiKey", () => {
     let apiKeyInstance: ApiKey;

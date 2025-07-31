@@ -1,9 +1,9 @@
-import { Entity } from "../src/resources/entity"; // Adjust path as needed
+import { Entity } from "src/resources/entity"; // Adjust path as needed
 import {
     CreateEntityRequest,
     EntityResponse,
     UpdateEntityRequest,
-} from "../src/resources/entity/types";
+} from "src/resources/entity/types";
 
 describe("Entity API", () => {
     let entityApi: Entity;

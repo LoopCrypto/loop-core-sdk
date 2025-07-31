@@ -1,11 +1,10 @@
-import { PaymentType } from "../src/resources/paymentType";
+import { PaymentType } from "src/resources/paymentType";
 import {
     CreatePaymentTypeRequest,
     PaymentTypeQueryParams,
-    PaymentTypeRequest,
     PaymentTypeResponse,
     PaymentTypesResponse,
-} from "../src/resources/paymentType/types";
+} from "src/resources/paymentType/types";
 
 describe("PaymentType API", () => {
     let paymentTypeApi: PaymentType;

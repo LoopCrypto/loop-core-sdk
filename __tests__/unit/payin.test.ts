@@ -1,10 +1,10 @@
-import { Payin } from "../src/resources/payin";
+import { Payin } from "src/resources/payin";
 import {
     CreatePayinRequest,
     PayinQueryParams,
     PayinResponse,
     PayinsResponse,
-} from "../src/resources/payin/types";
+} from "src/resources/payin/types";
 
 describe("Payin API", () => {
     let payinApi: Payin;

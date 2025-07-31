@@ -1,4 +1,4 @@
-import { WebHook } from "../src/resources/webhook";
+import { WebHook } from "src/resources/webhook";
 import {
     CreateWebhookRequest,
     UpdateWebhookRequest,
@@ -7,7 +7,7 @@ import {
     WebhooksQueryParams,
     WebHooksResponse,
     WebHooksUpdateQueryParams,
-} from "../src/resources/webhook/types";
+} from "src/resources/webhook/types";
 
 describe("WebHook API", () => {
     let webhookApi: WebHook;

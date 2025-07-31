@@ -1,11 +1,11 @@
-import { Merchant } from "../src/resources/merchant";
+import { Merchant } from "src/resources/merchant";
 import {
     MerchantResponse,
     MerchantQueryParams,
     UpdateMerchantRequest,
     MerchantsResponse,
     CreateMerchantRequest,
-} from "../src/resources/merchant/types";
+} from "src/resources/merchant/types";
 
 describe("Merchant API", () => {
     let merchantApi: Merchant;
