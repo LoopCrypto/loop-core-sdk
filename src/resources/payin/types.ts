@@ -1,4 +1,4 @@
-import { TokenExchangeRateResponse } from "src/resources/token/types";
+import { TokenExchangeRateResponse } from "../token/types";
 import { PaymentMethodResponse, PayoutDestinationResponse } from "../..";
 import { SortDirection } from "../common-types";
 

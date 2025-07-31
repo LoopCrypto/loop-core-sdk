@@ -1,23 +1,30 @@
-import { Payout } from "../src/resources/payout";
+import { PayoutDestinations } from "../src/resources/payoutDestination";
 import {
-    PayoutQueryParams,
+    PayoutDestinationQueryParams,
     PayoutDestinationResponse,
     CreatePayoutDestinationRequest,
     PayoutDestinationsResponse,
-} from "../src/resources/payout/types";
+} from "../src/resources/payoutDestination/types";
 
 describe("Payout API", () => {
-    let payoutApi: Payout;
+    let payoutDestinationApi: PayoutDestinations;
     let requestMock: jest.Mock;
 
     beforeEach(() => {
-        payoutApi = new Payout({ entityId: "test", apiKey: "secret" });
+        payoutDestinationApi = new PayoutDestinations({
+            entityId: "test",
+            apiKey: "secret",
+        });
         requestMock = jest.fn() as jest.Mock;
-        (payoutApi as unknown as { request: jest.Mock }).request = requestMock;
+        (payoutDestinationApi as unknown as { request: jest.Mock }).request =
+            requestMock;
     });
 
     test("should fetch payout destinations", async () => {
-        const queryParams: PayoutQueryParams = { page: 1, limit: 10 };
+        const queryParams: PayoutDestinationQueryParams = {
+            page: 1,
+            limit: 10,
+        };
         const mockResponse: PayoutDestinationsResponse = {
             totalResults: 1,
             paymentTypes: [
@@ -37,7 +44,7 @@ describe("Payout API", () => {
 
         requestMock.mockResolvedValue(mockResponse);
 
-        const result = await payoutApi.search(queryParams);
+        const result = await payoutDestinationApi.search(queryParams);
         expect(requestMock).toHaveBeenCalledWith(
             "payout-destinations?page=1&limit=10",
             { method: "GET" },
@@ -67,7 +74,7 @@ describe("Payout API", () => {
 
         requestMock.mockResolvedValue(mockResponse);
 
-        const result = await payoutApi.create(requestBody);
+        const result = await payoutDestinationApi.create(requestBody);
         expect(requestMock).toHaveBeenCalledWith("payout-destination", {
             data: requestBody,
             method: "POST",
@@ -91,7 +98,7 @@ describe("Payout API", () => {
 
         requestMock.mockResolvedValue(mockResponse);
 
-        const result = await payoutApi.retrieve(payoutId);
+        const result = await payoutDestinationApi.retrieve(payoutId);
         expect(requestMock).toHaveBeenCalledWith(
             `payout-destination/${payoutId}`,
             { method: "GET" },
@@ -108,7 +115,7 @@ describe("Payout API", () => {
 
         requestMock.mockResolvedValue(mockResponse);
 
-        const result = await payoutApi.delete(payoutId);
+        const result = await payoutDestinationApi.delete(payoutId);
         expect(requestMock).toHaveBeenCalledWith(
             `payout-destination/${payoutId}`,
             { method: "DELETE" },

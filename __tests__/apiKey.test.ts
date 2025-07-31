@@ -1,4 +1,4 @@
-import { ApiKey } from "../src/resources/apikey";
+import { ApiKey } from "../src/resources/apiKey";
 import {
     ApiKeyQueryParams,
     ApiKeyResponse,
@@ -6,7 +6,7 @@ import {
     ApiKeyType,
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
-} from "../src/resources/apikey/types";
+} from "../src/resources/apiKey/types";
 
 jest.mock("../src/resources/base");
 

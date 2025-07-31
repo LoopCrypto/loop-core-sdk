@@ -27,8 +27,6 @@ export abstract class Base {
             },
         };
 
-        console.log(url, config, "configconfigconfig");
-
         try {
             const response = await axios(url, config);
             return response.data;

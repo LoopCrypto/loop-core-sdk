@@ -3,12 +3,12 @@ import {
     CreatePaymentTypeRequest,
     PaymentTypeRequest,
     PaymentTypeResponse,
-} from "../paymenttype/types";
+} from "../paymentType/types";
 import {
     FiatSettlementAccountResponse,
     FiatSettlementSettingsRequest,
     PayoutDestinationResponse,
-} from "../payout/types";
+} from "../payoutDestination/types";
 
 /**
  * Merchant Request

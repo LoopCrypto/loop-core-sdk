@@ -1,4 +1,4 @@
-import LoopCrypto from "./index.ts";
+import LoopCrypto from "./index";
 
 const sdk = new LoopCrypto({
     apiKey: "9abee520-2140-4bb6-8b3c-316810920e5b",

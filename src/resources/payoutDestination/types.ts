@@ -1,16 +1,16 @@
 import { SettlementType, SortDirection } from "../common-types";
 
 /**
- * Payout Request
+ * Payout Destination Request
  */
 
-export type PayoutSortBy =
+export type PayoutDestinationSortBy =
     | "merchantId"
     | "networkId"
     | "walletAddress"
     | "dateCreated";
 
-export interface PayoutQueryParams {
+export interface PayoutDestinationQueryParams {
     payoutDestinationId?: string;
     merchantId?: string;
     networkId?: string;
@@ -18,7 +18,7 @@ export interface PayoutQueryParams {
     isDefault?: boolean;
     page?: number;
     limit?: number;
-    sortBy?: PayoutSortBy;
+    sortBy?: PayoutDestinationSortBy;
     sortDir?: SortDirection;
 }
 
@@ -123,7 +123,7 @@ export interface UpdatePayoutDestinationRequest {
 }
 
 /**
- * Payout Response
+ * Payout Destination Response
  */
 
 export interface FiatSettlementAccountResponse {
