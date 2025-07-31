@@ -1,4 +1,4 @@
-import LoopCrypto from "src/index";
+import LoopCrypto from "../../src/index";
 
 const sdk = new LoopCrypto({
     apiKey: "9abee520-2140-4bb6-8b3c-316810920e5b",
@@ -7,7 +7,7 @@ const sdk = new LoopCrypto({
 
 sdk.webhooks
     .create({
-        postUrl: "https://staging.api.loopcrypto.xyz/api/v2/webhook",
+        postUrl: "https://staging.api.loopcrypto.xyz/",
         networkIds: [1],
         events: ["payin.created"],
     })

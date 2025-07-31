@@ -3,17 +3,17 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-import { WebHook } from "./resources/webhook/index";
-import { Token } from "./resources/token/index";
-import { PayoutDestinations } from "./resources/payoutDestination/index";
-import { PaymentType } from "./resources/paymentType/index";
-import { PaymentMethod } from "./resources/paymentMethod/index";
-import { Payin } from "./resources/payin/index";
-import { Merchant } from "./resources/merchant/index";
-import { Entity } from "./resources/entity/index";
-import { Customer } from "./resources/customer/index";
-import { ApiKey } from "./resources/apiKey/index";
-import { SDKOptions } from "./resources/common-types";
+import { WebHook } from "src/resources/webhook/index";
+import { Token } from "src/resources/token/index";
+import { PayoutDestinations } from "src/resources/payoutDestination/index";
+import { PaymentType } from "src/resources/paymentType/index";
+import { PaymentMethod } from "src/resources/paymentMethod/index";
+import { Payin } from "src/resources/payin/index";
+import { Merchant } from "src/resources/merchant/index";
+import { Entity } from "src/resources/entity/index";
+import { Customer } from "src/resources/customer/index";
+import { ApiKey } from "src/resources/apiKey/index";
+import { SDKOptions } from "src/resources/common-types";
 
 export class LoopCrypto {
     webhooks: WebHook;
@@ -53,20 +53,20 @@ export type {
     UpdateWebhookRequest,
     WebHooksUpdateQueryParams,
     WebHookSecretResponse,
-} from "./resources/webhook/types.ts";
+} from "src/resources/webhook/types.ts";
 
 export type {
     TokenQueryParams,
     TokensResponse,
     TokenResponse,
-} from "./resources/token/types.ts";
+} from "src/resources/token/types.ts";
 
 export type {
     PayoutDestinationResponse,
     CreatePayoutDestinationRequest,
     PayoutDestinationQueryParams,
     PayoutDestinationsResponse,
-} from "./resources/payoutDestination/types";
+} from "src/resources/payoutDestination/types";
 
 export type {
     PaymentTypeQueryParams,
@@ -74,7 +74,7 @@ export type {
     PaymentTypesResponse,
     PaymentTypeResponse,
     DefaultPaymentTypeRequest,
-} from "./resources/paymentType/types";
+} from "src/resources/paymentType/types";
 
 export type {
     PaymentMethodQueryParams,
@@ -82,7 +82,7 @@ export type {
     PaymentMethodResponse,
     CreatePaymentMethodRequest,
     UpdatePaymentMethodRequest,
-} from "./resources/paymentMethod/types";
+} from "src/resources/paymentMethod/types";
 
 export type {
     PayinQueryParams,
@@ -90,7 +90,7 @@ export type {
     PayinResponse,
     CreatePayinRequest,
     UpdatePayinRequest,
-} from "./resources/payin/types.ts";
+} from "src/resources/payin/types.ts";
 
 export type {
     CreateMerchantRequest,
@@ -98,20 +98,20 @@ export type {
     MerchantQueryParams,
     MerchantsResponse,
     UpdateMerchantRequest,
-} from "./resources/merchant/types.ts";
+} from "src/resources/merchant/types.ts";
 
 export type {
     EntityResponse,
     CreateEntityRequest,
     UpdateEntityRequest,
-} from "./resources/entity/types.ts";
+} from "src/resources/entity/types.ts";
 
 export type {
     CustomerQueryParams,
     MerchantCustomersResponse,
     MerchantCustomerResponse,
     CreateCustomerRequest,
-} from "./resources/customer/types.ts";
+} from "src/resources/customer/types.ts";
 
 export type {
     ApiKeyQueryParams,
@@ -119,6 +119,6 @@ export type {
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
     ApiKeyType,
-} from "./resources/apiKey/types";
+} from "src/resources/apiKey/types";
 
-export type { SDKOptions } from "./resources/common-types";
+export type { SDKOptions } from "src/resources/common-types";

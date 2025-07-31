@@ -1,6 +1,7 @@
-import { TokenExchangeRateResponse } from "../token/types";
-import { PaymentMethodResponse, PayoutDestinationResponse } from "../..";
-import { SortDirection } from "../common-types";
+import { TokenExchangeRateResponse } from "src/resources/token/types";
+import { PayoutDestinationResponse } from "src/resources/payoutDestination/types";
+import { SortDirection } from "src/resources/common-types";
+import { PaymentMethodResponse } from "src/resources/paymentMethod/types";
 
 /**
  * Payin Common
@@ -55,10 +56,10 @@ export interface UpdatePayinRequest {
 export interface PayinPaymentMethodResponse
     extends Omit<PaymentMethodResponse, "merchantId" | "dateCreated"> {
     status:
-        | "ok"
-        | "insufficient_balance"
-        | "insufficient_authorization"
-        | "insufficient_balance_authorization";
+    | "ok"
+    | "insufficient_balance"
+    | "insufficient_authorization"
+    | "insufficient_balance_authorization";
 }
 
 export interface PreAuthorization {
@@ -84,13 +85,13 @@ export interface PayinResponse {
     externalInvoiceRef: string | null;
     payinType: "subscription" | "invoice";
     payinStatus:
-        | "scheduled"
-        | "pending"
-        | "completed"
-        | "failed"
-        | "canceled"
-        | "uncollectible"
-        | "draft";
+    | "scheduled"
+    | "pending"
+    | "completed"
+    | "failed"
+    | "canceled"
+    | "uncollectible"
+    | "draft";
     transaction: PayinTransactionResponse | null;
     paymentMethod: PayinPaymentMethodResponse;
     payoutDestination: Omit<

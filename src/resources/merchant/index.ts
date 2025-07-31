@@ -1,18 +1,18 @@
-import { Base } from "../base";
+import { Base } from "src/resources/base";
 import {
     CreateMerchantRequest,
     MerchantResponse,
     MerchantQueryParams,
     MerchantsResponse,
     UpdateMerchantRequest,
-} from "./types";
+} from "src/resources/merchant/types";
 
 export class Merchant extends Base {
     search(queryParams?: MerchantQueryParams): Promise<MerchantsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
         return this.request(`merchants${queryString}`, { method: "GET" });
     }

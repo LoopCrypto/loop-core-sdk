@@ -1,10 +1,10 @@
-import { Base } from "../base";
+import { Base } from "src/resources/base";
 import {
     CustomerQueryParams,
     MerchantCustomersResponse,
     MerchantCustomerResponse,
     CreateCustomerRequest,
-} from "./types";
+} from "src/resources/customer/types";
 
 export class Customer extends Base {
     search(
@@ -12,8 +12,8 @@ export class Customer extends Base {
     ): Promise<MerchantCustomersResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
         return this.request(`customers${queryString}`, { method: "GET" });
     }

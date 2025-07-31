@@ -1,0 +1,1 @@
+process.env.BASE_URL = "https://staging.api.loopcrypto.xyz/api";

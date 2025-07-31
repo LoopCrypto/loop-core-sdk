@@ -1,8 +1,8 @@
-import { NetworkIds, SettlementType } from "../common-types";
+import { NetworkIds, SettlementType } from "src/resources/common-types";
 import {
     FiatSettlementAccountResponse,
     FiatSettlementSettingsRequest,
-} from "../payoutDestination/types";
+} from "src/resources/payoutDestination/types";
 
 /**
  * Entity Request

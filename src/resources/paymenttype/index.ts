@@ -1,11 +1,11 @@
-import { Base } from "../base";
+import { Base } from "src/resources/base";
 import {
     PaymentTypeQueryParams,
     CreatePaymentTypeRequest,
     PaymentTypesResponse,
     DefaultPaymentTypeRequest,
     PaymentTypeResponse,
-} from "./types";
+} from "src/resources/paymentType/types";
 
 export class PaymentType extends Base {
     search(
@@ -13,8 +13,8 @@ export class PaymentType extends Base {
     ): Promise<PaymentTypesResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
         return this.request(`payment-types${queryString}`, { method: "GET" });
     }

@@ -7,15 +7,15 @@ import {
     Webhook,
     WebHookSecretResponse,
     CreateClassicWebhookRequest,
-} from "./types";
-import { Base } from "../base";
+} from "src/resources/webhook/types";
+import { Base } from "src/resources/base";
 
 export class WebHook extends Base {
     search(queryParams?: WebhooksQueryParams): Promise<WebHooksResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
         return this.request(`webhooks${queryString}`, { method: "GET" });
     }
@@ -25,8 +25,8 @@ export class WebHook extends Base {
     ): Promise<WebHooksResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
         return this.request(`webhooks/classic${queryString}`, {
             method: "GET",
@@ -52,8 +52,8 @@ export class WebHook extends Base {
     ): Promise<Webhook> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
         return this.request(`webhooks${queryString}`, {
             data: payLoad,

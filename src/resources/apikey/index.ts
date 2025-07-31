@@ -1,18 +1,18 @@
-import { Base } from "../base";
+import { Base } from "src/resources/base";
 import {
     ApiKeyQueryParams,
     ApiKeysResponse,
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
     ApiKeyType,
-} from "./types";
+} from "src/resources/apiKey/types";
 
 export class ApiKey extends Base {
     search(queryParams?: ApiKeyQueryParams): Promise<ApiKeysResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
         return this.request(`api-keys${queryString}`, { method: "GET" });
     }

@@ -1,4 +1,4 @@
-import { NetworkIds, SettlementType, SortDirection } from "../common-types";
+import { NetworkIds, SettlementType, SortDirection } from "src/resources/common-types";
 
 /**
  * Payment Type Request

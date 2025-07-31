@@ -1,11 +1,11 @@
-import { Base } from "../base";
+import { Base } from "src/resources/base";
 import {
     PayoutDestinationResponse,
     CreatePayoutDestinationRequest,
     PayoutDestinationQueryParams,
     PayoutDestinationsResponse,
     UpdatePayoutDestinationRequest,
-} from "./types";
+} from "src/resources/payoutDestination/types";
 
 export class PayoutDestinations extends Base {
     create(
@@ -34,8 +34,8 @@ export class PayoutDestinations extends Base {
     ): Promise<PayoutDestinationsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
         return this.request(`payout-destinations${queryString}`, {
             method: "GET",

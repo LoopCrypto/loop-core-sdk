@@ -1,14 +1,13 @@
-import { SortDirection } from "../common-types";
+import { SortDirection } from "src/resources/common-types";
 import {
-    CreatePaymentTypeRequest,
     PaymentTypeRequest,
     PaymentTypeResponse,
-} from "../paymentType/types";
+} from "src/resources/paymentType/types";
 import {
     FiatSettlementAccountResponse,
     FiatSettlementSettingsRequest,
     PayoutDestinationResponse,
-} from "../payoutDestination/types";
+} from "src/resources/payoutDestination/types";
 
 /**
  * Merchant Request

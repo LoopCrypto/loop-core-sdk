@@ -1,10 +1,10 @@
-import { PayoutDestinations } from "../src/resources/payoutDestination";
+import { PayoutDestinations } from "src/resources/payoutDestination";
 import {
     PayoutDestinationQueryParams,
     PayoutDestinationResponse,
     CreatePayoutDestinationRequest,
     PayoutDestinationsResponse,
-} from "../src/resources/payoutDestination/types";
+} from "src/resources/payoutDestination/types";
 
 describe("Payout API", () => {
     let payoutDestinationApi: PayoutDestinations;

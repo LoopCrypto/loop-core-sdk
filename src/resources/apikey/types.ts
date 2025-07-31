@@ -1,4 +1,4 @@
-import { SortDirection } from "../common-types";
+import { SortDirection } from "src/resources/common-types";
 
 /**
  * Api Key Common

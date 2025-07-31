@@ -1,4 +1,4 @@
-import { NetworkIds, SortDirection } from "../common-types";
+import { NetworkIds, SortDirection } from "src/resources/common-types";
 
 /**
  * Customer Request

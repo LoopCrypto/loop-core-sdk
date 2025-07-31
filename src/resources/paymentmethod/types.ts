@@ -1,6 +1,6 @@
-import { NetworkIds, SortDirection } from "../common-types";
-import { MerchantCustomerResponse } from "../customer/types";
-import { TokenResponse } from "../token/types";
+import { NetworkIds, SortDirection } from "src/resources/common-types";
+import { MerchantCustomerResponse } from "src/resources/customer/types";
+import { TokenResponse } from "src/resources/token/types";
 
 /**
  * Payment Method Request

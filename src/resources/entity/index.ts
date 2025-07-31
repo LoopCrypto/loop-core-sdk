@@ -1,9 +1,9 @@
-import { Base } from "../base";
+import { Base } from "src/resources/base";
 import {
     EntityResponse,
     CreateEntityRequest,
     UpdateEntityRequest,
-} from "./types";
+} from "src/resources/entity/types";
 
 export class Entity extends Base {
     retrieve(): Promise<EntityResponse> {
