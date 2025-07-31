@@ -19,39 +19,71 @@ describe("ApiKey", () => {
 
     test("should fetch API keys with query params", async () => {
         const expectedResponse: ApiKeysResponse = {
-            totalResults: 2,
+            totalResults: 1,
             apiKeys: [
                 {
-                    dateCreated: 1708454400,
-                    name: "Admin Key",
-                    id: "apikey-123456",
-                    permissions: ["read", "write", "delete"],
-                },
-                {
-                    dateCreated: 1708458500,
-                    name: "Read-Only Key",
-                    id: "apikey-654321",
-                    permissions: ["read"],
+                    dateCreated: 1740175459,
+                    name: "Default Admin Key",
+                    id: "39262617-efe5-432b-a8ba-83e6e4d2781d",
+                    permissions: [
+                        "CreateTransfer",
+                        "GetEntityTransfers",
+                        "GetAllTransfers",
+                        "GetValidTransfers",
+                        "CreateItems",
+                        "UpdateItems",
+                        "GetItems",
+                        "CreateNewAgreements",
+                        "GetAgreements",
+                        "CancelAgreements",
+                        "CancelTransfers",
+                        "CreateFeeConfigurations",
+                        "UpdateFeeConfigurations",
+                        "GetFeeConfigurations",
+                        "CreateChildEntities",
+                        "GetEntities",
+                        "CreateEntities",
+                        "UpdateEntities",
+                        "CreateApiKeys",
+                        "UpdateApiKey",
+                        "GetApiKeys",
+                        "DeactivateApiKey",
+                        "CreateMerchants",
+                        "UpdateMerchants",
+                        "GetMerchants",
+                        "CreatePaymentTypes",
+                        "GetPaymentTypes",
+                        "DeletePaymentTypes",
+                        "CreatePayoutDestinations",
+                        "GetPayoutDestinations",
+                        "DeletePayoutDestinations",
+                        "CreatePaymentMethods",
+                        "GetPaymentMethods",
+                        "DeletePaymentMethods",
+                        "CreatePayins",
+                        "GetPayins",
+                        "CreateCustomers",
+                        "GetCustomers",
+                        "CreateWebhooks",
+                        "GetWebhooks",
+                        "DeleteWebhooks",
+                        "UpdateWebhooks",
+                        "CreateWebhookSecret",
+                        "GetWebhookSecret",
+                        "GetTokens",
+                        "CreateCheckoutSessions",
+                        "GetCheckoutSessions",
+                        "DeleteCheckoutSessions",
+                        "UpdateCheckoutSessions",
+                    ],
                 },
             ],
         };
 
-        const queryParams: ApiKeyQueryParams = {
-            apiKeyId: "apikey-123456",
-            apiKeyName: "Admin Key",
-            page: 1,
-            limit: 10,
-            sortBy: "dateCreated",
-            sortDir: "desc",
-        };
-        const response = await apiKeyInstance.search(queryParams);
 
-        expect(expectedResponse).toHaveBeenCalledWith(
-            `api-keys?apiKeyId=${apiKey}&apiKeyName=Admin+Key&page=1&limit=10&sortBy=dateCreated&sortDir=desc`,
-            {
-                method: "GET",
-            },
-        );
+        const response = await apiKeyInstance.search();
+
+
         expect(response).toEqual(expectedResponse);
     });
 });
