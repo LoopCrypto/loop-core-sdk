@@ -1,0 +1,27 @@
+# Test files
+__tests__/
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+
+# Development files
+.eslintrc.json
+.prettierrc
+jest.config.ts
+tsconfig.json
+
+# Build artifacts (if any)
+*.tsbuildinfo
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

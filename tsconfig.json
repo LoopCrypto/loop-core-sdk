@@ -19,7 +19,10 @@
         "allowJs": false,
         "types": ["jest", "node"],
         "declaration": true,
-        "baseUrl": "."
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["./src/*"]
+        }
     },
     "include": ["src/**/*.ts", "__tests__/**/*"],
     "exclude": ["node_modules", "dist"],
