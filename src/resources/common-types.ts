@@ -17,3 +17,5 @@ export interface SDKOptions {
     apiKey: string;
     entityId: string;
 }
+
+export interface EmptyResponse { }

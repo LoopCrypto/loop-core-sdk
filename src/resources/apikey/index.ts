@@ -4,8 +4,9 @@ import {
     ApiKeysResponse,
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
-    ApiKeyType,
+    ApiKeyResponse,
 } from "src/resources/apiKey/types";
+import { EmptyResponse } from "src/resources/common-types";
 
 export class ApiKey extends Base {
     search(queryParams?: ApiKeyQueryParams): Promise<ApiKeysResponse> {
@@ -17,14 +18,14 @@ export class ApiKey extends Base {
         return this.request(`/v2/api-keys${queryString}`, { method: "GET" });
     }
 
-    create(payload: CreateApiKeyRequest): Promise<ApiKeyType> {
+    create(payload: CreateApiKeyRequest): Promise<ApiKeyResponse> {
         return this.request(`/v2/api-key`, {
             data: payload,
             method: "POST",
         });
     }
 
-    delete(apiKeyId: string): Promise<ApiKeysResponse> {
+    delete(apiKeyId: string): Promise<EmptyResponse> {
         return this.request(`/v2/api-key/${apiKeyId}`, {
             method: "DELETE",
         });
@@ -33,7 +34,7 @@ export class ApiKey extends Base {
     update(
         apiKeyId: string,
         payload: UpdateApiKeyRequest,
-    ): Promise<ApiKeyType> {
+    ): Promise<ApiKeyResponse> {
         return this.request(`/v2/api-key/${apiKeyId}`, {
             data: payload,
             method: "PATCH",
