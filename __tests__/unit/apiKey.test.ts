@@ -3,7 +3,6 @@ import {
     ApiKeyQueryParams,
     ApiKeyResponse,
     ApiKeysResponse,
-    ApiKeyType,
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
 } from "src/resources/apiKey/types";
@@ -56,7 +55,7 @@ describe("ApiKey", () => {
         const response = await apiKeyInstance.search(queryParams);
 
         expect(mockRequest).toHaveBeenCalledWith(
-            "api-keys?apiKeyId=apikey-123456&apiKeyName=Admin+Key&page=1&limit=10&sortBy=dateCreated&sortDir=desc",
+            "/v2/api-keys?apiKeyId=apikey-123456&apiKeyName=Admin+Key&page=1&limit=10&sortBy=dateCreated&sortDir=desc",
             {
                 method: "GET",
             },
@@ -78,7 +77,7 @@ describe("ApiKey", () => {
                 "GetWebhooks",
             ],
         };
-        const mockResponse: ApiKeyType = {
+        const mockResponse: ApiKeyResponse = {
             dateCreated: 1708454400,
             name: "Admin Key",
             id: "apikey-123456",
@@ -90,7 +89,7 @@ describe("ApiKey", () => {
 
         const response = await apiKeyInstance.create(payload);
 
-        expect(mockRequest).toHaveBeenCalledWith("api-key", {
+        expect(mockRequest).toHaveBeenCalledWith("/v2/api-key", {
             data: payload,
             method: "POST",
         });
@@ -98,29 +97,13 @@ describe("ApiKey", () => {
     });
 
     test("should delete an API key", async () => {
-        const mockResponse: ApiKeysResponse = {
-            totalResults: 2,
-            apiKeys: [
-                {
-                    dateCreated: 1708454400,
-                    name: "Admin Key",
-                    id: "apikey-123456",
-                    permissions: ["read", "write", "delete"],
-                },
-                {
-                    dateCreated: 1708458500,
-                    name: "Read-Only Key",
-                    id: "apikey-654321",
-                    permissions: ["read"],
-                },
-            ],
-        };
+        const mockResponse = {};
         mockRequest.mockResolvedValue(mockResponse);
 
         const apiKeyId = "123";
         const response = await apiKeyInstance.delete(apiKeyId);
 
-        expect(mockRequest).toHaveBeenCalledWith(`api-key/${apiKeyId}`, {
+        expect(mockRequest).toHaveBeenCalledWith(`/v2/api-key/${apiKeyId}`, {
             method: "DELETE",
         });
         expect(response).toEqual(mockResponse);
@@ -140,7 +123,7 @@ describe("ApiKey", () => {
 
         const response = await apiKeyInstance.update(apiKeyId, payload);
 
-        expect(mockRequest).toHaveBeenCalledWith(`api-key/${apiKeyId}`, {
+        expect(mockRequest).toHaveBeenCalledWith(`/v2/api-key/${apiKeyId}`, {
             data: payload,
             method: "PATCH",
         });
