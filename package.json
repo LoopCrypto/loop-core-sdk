@@ -6,6 +6,7 @@
     "scripts": {
         "start": "node --loader ts-node/esm src/test.ts",
         "pretty": "prettier --write \"**/*.{ts,json}\"",
+        "test": "jest",
         "test:unit": "jest __tests__/unit",
         "test:integration": "jest __tests__/integration",
         "test:all": "jest __tests__/unit && jest __tests__/integration"

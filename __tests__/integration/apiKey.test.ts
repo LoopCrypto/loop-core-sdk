@@ -190,10 +190,8 @@ describe("ApiKey", () => {
 
         const apiKeyId = searchResponse.apiKeys[0].id;
 
-        // Delete the API key
         const deleteResponse = await apiKeyInstance.delete(apiKeyId);
 
-        // The delete method returns ApiKeysResponse, so we expect the updated list
         expect(deleteResponse).toEqual({} as EmptyResponse);
     });
 
