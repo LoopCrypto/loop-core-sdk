@@ -11,7 +11,7 @@ export type NetworkIds =
 
 export type SortDirection = "asc" | "desc";
 
-export type SettlementType = "Crypto" | "Fiat";
+export type SettlementType = "crypto" | "fiat";
 
 export interface SDKOptions {
     apiKey: string;

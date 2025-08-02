@@ -32,7 +32,7 @@ describe("Entity API", () => {
                     walletAddress: "0xabcdef1234567890",
                     isDefault: true,
                     payoutDestinationId: "payout-001",
-                    settlementType: "Fiat",
+                    settlementType: "fiat",
                 },
             ],
             paymentTypes: [
@@ -82,7 +82,7 @@ describe("Entity API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await entityApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("entity", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/entity", {
             data: requestBody,
             method: "POST",
         });
@@ -109,7 +109,7 @@ describe("Entity API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await entityApi.update(updateData);
-        expect(requestMock).toHaveBeenCalledWith("entity", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/entity", {
             data: updateData,
             method: "PATCH",
         });
