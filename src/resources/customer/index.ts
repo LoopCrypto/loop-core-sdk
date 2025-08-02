@@ -1,32 +1,33 @@
 import { Base } from "src/resources/base";
 import {
     CustomerQueryParams,
-    MerchantCustomersResponse,
     MerchantCustomerResponse,
     CreateCustomerRequest,
+    CustomersResponse,
+    CustomerResponse,
 } from "src/resources/customer/types";
 
 export class Customer extends Base {
     search(
         queryParams?: CustomerQueryParams,
-    ): Promise<MerchantCustomersResponse> {
+    ): Promise<CustomersResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                 queryParams as Record<string, string>,
             ).toString()}`
             : "";
-        return this.request(`customers${queryString}`, { method: "GET" });
+        return this.request(`/v2/customers${queryString}`, { method: "GET" });
     }
 
     create(payload: CreateCustomerRequest): Promise<MerchantCustomerResponse> {
-        return this.request(`customer`, {
+        return this.request(`/v2/customer`, {
             data: payload,
             method: "POST",
         });
     }
 
-    retrieve(customerId: string): Promise<MerchantCustomerResponse> {
-        return this.request(`customer/${customerId}`, {
+    retrieve(customerId: string): Promise<CustomerResponse> {
+        return this.request(`/v2/customer/${customerId}`, {
             method: "GET",
         });
     }

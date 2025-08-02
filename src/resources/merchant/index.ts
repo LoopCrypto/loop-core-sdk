@@ -14,18 +14,18 @@ export class Merchant extends Base {
                 queryParams as Record<string, string>,
             ).toString()}`
             : "";
-        return this.request(`merchants${queryString}`, { method: "GET" });
+        return this.request(`/v2/merchants${queryString}`, { method: "GET" });
     }
 
     create(payload: CreateMerchantRequest): Promise<MerchantResponse> {
-        return this.request(`merchant`, {
+        return this.request(`/v2/merchant`, {
             data: payload,
             method: "POST",
         });
     }
 
     retrieve(merchantId: string): Promise<MerchantResponse> {
-        return this.request(`merchant/${merchantId}`, {
+        return this.request(`/v2/merchant/${merchantId}`, {
             method: "GET",
         });
     }
@@ -34,7 +34,7 @@ export class Merchant extends Base {
         merchantId: string,
         updateData: UpdateMerchantRequest,
     ): Promise<MerchantResponse> {
-        return this.request(`merchant/${merchantId}`, {
+        return this.request(`/v2/merchant/${merchantId}`, {
             method: "PATCH",
             data: updateData,
         });

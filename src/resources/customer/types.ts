@@ -83,7 +83,7 @@ interface PaymentMethodResponse {
 
 export interface MerchantCustomerResponse {
     customerId: string;
-    customerRefIds: MerchantCustomerRef[];
+    customerRefId: string;
     paymentMethods: PaymentMethodResponse[];
     dateCreated: number;
 }
@@ -91,4 +91,38 @@ export interface MerchantCustomerResponse {
 export interface MerchantCustomersResponse {
     totalResults: number;
     customers: MerchantCustomerResponse[];
+}
+
+export interface CustomerResponse {
+    /**
+     * The unique identifier that represents the customer
+     * @example "1234567890abcdef"
+     */
+    customerId: string;
+    /**
+     * The external customer reference ID used to tie this customer to a customer in an external system.
+     * @example "1234567890abcdef"
+     */
+    customerRefIds: MerchantCustomerRef[];
+    /**
+     * The payment methods configured for this customer to make payments with.
+     */
+    paymentMethods: Omit<PaymentMethodResponse, "customer" | "dateCreated">[];
+    /**
+     * The date the customer record was created, represented as a Unix timestamp in seconds.
+     * @example 1716211200
+     */
+    dateCreated: number;
+}
+
+export interface CustomersResponse {
+    /**
+     * The total count of customers matching the search criteria, regardless of page size or number.
+     * @example 100
+     */
+    totalResults: number;
+    /**
+     * The list of customers.
+     */
+    customers: CustomerResponse[];
 }
