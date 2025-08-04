@@ -11,20 +11,20 @@ export class PayoutDestinations extends Base {
     create(
         payload: CreatePayoutDestinationRequest,
     ): Promise<PayoutDestinationResponse> {
-        return this.request(`payout-destination`, {
+        return this.request(`/v2/payout-destination`, {
             data: payload,
             method: "POST",
         });
     }
 
     retrieve(payoutDestinationId: string): Promise<PayoutDestinationResponse> {
-        return this.request(`payout-destination/${payoutDestinationId}`, {
+        return this.request(`/v2/payout-destination/${payoutDestinationId}`, {
             method: "GET",
         });
     }
 
     delete(payoutDestinationId: string): Promise<PayoutDestinationsResponse> {
-        return this.request(`payout-destination/${payoutDestinationId}`, {
+        return this.request(`/v2/payout-destination/${payoutDestinationId}`, {
             method: "DELETE",
         });
     }
@@ -37,7 +37,7 @@ export class PayoutDestinations extends Base {
                 queryParams as Record<string, string>,
             ).toString()}`
             : "";
-        return this.request(`payout-destinations${queryString}`, {
+        return this.request(`/v2/payout-destinations${queryString}`, {
             method: "GET",
         });
     }
@@ -46,7 +46,7 @@ export class PayoutDestinations extends Base {
         payoutDestinationId: string,
         updateData: UpdatePayoutDestinationRequest,
     ): Promise<PayoutDestinationResponse> {
-        return this.request(`payout-destinations/${payoutDestinationId}`, {
+        return this.request(`/v2/payout-destinations/${payoutDestinationId}`, {
             method: "PATCH",
             data: updateData,
         });

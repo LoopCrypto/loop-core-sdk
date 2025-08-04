@@ -8,6 +8,6 @@ export class Token extends Base {
                 queryParams as Record<string, string>,
             ).toString()}`
             : "";
-        return this.request(`tokens${queryString}`, { method: "GET" });
+        return this.request(`/v2/tokens${queryString}`, { method: "GET" });
     }
 }

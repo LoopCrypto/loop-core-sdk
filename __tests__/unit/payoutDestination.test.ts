@@ -46,7 +46,7 @@ describe("Payout API", () => {
 
         const result = await payoutDestinationApi.search(queryParams);
         expect(requestMock).toHaveBeenCalledWith(
-            "payout-destinations?page=1&limit=10",
+            "/v2/payout-destinations?page=1&limit=10",
             { method: "GET" },
         );
         expect(result).toEqual(mockResponse);
@@ -75,7 +75,7 @@ describe("Payout API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await payoutDestinationApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("payout-destination", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/payout-destination", {
             data: requestBody,
             method: "POST",
         });
@@ -100,7 +100,7 @@ describe("Payout API", () => {
 
         const result = await payoutDestinationApi.retrieve(payoutId);
         expect(requestMock).toHaveBeenCalledWith(
-            `payout-destination/${payoutId}`,
+            `/v2/payout-destination/${payoutId}`,
             { method: "GET" },
         );
         expect(result).toEqual(mockResponse);
@@ -117,7 +117,7 @@ describe("Payout API", () => {
 
         const result = await payoutDestinationApi.delete(payoutId);
         expect(requestMock).toHaveBeenCalledWith(
-            `payout-destination/${payoutId}`,
+            `/v2/payout-destination/${payoutId}`,
             { method: "DELETE" },
         );
         expect(result).toEqual(mockResponse);

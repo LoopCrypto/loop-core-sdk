@@ -12,13 +12,13 @@ describe("ApiKey", () => {
     const createdApiKeyIds: string[] = [];
     let testKeyNames: { testKey: string; newTestKey: string };
 
-    const apiKey = "9abee520-2140-4bb6-8b3c-316810920e5b";
-    const entityId = "098435ec-aaed-46a4-bc81-5ad1ecebfaaa";
+    const parentApiKey = process.env.PARENT_API_KEY || "";
+    const parentEntityId = process.env.PARENT_ENTITY_ID || "";
 
     beforeAll(async () => {
         apiKeyInstance = new ApiKey({
-            apiKey,
-            entityId,
+            apiKey: parentApiKey,
+            entityId: parentEntityId,
         });
 
         // Create API keys for testing with random numbers to avoid conflicts

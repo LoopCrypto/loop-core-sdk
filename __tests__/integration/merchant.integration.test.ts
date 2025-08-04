@@ -10,15 +10,14 @@ describe("Merchant API", () => {
     const createdMerchantIds: string[] = [];
     let testMerchantNames: { testMerchant: string; newTestMerchant: string };
 
-    const apiKey = "9abee520-2140-4bb6-8b3c-316810920e5b";
-    const entityId = "098435ec-aaed-46a4-bc81-5ad1ecebfaaa";
-
+    const parentApiKey = process.env.PARENT_API_KEY || "";
+    const parentEntityId = process.env.PARENT_ENTITY_ID || "";
     const namePrefix = "SDK"
 
     beforeAll(async () => {
         merchantApi = new Merchant({
-            apiKey,
-            entityId,
+            apiKey: parentApiKey,
+            entityId: parentEntityId,
         });
 
         // Create test merchant data with random numbers to avoid conflicts

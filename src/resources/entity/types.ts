@@ -9,8 +9,9 @@ import {
  */
 
 interface PaymentToken {
-    tokenAddress?: string; // Example: 'USDC', 'ETH'
-    tokenSymbol?: string; // Optional contract address for the token
+    tokenAddress?: string; // Contract address for the token
+    tokenSymbol?: string; // Token symbol (e.g., 'USDC', 'ETH')
+    isDefault?: boolean; // Whether this token should be set as default
 }
 
 interface PaymentTypeRequest {
@@ -21,7 +22,7 @@ interface PaymentTypeRequest {
 }
 
 export interface CreateEntityRequest {
-    code?: string; // One-time authentication code
+    code?: number; // One-time authentication code (number)
     entityName: string; // Organization name
     email: string; // Primary contact email
     logoUrl?: string; // Optional logo URL
