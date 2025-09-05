@@ -13,21 +13,23 @@ export class PaymentType extends Base {
     ): Promise<PaymentTypesResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                queryParams as Record<string, string>,
-            ).toString()}`
+                  queryParams as Record<string, string>,
+              ).toString()}`
             : "";
-        return this.request(`payment-types${queryString}`, { method: "GET" });
+        return this.request(`/v2/payment-types${queryString}`, {
+            method: "GET",
+        });
     }
 
     create(payload: CreatePaymentTypeRequest): Promise<PaymentTypeResponse> {
-        return this.request(`payment-type`, {
+        return this.request(`/v2/payment-type`, {
             data: payload,
             method: "POST",
         });
     }
 
     delete(merchantId: string, tokenId: string): Promise<PaymentTypesResponse> {
-        return this.request(`payment-type/${merchantId}/${tokenId}`, {
+        return this.request(`/v2/payment-type/${merchantId}/${tokenId}`, {
             method: "DELETE",
         });
     }
@@ -35,7 +37,7 @@ export class PaymentType extends Base {
     setDefaults(
         defaultRequest: DefaultPaymentTypeRequest,
     ): Promise<PaymentTypeResponse> {
-        return this.request(`payment-types/defaults`, {
+        return this.request(`/v2/payment-types/defaults`, {
             method: "PATCH",
             data: defaultRequest,
         });

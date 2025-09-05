@@ -30,6 +30,7 @@ describe("PaymentType API", () => {
                     address: "0xabcdef1234567890",
                     decimals: 6,
                     dateCreated: 1700000000,
+                    isDefault: true,
                 },
             ],
         };
@@ -38,7 +39,7 @@ describe("PaymentType API", () => {
 
         const result = await paymentTypeApi.search(queryParams);
         expect(requestMock).toHaveBeenCalledWith(
-            "payment-types?page=1&limit=10",
+            "/v2/payment-types?page=1&limit=10",
             { method: "GET" },
         );
         expect(result).toEqual(mockResponse);
@@ -60,12 +61,13 @@ describe("PaymentType API", () => {
             address: "0x123456",
             decimals: 6,
             dateCreated: 1700000001,
+            isDefault: true,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await paymentTypeApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("payment-type", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/payment-type", {
             data: requestBody,
             method: "POST",
         });
@@ -84,7 +86,7 @@ describe("PaymentType API", () => {
 
         const result = await paymentTypeApi.delete(merchantId, tokenId);
         expect(requestMock).toHaveBeenCalledWith(
-            `payment-type/${merchantId}/${tokenId}`,
+            `/v2/payment-type/${merchantId}/${tokenId}`,
             { method: "DELETE" },
         );
         expect(result).toEqual(mockResponse);

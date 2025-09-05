@@ -14,10 +14,10 @@ export class WebHook extends Base {
     search(queryParams?: WebhooksQueryParams): Promise<WebHooksResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                queryParams as Record<string, string>,
-            ).toString()}`
+                  queryParams as Record<string, string>,
+              ).toString()}`
             : "";
-        return this.request(`webhooks${queryString}`, { method: "GET" });
+        return this.request(`/v2/webhooks${queryString}`, { method: "GET" });
     }
 
     searchClassic(
@@ -25,22 +25,22 @@ export class WebHook extends Base {
     ): Promise<WebHooksResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                queryParams as Record<string, string>,
-            ).toString()}`
+                  queryParams as Record<string, string>,
+              ).toString()}`
             : "";
-        return this.request(`webhooks/classic${queryString}`, {
+        return this.request(`/v2/webhooks/classic${queryString}`, {
             method: "GET",
         });
     }
 
     create(payLoad: CreateWebhookRequest): Promise<WebHooksResponse> {
-        return this.request(`webhook`, { data: payLoad, method: "POST" });
+        return this.request(`/v2/webhook`, { data: payLoad, method: "POST" });
     }
 
     createClassic(
         payLoad: CreateClassicWebhookRequest,
     ): Promise<WebHooksResponse> {
-        return this.request(`webhooks/classic`, {
+        return this.request(`/v2/webhooks/classic`, {
             data: payLoad,
             method: "POST",
         });
@@ -52,24 +52,24 @@ export class WebHook extends Base {
     ): Promise<Webhook> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                queryParams as Record<string, string>,
-            ).toString()}`
+                  queryParams as Record<string, string>,
+              ).toString()}`
             : "";
-        return this.request(`webhooks${queryString}`, {
+        return this.request(`/v2/webhooks${queryString}`, {
             data: payLoad,
             method: "PATCH",
         });
     }
 
     delete(webhookId: string): Promise<WebHooksResponse> {
-        return this.request(`webhook/${webhookId}`, { method: "DELETE" });
+        return this.request(`/v2/webhook/${webhookId}`, { method: "DELETE" });
     }
 
     generateSecret(): Promise<WebHookSecretResponse> {
-        return this.request(`webhook/secret`, { method: "PUT" });
+        return this.request(`/v2/webhook/secret`, { method: "PUT" });
     }
 
     getSecret(): Promise<WebHookSecretResponse> {
-        return this.request(`webhook/secret`, { method: "GET" });
+        return this.request(`/v2/webhook/secret`, { method: "GET" });
     }
 }

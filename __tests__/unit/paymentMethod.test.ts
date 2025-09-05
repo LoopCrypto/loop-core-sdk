@@ -51,7 +51,7 @@ describe("PaymentMethod API", () => {
                     active: true,
                     customer: {
                         customerId: "cust-123",
-                        customerRefIds: [],
+                        customerRefId: "cust-123",
                     },
                 },
             ],
@@ -95,7 +95,7 @@ describe("PaymentMethod API", () => {
             active: true,
             customer: {
                 customerId: "cust-123",
-                customerRefIds: [],
+                customerRefId: "cust-123",
             },
         };
 
@@ -129,7 +129,7 @@ describe("PaymentMethod API", () => {
             active: true,
             customer: {
                 customerId: "cust-123",
-                customerRefIds: [],
+                customerRefId: "cust-123",
             },
         };
 

@@ -51,7 +51,7 @@ describe("Payin API", () => {
                         active: true,
                         customer: {
                             customerId: "cust-123",
-                            customerRefIds: [],
+                            customerRefId: "cust-123",
                         },
                     },
                     payoutDestination: {
@@ -71,7 +71,7 @@ describe("Payin API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await payinApi.search(queryParams);
-        expect(requestMock).toHaveBeenCalledWith("payins?page=1&limit=10", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/payins?page=1&limit=10", {
             method: "GET",
         });
         expect(result).toEqual(mockResponse);
@@ -114,7 +114,7 @@ describe("Payin API", () => {
                 active: true,
                 customer: {
                     customerId: "cust-123",
-                    customerRefIds: [],
+                    customerRefId: "cust-123",
                 },
             },
             payoutDestination: {
@@ -132,7 +132,7 @@ describe("Payin API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await payinApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("payin", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/payin", {
             data: requestBody,
             method: "POST",
         });
@@ -168,7 +168,7 @@ describe("Payin API", () => {
                 active: true,
                 customer: {
                     customerId: "cust-123",
-                    customerRefIds: [],
+                    customerRefId: "cust-123",
                 },
             },
             payoutDestination: {
@@ -186,7 +186,7 @@ describe("Payin API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await payinApi.retrieve(payinId);
-        expect(requestMock).toHaveBeenCalledWith(`payin/${payinId}`, {
+        expect(requestMock).toHaveBeenCalledWith(`/v2/payin/${payinId}`, {
             method: "GET",
         });
         expect(result).toEqual(mockResponse);

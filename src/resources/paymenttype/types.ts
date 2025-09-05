@@ -1,4 +1,8 @@
-import { NetworkIds, SettlementType, SortDirection } from "src/resources/common-types";
+import {
+    NetworkIds,
+    SettlementType,
+    SortDirection,
+} from "src/resources/common-types";
 
 /**
  * Payment Type Request
@@ -109,6 +113,7 @@ export interface DefaultPaymentTypeRequest {
 export interface PaymentTypeResponse {
     merchantId: string; // The merchant ID associated with this payment type
     tokenId: string; // The unique identifier for the token used by the payment type
+    isDefault: boolean; // Specifies if this payment type should be set as the default
     networkId: number; // The blockchain network ID the token is associated with
     symbol: string; // The token symbol that identifies the token on the blockchain network
     address: string; // The token contract address for the payment type

@@ -36,7 +36,9 @@ describe("WebHook API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await webhookApi.search();
-        expect(requestMock).toHaveBeenCalledWith("webhooks", { method: "GET" });
+        expect(requestMock).toHaveBeenCalledWith("/v2/webhooks", {
+            method: "GET",
+        });
         expect(result).toEqual(mockResponse);
     });
 
@@ -58,9 +60,12 @@ describe("WebHook API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await webhookApi.search(queryParams);
-        expect(requestMock).toHaveBeenCalledWith("webhooks?page=1&limit=10", {
-            method: "GET",
-        });
+        expect(requestMock).toHaveBeenCalledWith(
+            "/v2/webhooks?page=1&limit=10",
+            {
+                method: "GET",
+            },
+        );
         expect(result).toEqual(mockResponse);
     });
 
@@ -87,7 +92,7 @@ describe("WebHook API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await webhookApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("webhook", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/webhook", {
             data: requestBody,
             method: "POST",
         });
@@ -116,7 +121,7 @@ describe("WebHook API", () => {
 
         const result = await webhookApi.update(requestBody, queryParams);
         expect(requestMock).toHaveBeenCalledWith(
-            "webhooks?networkIds=137&events=payment.processed",
+            "/v2/webhooks?networkIds=137&events=payment.processed",
             {
                 data: requestBody,
                 method: "PATCH",
@@ -135,7 +140,7 @@ describe("WebHook API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await webhookApi.delete(webhookId);
-        expect(requestMock).toHaveBeenCalledWith(`webhook/${webhookId}`, {
+        expect(requestMock).toHaveBeenCalledWith(`/v2/webhook/${webhookId}`, {
             method: "DELETE",
         });
         expect(result).toEqual(mockResponse);
@@ -149,7 +154,7 @@ describe("WebHook API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await webhookApi.generateSecret();
-        expect(requestMock).toHaveBeenCalledWith("webhook/secret", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/webhook/secret", {
             method: "PUT",
         });
         expect(result).toEqual(mockResponse);
@@ -163,7 +168,7 @@ describe("WebHook API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await webhookApi.getSecret();
-        expect(requestMock).toHaveBeenCalledWith("webhook/secret", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/webhook/secret", {
             method: "GET",
         });
         expect(result).toEqual(mockResponse);
@@ -174,6 +179,8 @@ describe("WebHook API", () => {
         requestMock.mockRejectedValue(new Error(errorMessage));
 
         await expect(webhookApi.search()).rejects.toThrow(errorMessage);
-        expect(requestMock).toHaveBeenCalledWith("webhooks", { method: "GET" });
+        expect(requestMock).toHaveBeenCalledWith("/v2/webhooks", {
+            method: "GET",
+        });
     });
 });
