@@ -1,11 +1,11 @@
-import { Merchant } from "../src/resources/merchant";
+import { Merchant } from "src/resources/merchant";
 import {
-    MerchantRequest,
     MerchantResponse,
     MerchantQueryParams,
-    MerchantResponseList,
     UpdateMerchantRequest,
-} from "../src/resources/merchant/types";
+    MerchantsResponse,
+    CreateMerchantRequest,
+} from "src/resources/merchant/types";
 
 describe("Merchant API", () => {
     let merchantApi: Merchant;
@@ -20,7 +20,7 @@ describe("Merchant API", () => {
 
     test("should fetch merchant list", async () => {
         const queryParams: MerchantQueryParams = { page: 1, limit: 10 };
-        const mockResponse: MerchantResponseList = {
+        const mockResponse: MerchantsResponse = {
             totalResults: 1,
             merchants: [
                 {
@@ -29,6 +29,7 @@ describe("Merchant API", () => {
                     merchantRefId: "ref-001",
                     payoutDestinations: [],
                     paymentTypes: [],
+                    fiatSettlementAccount: null,
                 },
             ],
         };
@@ -36,14 +37,17 @@ describe("Merchant API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await merchantApi.search(queryParams);
-        expect(requestMock).toHaveBeenCalledWith("merchants?page=1&limit=10", {
-            method: "GET",
-        });
+        expect(requestMock).toHaveBeenCalledWith(
+            "/v2/merchants?page=1&limit=10",
+            {
+                method: "GET",
+            },
+        );
         expect(result).toEqual(mockResponse);
     });
 
     test("should create a new merchant", async () => {
-        const requestBody: MerchantRequest = {
+        const requestBody: CreateMerchantRequest = {
             merchantName: "New Merchant",
             merchantRefId: "ref-002",
             paymentTypes: [
@@ -61,12 +65,13 @@ describe("Merchant API", () => {
             merchantRefId: "ref-002",
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await merchantApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("merchant", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/merchant", {
             data: requestBody,
             method: "POST",
         });
@@ -81,12 +86,13 @@ describe("Merchant API", () => {
             merchantRefId: "ref-001",
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await merchantApi.retrieve(merchantId);
-        expect(requestMock).toHaveBeenCalledWith(`merchant/${merchantId}`, {
+        expect(requestMock).toHaveBeenCalledWith(`/v2/merchant/${merchantId}`, {
             method: "GET",
         });
         expect(result).toEqual(mockResponse);
@@ -104,12 +110,13 @@ describe("Merchant API", () => {
             merchantRefId: "ref-001",
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await merchantApi.update(merchantId, updateData);
-        expect(requestMock).toHaveBeenCalledWith(`merchant/${merchantId}`, {
+        expect(requestMock).toHaveBeenCalledWith(`/v2/merchant/${merchantId}`, {
             data: updateData,
             method: "PATCH",
         });

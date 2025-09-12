@@ -1,18 +1,61 @@
+import { NetworkIds, SettlementType } from "src/resources/common-types";
+import {
+    FiatSettlementAccountResponse,
+    FiatSettlementSettingsRequest,
+} from "src/resources/payoutDestination/types";
+
+/**
+ * Entity Request
+ */
+
+interface PaymentToken {
+    tokenAddress?: string; // Contract address for the token
+    tokenSymbol?: string; // Token symbol (e.g., 'USDC', 'ETH')
+    isDefault?: boolean; // Whether this token should be set as default
+}
+
+interface PaymentTypeRequest {
+    networkId: NetworkIds;
+    settlementType?: SettlementType;
+    payoutDestinations: string[]; // Array of wallet addresses for payments
+    tokens: PaymentToken[]; // List of supported tokens
+}
+
+export interface CreateEntityRequest {
+    code?: number; // One-time authentication code (number)
+    entityName: string; // Organization name
+    email: string; // Primary contact email
+    logoUrl?: string; // Optional logo URL
+    paymentTypes: PaymentTypeRequest[]; // Supported payment configurations
+    fiatSettlementSettings?: FiatSettlementSettingsRequest;
+}
+
+export interface UpdateEntityRequest {
+    entityName?: string; // Optional: New organization name
+    email?: string; // Optional: New email for entity communications
+    logoUrl?: string; // Optional: New logo URL
+}
+
+/**
+ * Entity Response
+ */
+
 interface Contract {
     networkId: number;
     contractAddress: string;
 }
 
 interface PayoutDestination {
+    payoutDestinationId: string;
     networkId: number;
+    settlementType: SettlementType;
     walletAddress: string;
     isDefault: boolean;
-    payoutDestinationId: string;
 }
 
 interface PaymentType {
     symbol: string;
-    networkId: number;
+    networkId: NetworkIds;
     tokenId: string;
     address: string;
     decimals: number;
@@ -24,30 +67,6 @@ export interface EntityResponse {
     email: string;
     contracts: Contract[];
     payoutDestinations: PayoutDestination[];
+    fiatSettlementAccount: FiatSettlementAccountResponse | null;
     paymentTypes: PaymentType[];
-}
-
-interface PaymentToken {
-    tokenAddress?: string; // Example: 'USDC', 'ETH'
-    tokenSymbol?: string; // Optional contract address for the token
-}
-
-interface PaymentTypeA {
-    networkId: 1 | 10 | 56 | 137 | 8453 | 42161 | 900 | 11155111 | 901; // Blockchain network ID
-    payoutDestinations: string[]; // Array of wallet addresses for payments
-    tokens: PaymentToken[]; // List of supported tokens
-}
-
-export interface EntityCreationRequest {
-    code: string; // One-time authentication code
-    entityName: string; // Organization name
-    email: string; // Primary contact email
-    logoUrl?: string; // Optional logo URL
-    paymentTypes: PaymentTypeA[]; // Supported payment configurations
-}
-
-export interface EntityUpdateRequest {
-    entityName?: string; // Optional: New organization name
-    email?: string; // Optional: New email for entity communications
-    logoUrl?: string; // Optional: New logo URL
 }

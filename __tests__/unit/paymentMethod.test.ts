@@ -1,10 +1,10 @@
-import { PaymentMethod } from "../src/resources/paymentmethod";
+import { PaymentMethod } from "src/resources/paymentMethod";
 import {
     PaymentMethodQueryParams,
     PaymentMethodResponse,
     CreatePaymentMethodRequest,
-    PaymentMethodType,
-} from "../src/resources/paymentmethod/types";
+    PaymentMethodsResponse,
+} from "src/resources/paymentMethod/types";
 
 describe("PaymentMethod API", () => {
     let paymentMethodApi: PaymentMethod;
@@ -16,12 +16,13 @@ describe("PaymentMethod API", () => {
             apiKey: "ghty",
         });
         requestMock = jest.fn();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (paymentMethodApi as any).request = requestMock;
     });
 
     test("should fetch payment methods list", async () => {
         const queryParams: PaymentMethodQueryParams = { page: 1, limit: 10 };
-        const mockResponse: PaymentMethodResponse = {
+        const mockResponse: PaymentMethodsResponse = {
             totalResults: 1,
             paymentMethods: [
                 {
@@ -41,11 +42,17 @@ describe("PaymentMethod API", () => {
                                 currency: "USD",
                                 price: "2000.00",
                                 timestamp: 1700000000,
+                                provider: "CoinMarketCap",
                             },
                         ],
                     },
                     preAuthorization: null,
                     dateCreated: 1700000000,
+                    active: true,
+                    customer: {
+                        customerId: "cust-123",
+                        customerRefId: "cust-123",
+                    },
                 },
             ],
         };
@@ -62,13 +69,14 @@ describe("PaymentMethod API", () => {
     test("should create a new payment method", async () => {
         const payload: CreatePaymentMethodRequest = {
             name: "My Wallet",
+            merchantId: "mer-123",
             customerId: "cust-123",
             networkId: 137,
             walletAddress: "0x1234567890abcdef",
             authorizationSignature: "signature-xyz",
         };
 
-        const mockResponse: PaymentMethodType = {
+        const mockResponse: PaymentMethodResponse = {
             paymentMethodId: "pay-123",
             merchantId: "mer-123",
             paymentMethodName: "My Wallet",
@@ -84,6 +92,11 @@ describe("PaymentMethod API", () => {
             },
             preAuthorization: null,
             dateCreated: 1700000000,
+            active: true,
+            customer: {
+                customerId: "cust-123",
+                customerRefId: "cust-123",
+            },
         };
 
         requestMock.mockResolvedValue(mockResponse);
@@ -97,7 +110,7 @@ describe("PaymentMethod API", () => {
 
     test("should retrieve a payment method by ID", async () => {
         const paymentMethodId = "pay-123";
-        const mockResponse: PaymentMethodType = {
+        const mockResponse: PaymentMethodResponse = {
             paymentMethodId,
             merchantId: "mer-123",
             paymentMethodName: "Crypto Wallet",
@@ -113,6 +126,11 @@ describe("PaymentMethod API", () => {
             },
             preAuthorization: null,
             dateCreated: 1700000000,
+            active: true,
+            customer: {
+                customerId: "cust-123",
+                customerRefId: "cust-123",
+            },
         };
 
         requestMock.mockResolvedValue(mockResponse);
@@ -126,7 +144,7 @@ describe("PaymentMethod API", () => {
 
     test("should delete a payment method by ID", async () => {
         const paymentMethodId = "pay-123";
-        const mockResponse: PaymentMethodResponse = {
+        const mockResponse: PaymentMethodsResponse = {
             totalResults: 0,
             paymentMethods: [],
         };

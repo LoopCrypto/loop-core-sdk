@@ -1,13 +1,13 @@
-import { Base } from "../base.ts";
-import { TokenQueryParams, TokenResponse } from "./types.ts";
+import { Base } from "src/resources/base";
+import { TokenQueryParams, TokensResponse } from "src/resources/token/types";
 
 export class Token extends Base {
-    search(queryParams?: TokenQueryParams): Promise<TokenResponse> {
+    search(queryParams?: TokenQueryParams): Promise<TokensResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
-        return this.request(`tokens${queryString}`, { method: "GET" });
+        return this.request(`/v2/tokens${queryString}`, { method: "GET" });
     }
 }

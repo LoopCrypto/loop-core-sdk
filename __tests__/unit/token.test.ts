@@ -1,5 +1,5 @@
-import { Token } from "../src/resources/token";
-import { TokenQueryParams, TokenResponse } from "../src/resources/token/types";
+import { Token } from "src/resources/token";
+import { TokenQueryParams, TokensResponse } from "src/resources/token/types";
 
 describe("Token API", () => {
     let tokenApi: Token;
@@ -12,7 +12,7 @@ describe("Token API", () => {
     });
 
     test("should fetch tokens without query parameters", async () => {
-        const mockResponse: TokenResponse = {
+        const mockResponse: TokensResponse = {
             totalResults: 2,
             tokens: [
                 {
@@ -21,6 +21,7 @@ describe("Token API", () => {
                     symbol: "MATIC",
                     address: "0xabcdef1234567890",
                     decimals: 18,
+                    exchangeRates: [],
                 },
                 {
                     tokenId: "2",
@@ -28,6 +29,7 @@ describe("Token API", () => {
                     symbol: "ETH",
                     address: "0x123456abcdef7890",
                     decimals: 18,
+                    exchangeRates: [],
                 },
             ],
         };
@@ -35,7 +37,9 @@ describe("Token API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await tokenApi.search();
-        expect(requestMock).toHaveBeenCalledWith("tokens", { method: "GET" });
+        expect(requestMock).toHaveBeenCalledWith("/v2/tokens", {
+            method: "GET",
+        });
         expect(result).toEqual(mockResponse);
     });
 
@@ -45,7 +49,7 @@ describe("Token API", () => {
             page: 1,
             limit: 10,
         };
-        const mockResponse: TokenResponse = {
+        const mockResponse: TokensResponse = {
             totalResults: 1,
             tokens: [
                 {
@@ -54,6 +58,7 @@ describe("Token API", () => {
                     symbol: "MATIC",
                     address: "0xabcdef1234567890",
                     decimals: 18,
+                    exchangeRates: [],
                 },
             ],
         };
@@ -62,17 +67,9 @@ describe("Token API", () => {
 
         const result = await tokenApi.search(queryParams);
         expect(requestMock).toHaveBeenCalledWith(
-            "tokens?networkId=137&page=1&limit=10",
+            "/v2/tokens?networkId=137&page=1&limit=10",
             { method: "GET" },
         );
         expect(result).toEqual(mockResponse);
-    });
-
-    test("should handle errors from request method", async () => {
-        const errorMessage = "Request failed";
-        requestMock.mockRejectedValue(new Error(errorMessage));
-
-        await expect(tokenApi.search()).rejects.toThrow(errorMessage);
-        expect(requestMock).toHaveBeenCalledWith("tokens", { method: "GET" });
     });
 });

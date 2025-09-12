@@ -1,10 +1,10 @@
-import { Payin } from "../src/resources/payin";
+import { Payin } from "src/resources/payin";
 import {
+    CreatePayinRequest,
     PayinQueryParams,
     PayinResponse,
-    PayinType,
-    PayinBodyParams,
-} from "../src/resources/payin/types";
+    PayinsResponse,
+} from "src/resources/payin/types";
 
 describe("Payin API", () => {
     let payinApi: Payin;
@@ -18,7 +18,7 @@ describe("Payin API", () => {
 
     test("should fetch payin list", async () => {
         const queryParams: PayinQueryParams = { page: 1, limit: 10 };
-        const mockResponse: PayinResponse = {
+        const mockResponse: PayinsResponse = {
             totalResults: 1,
             payins: [
                 {
@@ -48,13 +48,22 @@ describe("Payin API", () => {
                             authorization: "200",
                         },
                         status: "ok",
+                        active: true,
+                        customer: {
+                            customerId: "cust-123",
+                            customerRefId: "cust-123",
+                        },
                     },
                     payoutDestination: {
                         networkId: 1,
                         walletAddress: "0x987654",
                         payoutDestinationId: "pd-001",
+                        settlementType: "Fiat",
                     },
                     dateCreated: 1700000000,
+                    description: "Payment for invoice 001",
+                    externalInvoiceRef: "inv-001",
+                    transaction: null,
                 },
             ],
         };
@@ -62,14 +71,14 @@ describe("Payin API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await payinApi.search(queryParams);
-        expect(requestMock).toHaveBeenCalledWith("payins?page=1&limit=10", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/payins?page=1&limit=10", {
             method: "GET",
         });
         expect(result).toEqual(mockResponse);
     });
 
     test("should create a new payin", async () => {
-        const requestBody: PayinBodyParams = {
+        const requestBody: CreatePayinRequest = {
             merchantId: "mer-002",
             amount: "200.00",
             amountType: "fiat",
@@ -78,7 +87,7 @@ describe("Payin API", () => {
             description: "Payment for invoice 002",
         };
 
-        const mockResponse: PayinType = {
+        const mockResponse: PayinResponse = {
             payinId: "payin-456",
             merchantId: "mer-002",
             amount: "200.00",
@@ -102,19 +111,28 @@ describe("Payin API", () => {
                 },
                 preAuthorization: { balance: "1000", authorization: "300" },
                 status: "ok",
+                active: true,
+                customer: {
+                    customerId: "cust-123",
+                    customerRefId: "cust-123",
+                },
             },
             payoutDestination: {
                 networkId: 1,
                 walletAddress: "0x123987",
                 payoutDestinationId: "pd-002",
+                settlementType: "Fiat",
             },
             dateCreated: 1700000001,
+            description: "Payment for invoice 002",
+            externalInvoiceRef: "inv-002",
+            transaction: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await payinApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("payin", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/payin", {
             data: requestBody,
             method: "POST",
         });
@@ -123,7 +141,7 @@ describe("Payin API", () => {
 
     test("should retrieve a payin by ID", async () => {
         const payinId = "payin-123";
-        const mockResponse: PayinType = {
+        const mockResponse: PayinResponse = {
             payinId: "payin-123",
             merchantId: "mer-001",
             amount: "150.00",
@@ -147,19 +165,28 @@ describe("Payin API", () => {
                 },
                 preAuthorization: { balance: "200", authorization: "50" },
                 status: "ok",
+                active: true,
+                customer: {
+                    customerId: "cust-123",
+                    customerRefId: "cust-123",
+                },
             },
             payoutDestination: {
                 networkId: 1,
                 walletAddress: "0x654321",
                 payoutDestinationId: "pd-003",
+                settlementType: "Fiat",
             },
             dateCreated: 1700000002,
+            description: "Payment for invoice 003",
+            externalInvoiceRef: "inv-003",
+            transaction: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await payinApi.retrieve(payinId);
-        expect(requestMock).toHaveBeenCalledWith(`payin/${payinId}`, {
+        expect(requestMock).toHaveBeenCalledWith(`/v2/payin/${payinId}`, {
             method: "GET",
         });
         expect(result).toEqual(mockResponse);

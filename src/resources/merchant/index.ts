@@ -1,31 +1,31 @@
-import { Base } from "../base.ts";
+import { Base } from "src/resources/base";
 import {
-    MerchantRequest,
+    CreateMerchantRequest,
     MerchantResponse,
     MerchantQueryParams,
-    MerchantResponseList,
+    MerchantsResponse,
     UpdateMerchantRequest,
-} from "./types.ts";
+} from "src/resources/merchant/types";
 
 export class Merchant extends Base {
-    search(queryParams?: MerchantQueryParams): Promise<MerchantResponseList> {
+    search(queryParams?: MerchantQueryParams): Promise<MerchantsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
-        return this.request(`merchants${queryString}`, { method: "GET" });
+        return this.request(`/v2/merchants${queryString}`, { method: "GET" });
     }
 
-    create(payload: MerchantRequest): Promise<MerchantResponse> {
-        return this.request(`merchant`, {
+    create(payload: CreateMerchantRequest): Promise<MerchantResponse> {
+        return this.request(`/v2/merchant`, {
             data: payload,
             method: "POST",
         });
     }
 
     retrieve(merchantId: string): Promise<MerchantResponse> {
-        return this.request(`merchant/${merchantId}`, {
+        return this.request(`/v2/merchant/${merchantId}`, {
             method: "GET",
         });
     }
@@ -34,7 +34,7 @@ export class Merchant extends Base {
         merchantId: string,
         updateData: UpdateMerchantRequest,
     ): Promise<MerchantResponse> {
-        return this.request(`merchant/${merchantId}`, {
+        return this.request(`/v2/merchant/${merchantId}`, {
             method: "PATCH",
             data: updateData,
         });

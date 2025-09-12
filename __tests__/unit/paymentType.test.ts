@@ -1,10 +1,10 @@
-import { PaymentType } from "../src/resources/paymenttype";
+import { PaymentType } from "src/resources/paymentType";
 import {
+    CreatePaymentTypeRequest,
     PaymentTypeQueryParams,
-    PaymentTypeRequest,
-    PaymentTypResponse,
-    PaymentType as PaymentTypeType,
-} from "../src/resources/paymenttype/types";
+    PaymentTypeResponse,
+    PaymentTypesResponse,
+} from "src/resources/paymentType/types";
 
 describe("PaymentType API", () => {
     let paymentTypeApi: PaymentType;
@@ -19,7 +19,7 @@ describe("PaymentType API", () => {
 
     test("should fetch payment types", async () => {
         const queryParams: PaymentTypeQueryParams = { page: 1, limit: 10 };
-        const mockResponse: PaymentTypResponse = {
+        const mockResponse: PaymentTypesResponse = {
             totalResults: 1,
             paymentTypes: [
                 {
@@ -30,6 +30,7 @@ describe("PaymentType API", () => {
                     address: "0xabcdef1234567890",
                     decimals: 6,
                     dateCreated: 1700000000,
+                    isDefault: true,
                 },
             ],
         };
@@ -38,21 +39,21 @@ describe("PaymentType API", () => {
 
         const result = await paymentTypeApi.search(queryParams);
         expect(requestMock).toHaveBeenCalledWith(
-            "payment-types?page=1&limit=10",
+            "/v2/payment-types?page=1&limit=10",
             { method: "GET" },
         );
         expect(result).toEqual(mockResponse);
     });
 
     test("should create a new payment type", async () => {
-        const requestBody: PaymentTypeRequest = {
+        const requestBody: CreatePaymentTypeRequest = {
             merchantId: "mer-123",
             networkId: 137,
             tokenAddress: "0x123456",
             tokenSymbol: "USDT",
         };
 
-        const mockResponse: PaymentTypeType = {
+        const mockResponse: PaymentTypeResponse = {
             merchantId: "mer-123",
             tokenId: "token-002",
             networkId: 137,
@@ -60,12 +61,13 @@ describe("PaymentType API", () => {
             address: "0x123456",
             decimals: 6,
             dateCreated: 1700000001,
+            isDefault: true,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await paymentTypeApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("payment-type", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/payment-type", {
             data: requestBody,
             method: "POST",
         });
@@ -75,7 +77,7 @@ describe("PaymentType API", () => {
     test("should delete a payment type", async () => {
         const merchantId = "mer-123";
         const tokenId = "token-001";
-        const mockResponse: PaymentTypResponse = {
+        const mockResponse: PaymentTypesResponse = {
             totalResults: 0,
             paymentTypes: [],
         };
@@ -84,7 +86,7 @@ describe("PaymentType API", () => {
 
         const result = await paymentTypeApi.delete(merchantId, tokenId);
         expect(requestMock).toHaveBeenCalledWith(
-            `payment-type/${merchantId}/${tokenId}`,
+            `/v2/payment-type/${merchantId}/${tokenId}`,
             { method: "DELETE" },
         );
         expect(result).toEqual(mockResponse);

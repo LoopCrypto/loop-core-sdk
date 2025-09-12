@@ -1,6 +1,6 @@
 // src/resources/base.ts
 import axios, { AxiosRequestConfig } from "axios";
-import { SDKOptions } from "./webhook/types";
+import { SDKOptions } from "src/resources/common-types";
 
 export abstract class Base {
     private apiKey: string;
@@ -26,8 +26,6 @@ export abstract class Base {
                 ...options?.headers, // Merge custom headers if provided
             },
         };
-
-        console.log(url, config, "configconfigconfig");
 
         try {
             const response = await axios(url, config);

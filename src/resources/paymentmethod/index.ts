@@ -1,37 +1,50 @@
-import { Base } from "../base.ts";
+import { Base } from "src/resources/base";
 import {
     PaymentMethodQueryParams,
-    PaymentMethodResponse,
+    PaymentMethodsResponse,
     CreatePaymentMethodRequest,
-    PaymentMethodType,
-} from "./types.ts";
+    PaymentMethodResponse,
+    UpdatePaymentMethodRequest,
+} from "src/resources/paymentMethod/types";
 
 export class PaymentMethod extends Base {
     search(
         queryParams?: PaymentMethodQueryParams,
-    ): Promise<PaymentMethodResponse> {
+    ): Promise<PaymentMethodsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
         return this.request(`payment-methods${queryString}`, { method: "GET" });
     }
 
-    create(payload: CreatePaymentMethodRequest): Promise<PaymentMethodType> {
+    create(
+        payload: CreatePaymentMethodRequest,
+    ): Promise<PaymentMethodResponse> {
         return this.request(`payment-method`, {
             data: payload,
             method: "POST",
         });
     }
 
-    retrieve(paymentMethodId: string): Promise<PaymentMethodType> {
+    update(
+        paymentMethodId: string,
+        updateData: UpdatePaymentMethodRequest,
+    ): Promise<PaymentMethodResponse> {
+        return this.request(`payment-method/${paymentMethodId}`, {
+            method: "PATCH",
+            data: updateData,
+        });
+    }
+
+    retrieve(paymentMethodId: string): Promise<PaymentMethodResponse> {
         return this.request(`payment-method/${paymentMethodId}`, {
             method: "GET",
         });
     }
 
-    delete(paymentMethodId: string): Promise<PaymentMethodResponse> {
+    delete(paymentMethodId: string): Promise<PaymentMethodsResponse> {
         return this.request(`payment-method/${paymentMethodId}`, {
             method: "DELETE",
         });

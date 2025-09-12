@@ -1,52 +1,75 @@
 import {
-    WebHooksQueryParams,
-    WebHooksResponse,
-    WebHookPayload,
-    UpdateWebHookPayload,
+    WebhooksQueryParams,
+    WebhooksResponse,
+    CreateWebhookRequest,
+    UpdateWebhookRequest,
     WebHooksUpdateQueryParams,
-    Webhook,
-    WebHookSecretResponse,
-} from "./types.ts";
-import { Base } from "../base.ts";
+    WebhookResponse,
+    WebhookSecretResponse,
+    CreateClassicWebhookRequest,
+} from "src/resources/webhook/types";
+import { Base } from "src/resources/base";
 
 export class WebHook extends Base {
-    search(queryParams?: WebHooksQueryParams): Promise<WebHooksResponse> {
+    search(queryParams?: WebhooksQueryParams): Promise<WebhooksResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
               ).toString()}`
             : "";
-        return this.request(`webhooks${queryString}`, { method: "GET" });
+        return this.request(`/v2/webhooks${queryString}`, { method: "GET" });
     }
 
-    create(payLoad: WebHookPayload): Promise<WebHooksResponse> {
-        return this.request(`webhook`, { data: payLoad, method: "POST" });
+    searchClassic(
+        queryParams?: WebhooksQueryParams,
+    ): Promise<WebhooksResponse> {
+        const queryString = queryParams
+            ? `?${new URLSearchParams(
+                  queryParams as Record<string, string>,
+              ).toString()}`
+            : "";
+        return this.request(`/v2/webhooks/classic${queryString}`, {
+            method: "GET",
+        });
+    }
+
+    create(payLoad: CreateWebhookRequest): Promise<WebhooksResponse> {
+        return this.request(`/v2/webhook`, { data: payLoad, method: "POST" });
+    }
+
+    createClassic(
+        payLoad: CreateClassicWebhookRequest,
+    ): Promise<WebhooksResponse> {
+        return this.request(`/v2/webhooks/classic`, {
+            data: payLoad,
+            method: "POST",
+        });
     }
 
     update(
-        payLoad: UpdateWebHookPayload,
+        payLoad: UpdateWebhookRequest,
         queryParams?: WebHooksUpdateQueryParams,
-    ): Promise<Webhook> {
+    ): Promise<WebhookResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
               ).toString()}`
             : "";
-        return this.request(`webhooks${queryString}`, {
+        return this.request(`/v2/webhooks${queryString}`, {
             data: payLoad,
             method: "PATCH",
         });
     }
 
-    delete(webhookId: string): Promise<WebHooksResponse> {
-        return this.request(`webhook/${webhookId}`, { method: "DELETE" });
+    delete(webhookId: string): Promise<WebhooksResponse> {
+        return this.request(`/v2/webhook/${webhookId}`, { method: "DELETE" });
     }
 
-    generateSecret(): Promise<WebHookSecretResponse> {
-        return this.request(`webhook/secret`, { method: "PUT" });
+    generateSecret(): Promise<WebhookSecretResponse> {
+        return this.request(`/v2/webhook/secret`, { method: "PUT" });
     }
 
-    getSecret(): Promise<WebHookSecretResponse> {
-        return this.request(`webhook/secret`, { method: "GET" });
+    getSecret(): Promise<WebhookSecretResponse> {
+        return this.request(`/v2/webhook/secret`, { method: "GET" });
     }
 }

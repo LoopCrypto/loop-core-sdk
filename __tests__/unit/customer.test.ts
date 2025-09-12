@@ -1,9 +1,9 @@
-import { Customer } from "../src/resources/customer"; // Adjust path as needed
+import { Customer } from "src/resources/customer"; // Adjust path as needed
 import {
+    CreateCustomerRequest,
     CustomerQueryParams,
-    CustomerRequestBody,
-    CustomerType,
-} from "../src/resources/customer/types";
+    MerchantCustomerResponse,
+} from "src/resources/customer/types";
 
 describe("Customer API", () => {
     let customerApi: Customer;
@@ -46,14 +46,14 @@ describe("Customer API", () => {
 
         const result = await customerApi.search(queryParams);
         expect(requestMock).toHaveBeenCalledWith(
-            "customers?page=1&limit=10&sortBy=customerId&sortDir=asc",
+            "/v2/customers?page=1&limit=10&sortBy=customerId&sortDir=asc",
             { method: "GET" },
         );
         expect(result).toEqual(mockResponse);
     });
 
     test("should create a new customer", async () => {
-        const requestBody: CustomerRequestBody = {
+        const requestBody: CreateCustomerRequest = {
             merchantId: "merch-456",
             customerRefId: "ref-001",
             subscriptionRefId: "sub-789",
@@ -66,15 +66,9 @@ describe("Customer API", () => {
             },
         };
 
-        const mockResponse: CustomerType = {
+        const mockResponse: MerchantCustomerResponse = {
             customerId: "cust-001",
             customerRefId: "ref-001",
-            subscriptionRefId: "sub-789",
-            merchant: {
-                merchantId: "merch-456",
-                merchantName: "Test Merchant",
-                merchantRefId: "merch-ref-789",
-            },
             paymentMethods: [],
             dateCreated: 1700000000,
         };
@@ -82,7 +76,7 @@ describe("Customer API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await customerApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("customer", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/customer", {
             data: requestBody,
             method: "POST",
         });
@@ -92,15 +86,9 @@ describe("Customer API", () => {
     test("should retrieve a specific customer", async () => {
         const customerId = "cust-123";
 
-        const mockResponse: CustomerType = {
+        const mockResponse: MerchantCustomerResponse = {
             customerId: "cust-123",
             customerRefId: "ref-001",
-            subscriptionRefId: null,
-            merchant: {
-                merchantId: "merch-456",
-                merchantName: "Test Merchant",
-                merchantRefId: "merch-ref-789",
-            },
             paymentMethods: [],
             dateCreated: 1700000000,
         };
@@ -108,7 +96,7 @@ describe("Customer API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await customerApi.retrieve(customerId);
-        expect(requestMock).toHaveBeenCalledWith(`customer/${customerId}`, {
+        expect(requestMock).toHaveBeenCalledWith(`/v2/customer/${customerId}`, {
             method: "GET",
         });
         expect(result).toEqual(mockResponse);

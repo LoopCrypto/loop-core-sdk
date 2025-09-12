@@ -1,40 +1,41 @@
-import { Base } from "../base.ts";
+import { Base } from "src/resources/base";
 import {
     ApiKeyQueryParams,
+    ApiKeysResponse,
+    CreateApiKeyRequest,
+    UpdateApiKeyRequest,
     ApiKeyResponse,
-    ApiKeyRequestBody,
-    ApiKeyUpdateRequestBody,
-    ApiKeyType,
-} from "./types.ts";
+} from "src/resources/apiKey/types";
+import { EmptyResponse } from "src/resources/common-types";
 
 export class ApiKey extends Base {
-    search(queryParams?: ApiKeyQueryParams): Promise<ApiKeyResponse> {
+    search(queryParams?: ApiKeyQueryParams): Promise<ApiKeysResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
-        return this.request(`api-keys${queryString}`, { method: "GET" });
+        return this.request(`/v2/api-keys${queryString}`, { method: "GET" });
     }
 
-    create(payload: ApiKeyRequestBody): Promise<ApiKeyType> {
-        return this.request(`api-key`, {
+    create(payload: CreateApiKeyRequest): Promise<ApiKeyResponse> {
+        return this.request(`/v2/api-key`, {
             data: payload,
             method: "POST",
         });
     }
 
-    delete(apiKeyId: string): Promise<ApiKeyResponse> {
-        return this.request(`api-key/${apiKeyId}`, {
+    delete(apiKeyId: string): Promise<EmptyResponse> {
+        return this.request(`/v2/api-key/${apiKeyId}`, {
             method: "DELETE",
         });
     }
 
     update(
         apiKeyId: string,
-        payload: ApiKeyUpdateRequestBody,
-    ): Promise<ApiKeyType> {
-        return this.request(`api-key/${apiKeyId}`, {
+        payload: UpdateApiKeyRequest,
+    ): Promise<ApiKeyResponse> {
+        return this.request(`/v2/api-key/${apiKeyId}`, {
             data: payload,
             method: "PATCH",
         });
