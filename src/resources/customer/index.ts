@@ -1,30 +1,33 @@
-import { Base } from "../base.ts";
+import { Base } from "src/resources/base";
 import {
     CustomerQueryParams,
+    MerchantCustomerResponse,
+    CreateCustomerRequest,
+    CustomersResponse,
     CustomerResponse,
-    CustomerType,
-    CustomerRequestBody,
-} from "./types.ts";
+} from "src/resources/customer/types";
 
 export class Customer extends Base {
-    search(queryParams?: CustomerQueryParams): Promise<CustomerResponse> {
+    search(
+        queryParams?: CustomerQueryParams,
+    ): Promise<CustomersResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                  queryParams as Record<string, string>,
-              ).toString()}`
+                queryParams as Record<string, string>,
+            ).toString()}`
             : "";
-        return this.request(`customers${queryString}`, { method: "GET" });
+        return this.request(`/v2/customers${queryString}`, { method: "GET" });
     }
 
-    create(payload: CustomerRequestBody): Promise<CustomerType> {
-        return this.request(`customer`, {
+    create(payload: CreateCustomerRequest): Promise<MerchantCustomerResponse> {
+        return this.request(`/v2/customer`, {
             data: payload,
             method: "POST",
         });
     }
 
-    retrieve(customerId: string): Promise<CustomerType> {
-        return this.request(`customer/${customerId}`, {
+    retrieve(customerId: string): Promise<CustomerResponse> {
+        return this.request(`/v2/customer/${customerId}`, {
             method: "GET",
         });
     }

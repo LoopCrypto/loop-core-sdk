@@ -1,13 +1,13 @@
-import { ApiKey } from "../src/resources/apikey";
+import { ApiKey } from "src/resources/apiKey";
 import {
     ApiKeyQueryParams,
-    ApiKeyRequestBody,
     ApiKeyResponse,
-    ApiKeyType,
-    ApiKeyUpdateRequestBody,
-} from "../src/resources/apikey/types";
+    ApiKeysResponse,
+    CreateApiKeyRequest,
+    UpdateApiKeyRequest,
+} from "src/resources/apiKey/types";
 
-jest.mock("../src/resources/base");
+jest.mock("src/resources/base");
 
 describe("ApiKey", () => {
     let apiKeyInstance: ApiKey;
@@ -25,7 +25,7 @@ describe("ApiKey", () => {
     });
 
     test("should fetch API keys with query params", async () => {
-        const mockResponse: ApiKeyResponse = {
+        const mockResponse: ApiKeysResponse = {
             totalResults: 2,
             apiKeys: [
                 {
@@ -33,14 +33,12 @@ describe("ApiKey", () => {
                     name: "Admin Key",
                     id: "apikey-123456",
                     permissions: ["read", "write", "delete"],
-                    apiKey: "sk_test_abcdef123456",
                 },
                 {
                     dateCreated: 1708458500,
                     name: "Read-Only Key",
                     id: "apikey-654321",
                     permissions: ["read"],
-                    apiKey: "sk_test_ghijkl789012",
                 },
             ],
         };
@@ -57,7 +55,7 @@ describe("ApiKey", () => {
         const response = await apiKeyInstance.search(queryParams);
 
         expect(mockRequest).toHaveBeenCalledWith(
-            "api-keys?apiKeyId=apikey-123456&apiKeyName=Admin+Key&page=1&limit=10&sortBy=dateCreated&sortDir=desc",
+            "/v2/api-keys?apiKeyId=apikey-123456&apiKeyName=Admin+Key&page=1&limit=10&sortBy=dateCreated&sortDir=desc",
             {
                 method: "GET",
             },
@@ -66,7 +64,7 @@ describe("ApiKey", () => {
     });
 
     test("should create an API key", async () => {
-        const payload: ApiKeyRequestBody = {
+        const payload: CreateApiKeyRequest = {
             name: "Admin API Key",
             grantPermissions: [
                 "CreateEntities",
@@ -79,7 +77,7 @@ describe("ApiKey", () => {
                 "GetWebhooks",
             ],
         };
-        const mockResponse: ApiKeyType = {
+        const mockResponse: ApiKeyResponse = {
             dateCreated: 1708454400,
             name: "Admin Key",
             id: "apikey-123456",
@@ -91,7 +89,7 @@ describe("ApiKey", () => {
 
         const response = await apiKeyInstance.create(payload);
 
-        expect(mockRequest).toHaveBeenCalledWith("api-key", {
+        expect(mockRequest).toHaveBeenCalledWith("/v2/api-key", {
             data: payload,
             method: "POST",
         });
@@ -99,31 +97,13 @@ describe("ApiKey", () => {
     });
 
     test("should delete an API key", async () => {
-        const mockResponse: ApiKeyResponse = {
-            totalResults: 2,
-            apiKeys: [
-                {
-                    dateCreated: 1708454400,
-                    name: "Admin Key",
-                    id: "apikey-123456",
-                    permissions: ["read", "write", "delete"],
-                    apiKey: "sk_test_abcdef123456",
-                },
-                {
-                    dateCreated: 1708458500,
-                    name: "Read-Only Key",
-                    id: "apikey-654321",
-                    permissions: ["read"],
-                    apiKey: "sk_test_ghijkl789012",
-                },
-            ],
-        };
+        const mockResponse = {};
         mockRequest.mockResolvedValue(mockResponse);
 
         const apiKeyId = "123";
         const response = await apiKeyInstance.delete(apiKeyId);
 
-        expect(mockRequest).toHaveBeenCalledWith(`api-key/${apiKeyId}`, {
+        expect(mockRequest).toHaveBeenCalledWith(`/v2/api-key/${apiKeyId}`, {
             method: "DELETE",
         });
         expect(response).toEqual(mockResponse);
@@ -131,20 +111,19 @@ describe("ApiKey", () => {
 
     test("should update an API key", async () => {
         const apiKeyId = "123";
-        const payload: ApiKeyUpdateRequestBody = { name: "Updated Key" };
-        const mockResponse: ApiKeyType = {
+        const payload: UpdateApiKeyRequest = { name: "Updated Key" };
+        const mockResponse: ApiKeyResponse = {
             dateCreated: 1708454400,
             name: "Admin Key",
             id: "apikey-123456",
             permissions: ["read", "write", "delete"],
-            apiKey: "sk_test_abcdef123456",
         };
 
         mockRequest.mockResolvedValue(mockResponse);
 
         const response = await apiKeyInstance.update(apiKeyId, payload);
 
-        expect(mockRequest).toHaveBeenCalledWith(`api-key/${apiKeyId}`, {
+        expect(mockRequest).toHaveBeenCalledWith(`/v2/api-key/${apiKeyId}`, {
             data: payload,
             method: "PATCH",
         });

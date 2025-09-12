@@ -1,24 +1,24 @@
-import { Base } from "../base.ts";
+import { Base } from "src/resources/base";
 import {
     EntityResponse,
-    EntityCreationRequest,
-    EntityUpdateRequest,
-} from "./types.ts";
+    CreateEntityRequest,
+    UpdateEntityRequest,
+} from "src/resources/entity/types";
 
 export class Entity extends Base {
     retrieve(): Promise<EntityResponse> {
-        return this.request(`entity`, { method: "GET" });
+        return this.request(`/v2/entity`, { method: "GET" });
     }
 
-    create(payload: EntityCreationRequest): Promise<EntityResponse> {
-        return this.request(`entity`, {
+    create(payload: CreateEntityRequest): Promise<EntityResponse> {
+        return this.request(`/v2/entity`, {
             data: payload,
             method: "POST",
         });
     }
 
-    update(updateData: EntityUpdateRequest): Promise<EntityResponse> {
-        return this.request(`entity`, {
+    update(updateData: UpdateEntityRequest): Promise<EntityResponse> {
+        return this.request(`/v2/entity`, {
             method: "PATCH",
             data: updateData,
         });

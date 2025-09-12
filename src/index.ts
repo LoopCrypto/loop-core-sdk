@@ -3,22 +3,22 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-import { WebHook } from "./resources/webhook/index.ts";
-import { SDKOptions } from "./resources/webhook/types.ts";
-import { Token } from "./resources/token/index.ts";
-import { Payout } from "./resources/payout/index.ts";
-import { PaymentType } from "./resources/paymenttype/index.ts";
-import { PaymentMethod } from "./resources/paymentmethod/index.ts";
-import { Payin } from "./resources/payin/index.ts";
-import { Merchant } from "./resources/merchant/index.ts";
-import { Entity } from "./resources/entity/index.ts";
-import { Customer } from "./resources/customer/index.ts";
-import { ApiKey } from "./resources/apikey/index.ts";
+import { WebHook } from "src/resources/webhook/index";
+import { Token } from "src/resources/token/index";
+import { PayoutDestinations } from "src/resources/payoutDestination/index";
+import { PaymentType } from "src/resources/paymentType/index";
+import { PaymentMethod } from "src/resources/paymentMethod/index";
+import { Payin } from "src/resources/payin/index";
+import { Merchant } from "src/resources/merchant/index";
+import { Entity } from "src/resources/entity/index";
+import { Customer } from "src/resources/customer/index";
+import { ApiKey } from "src/resources/apiKey/index";
+import { SDKOptions } from "src/resources/common-types";
 
 export class LoopCrypto {
     webhooks: WebHook;
     tokens: Token;
-    payouts: Payout;
+    payoutDestinations: PayoutDestinations;
     paymentTypes: PaymentType;
     paymentMethods: PaymentMethod;
     payins: Payin;
@@ -30,7 +30,7 @@ export class LoopCrypto {
     constructor(config: SDKOptions) {
         this.webhooks = new WebHook(config);
         this.tokens = new Token(config);
-        this.payouts = new Payout(config);
+        this.payoutDestinations = new PayoutDestinations(config);
         this.paymentTypes = new PaymentType(config);
         this.paymentMethods = new PaymentMethod(config);
         this.payins = new Payin(config);
@@ -44,76 +44,81 @@ export class LoopCrypto {
 export default LoopCrypto;
 
 export type {
-    SDKOptions,
-    WebHooksResponse,
-    Webhook,
+    WebhooksResponse,
+    WebhookResponse,
     WebhookEvent,
     WebhookSortBy,
-    WebhookSortDir,
-    WebHooksQueryParams,
-    WebHookPayload,
-    UpdateWebHookPayload,
+    WebhooksQueryParams,
+    CreateWebhookRequest,
+    UpdateWebhookRequest,
     WebHooksUpdateQueryParams,
-    WebHookSecretResponse,
-} from "./resources/webhook/types.ts";
+    WebhookSecretResponse,
+} from "src/resources/webhook/types.ts";
 
 export type {
     TokenQueryParams,
+    TokensResponse,
     TokenResponse,
-} from "./resources/token/types.ts";
+} from "src/resources/token/types.ts";
 
 export type {
     PayoutDestinationResponse,
-    PayoutPayload,
-    PayoutQueryParams,
-    PayoutDestinationListResponse,
-} from "./resources/payout/types.ts";
+    CreatePayoutDestinationRequest,
+    PayoutDestinationQueryParams,
+    PayoutDestinationsResponse,
+} from "src/resources/payoutDestination/types";
 
 export type {
     PaymentTypeQueryParams,
-    PaymentTypeRequest,
-    PaymentTypResponse,
-} from "./resources/paymenttype/types.ts";
+    CreatePaymentTypeRequest,
+    PaymentTypesResponse,
+    PaymentTypeResponse,
+    DefaultPaymentTypeRequest,
+} from "src/resources/paymentType/types";
 
 export type {
     PaymentMethodQueryParams,
+    PaymentMethodsResponse,
     PaymentMethodResponse,
     CreatePaymentMethodRequest,
-    PaymentMethodType,
-} from "./resources/paymentmethod/types.ts";
+    UpdatePaymentMethodRequest,
+} from "src/resources/paymentMethod/types";
 
 export type {
     PayinQueryParams,
+    PayinsResponse,
     PayinResponse,
-    PayinType,
-    PayinBodyParams,
-} from "./resources/payin/types.ts";
+    CreatePayinRequest,
+    UpdatePayinRequest,
+} from "src/resources/payin/types.ts";
 
 export type {
-    MerchantRequest,
+    CreateMerchantRequest,
     MerchantResponse,
     MerchantQueryParams,
-    MerchantResponseList,
+    MerchantsResponse,
     UpdateMerchantRequest,
-} from "./resources/merchant/types.ts";
+} from "src/resources/merchant/types.ts";
 
 export type {
     EntityResponse,
-    EntityCreationRequest,
-    EntityUpdateRequest,
-} from "./resources/entity/types.ts";
+    CreateEntityRequest,
+    UpdateEntityRequest,
+} from "src/resources/entity/types.ts";
 
 export type {
     CustomerQueryParams,
-    CustomerResponse,
-    CustomerType,
-    CustomerRequestBody,
-} from "./resources/customer/types.ts";
+    MerchantCustomersResponse,
+    MerchantCustomerResponse,
+    CreateCustomerRequest,
+} from "src/resources/customer/types.ts";
 
 export type {
     ApiKeyQueryParams,
-    ApiKeyResponse,
-    ApiKeyRequestBody,
-    ApiKeyUpdateRequestBody,
+    ApiKeysResponse,
+    CreateApiKeyRequest,
+    UpdateApiKeyRequest,
     ApiKeyType,
-} from "./resources/apikey/types.ts";
+} from "src/resources/apiKey/types";
+
+export type { SDKOptions } from "src/resources/common-types";

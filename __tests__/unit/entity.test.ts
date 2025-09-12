@@ -1,9 +1,9 @@
-import { Entity } from "../src/resources/entity"; // Adjust path as needed
+import { Entity } from "src/resources/entity"; // Adjust path as needed
 import {
+    CreateEntityRequest,
     EntityResponse,
-    EntityCreationRequest,
-    EntityUpdateRequest,
-} from "../src/resources/entity/types";
+    UpdateEntityRequest,
+} from "src/resources/entity/types";
 
 describe("Entity API", () => {
     let entityApi: Entity;
@@ -32,6 +32,7 @@ describe("Entity API", () => {
                     walletAddress: "0xabcdef1234567890",
                     isDefault: true,
                     payoutDestinationId: "payout-001",
+                    settlementType: "Fiat",
                 },
             ],
             paymentTypes: [
@@ -43,18 +44,21 @@ describe("Entity API", () => {
                     decimals: 6,
                 },
             ],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await entityApi.retrieve();
-        expect(requestMock).toHaveBeenCalledWith("entity", { method: "GET" });
+        expect(requestMock).toHaveBeenCalledWith("/v2/entity", {
+            method: "GET",
+        });
         expect(result).toEqual(mockResponse);
     });
 
     test("should create a new entity", async () => {
-        const requestBody: EntityCreationRequest = {
-            code: "auth-code-123",
+        const requestBody: CreateEntityRequest = {
+            code: 123,
             entityName: "New Entity",
             email: "new@example.com",
             logoUrl: "https://example.com/logo.png",
@@ -74,12 +78,13 @@ describe("Entity API", () => {
             contracts: [],
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await entityApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("entity", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/entity", {
             data: requestBody,
             method: "POST",
         });
@@ -87,7 +92,7 @@ describe("Entity API", () => {
     });
 
     test("should update an existing entity", async () => {
-        const updateData: EntityUpdateRequest = {
+        const updateData: UpdateEntityRequest = {
             entityName: "Updated Entity",
             email: "updated@example.com",
             logoUrl: "https://example.com/new-logo.png",
@@ -100,12 +105,13 @@ describe("Entity API", () => {
             contracts: [],
             payoutDestinations: [],
             paymentTypes: [],
+            fiatSettlementAccount: null,
         };
 
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await entityApi.update(updateData);
-        expect(requestMock).toHaveBeenCalledWith("entity", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/entity", {
             data: updateData,
             method: "PATCH",
         });
