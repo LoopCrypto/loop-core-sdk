@@ -84,7 +84,7 @@ export interface CreateClassicWebhookRequest extends BaseCreateWebhookRequest {
  * Webhook Response
  */
 
-export interface Webhook {
+export interface WebhookResponse {
     webhookId: string;
     networkId: number;
     event: string;
@@ -92,11 +92,11 @@ export interface Webhook {
     dateCreated: number; // Unix timestamp in seconds
 }
 
-export interface WebHooksResponse {
+export interface WebhooksResponse {
     totalResults: number;
-    webhooks: Webhook[];
+    webhooks: WebhookResponse[];
 }
 
-export interface WebHookSecretResponse {
+export interface WebhookSecretResponse {
     secret: string;
 }

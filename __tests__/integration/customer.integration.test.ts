@@ -16,7 +16,10 @@ describe("Customer API", () => {
     const merchantEntityId = process.env.MERCHANT_ENTITY_ID || "";
 
     beforeAll(async () => {
-        customerApi = new Customer({ entityId: parentEntityId, apiKey: parentApiKey });
+        customerApi = new Customer({
+            entityId: parentEntityId,
+            apiKey: parentApiKey,
+        });
 
         // Create test customer data with random suffix to avoid conflicts
         const randomSuffix = Math.floor(Math.random() * 10000);
@@ -46,9 +49,9 @@ describe("Customer API", () => {
 
         const response = await customerApi.search(queryParams);
 
-        expect(response).toHaveProperty('totalResults');
-        expect(typeof response.totalResults).toBe('number');
-        expect(response).toHaveProperty('customers');
+        expect(response).toHaveProperty("totalResults");
+        expect(typeof response.totalResults).toBe("number");
+        expect(response).toHaveProperty("customers");
         expect(Array.isArray(response.customers)).toBe(true);
         expect(response.totalResults).toBeGreaterThanOrEqual(0);
         expect(Array.isArray(response.customers)).toBe(true);
@@ -57,9 +60,9 @@ describe("Customer API", () => {
     test("should fetch customers without query params", async () => {
         const response = await customerApi.search();
 
-        expect(response).toHaveProperty('totalResults');
-        expect(typeof response.totalResults).toBe('number');
-        expect(response).toHaveProperty('customers');
+        expect(response).toHaveProperty("totalResults");
+        expect(typeof response.totalResults).toBe("number");
+        expect(response).toHaveProperty("customers");
         expect(Array.isArray(response.customers)).toBe(true);
         expect(response.totalResults).toBeGreaterThanOrEqual(0);
         expect(Array.isArray(response.customers)).toBe(true);
@@ -91,7 +94,9 @@ describe("Customer API", () => {
 
         // Verify sorting if we have multiple customers
         if (response.customers.length > 1) {
-            const dates = response.customers.map(customer => customer.dateCreated);
+            const dates = response.customers.map(
+                (customer) => customer.dateCreated,
+            );
             const sortedDates = [...dates].sort((a, b) => b - a); // desc order
             expect(dates).toEqual(sortedDates);
         }
@@ -116,7 +121,9 @@ describe("Customer API", () => {
 
         expect(response).toEqual(expectedResponse);
         expect(response.customerId).toBeTruthy();
-        expect(response.customerRefId).toBe(`integration-test-customer-${randomSuffix}`);
+        expect(response.customerRefId).toBe(
+            `integration-test-customer-${randomSuffix}`,
+        );
     });
 
     test.skip("should create a customer with payment method", async () => {
@@ -145,7 +152,9 @@ describe("Customer API", () => {
         const response = await customerApi.create(createPayload);
 
         expect(response).toEqual(expectedResponse);
-        expect(response.customerRefId).toBe(`integration-test-customer-pm-${randomSuffix}`);
+        expect(response.customerRefId).toBe(
+            `integration-test-customer-pm-${randomSuffix}`,
+        );
     });
 
     test("should retrieve a specific customer", async () => {
@@ -166,7 +175,7 @@ describe("Customer API", () => {
                 {
                     merchantId: merchantEntityId,
                     customerRefId: `retrieve-test-customer-${randomSuffix}`,
-                }
+                },
             ],
             paymentMethods: expect.any(Array),
             dateCreated: expect.any(Number),
@@ -177,7 +186,9 @@ describe("Customer API", () => {
         expect(response).toEqual(expectedResponse);
         expect(response.customerId).toBe(customerId);
         expect(response.customerRefIds).toHaveLength(1);
-        expect(response.customerRefIds[0].customerRefId).toBe(`retrieve-test-customer-${randomSuffix}`);
+        expect(response.customerRefIds[0].customerRefId).toBe(
+            `retrieve-test-customer-${randomSuffix}`,
+        );
     });
 
     test("should retrieve customer with existing customer ID", async () => {

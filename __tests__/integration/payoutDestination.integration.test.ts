@@ -59,7 +59,10 @@ describe("PayoutDestination", () => {
             try {
                 await payoutDestinationInstance.delete(payoutDestinationId);
             } catch (error) {
-                console.log(`Failed to delete payout destination ${payoutDestinationId}:`, error);
+                console.log(
+                    `Failed to delete payout destination ${payoutDestinationId}:`,
+                    error,
+                );
             }
         }
 
@@ -67,7 +70,9 @@ describe("PayoutDestination", () => {
         for (const merchantId of createdMerchantIds) {
             try {
                 // Note: Merchant deletion might not be implemented in the API
-                console.log(`Merchant ${merchantId} cleanup skipped - delete method may not be implemented`);
+                console.log(
+                    `Merchant ${merchantId} cleanup skipped - delete method may not be implemented`,
+                );
             } catch (error) {
                 console.log(`Failed to delete merchant ${merchantId}:`, error);
             }
@@ -115,20 +120,23 @@ describe("PayoutDestination", () => {
             },
         };
 
-
-
         try {
-            const response = await payoutDestinationInstance.create(createPayload);
+            const response =
+                await payoutDestinationInstance.create(createPayload);
             // Just verify the basic structure since the exact values may vary
-            expect(response).toHaveProperty('payoutDestinationId');
-            expect(response).toHaveProperty('merchantId', testMerchantId);
-            expect(response).toHaveProperty('networkId', 137);
-            expect(response).toHaveProperty('settlementType', 'Fiat');
-            expect(response).toHaveProperty('fiatSettlementAccount');
+            expect(response).toHaveProperty("payoutDestinationId");
+            expect(response).toHaveProperty("merchantId", testMerchantId);
+            expect(response).toHaveProperty("networkId", 137);
+            expect(response).toHaveProperty("settlementType", "Fiat");
+            expect(response).toHaveProperty("fiatSettlementAccount");
             createdPayoutDestinationIds.push(response.payoutDestinationId);
         } catch (error) {
-            if (error === "Unable to complete request: Account already exists") {
-                console.log("Skipping fiat payout destination test - account already exists");
+            if (
+                error === "Unable to complete request: Account already exists"
+            ) {
+                console.log(
+                    "Skipping fiat payout destination test - account already exists",
+                );
                 expect(true).toBe(true); // Pass the test
             } else {
                 throw error;
@@ -154,7 +162,9 @@ describe("PayoutDestination", () => {
             ]),
         };
 
-        const response = await payoutDestinationInstance.search({ merchantId: testMerchantId }) as unknown as PayoutDestinationsApiResponse;
+        const response = (await payoutDestinationInstance.search({
+            merchantId: testMerchantId,
+        })) as unknown as PayoutDestinationsApiResponse;
 
         expect(response).toEqual(expectedResponse);
         expect(response.totalResults).toBeGreaterThan(0);
@@ -162,12 +172,15 @@ describe("PayoutDestination", () => {
 
     test("should retrieve a payout destination by ID", async () => {
         // First, let's get a payout destination ID by searching for it
-        const searchResponse = await payoutDestinationInstance.search({ merchantId: testMerchantId }) as unknown as PayoutDestinationsApiResponse;
+        const searchResponse = (await payoutDestinationInstance.search({
+            merchantId: testMerchantId,
+        })) as unknown as PayoutDestinationsApiResponse;
 
         expect(searchResponse.totalResults).toBeGreaterThan(0);
         expect(searchResponse.payoutDestinations.length).toBeGreaterThan(0);
 
-        const payoutDestinationId = searchResponse.payoutDestinations[0].payoutDestinationId;
+        const payoutDestinationId =
+            searchResponse.payoutDestinations[0].payoutDestinationId;
 
         const expectedResponse: PayoutDestinationResponse = {
             payoutDestinationId: payoutDestinationId,
@@ -181,19 +194,23 @@ describe("PayoutDestination", () => {
             isArchived: expect.any(Boolean),
         };
 
-        const response = await payoutDestinationInstance.retrieve(payoutDestinationId);
+        const response =
+            await payoutDestinationInstance.retrieve(payoutDestinationId);
 
         expect(response).toEqual(expectedResponse);
     });
 
     test("should update a payout destination to be default", async () => {
         // First, let's get a payout destination ID by searching for it
-        const searchResponse = await payoutDestinationInstance.search({ merchantId: testMerchantId }) as unknown as PayoutDestinationsApiResponse;
+        const searchResponse = (await payoutDestinationInstance.search({
+            merchantId: testMerchantId,
+        })) as unknown as PayoutDestinationsApiResponse;
 
         expect(searchResponse.totalResults).toBeGreaterThan(0);
         expect(searchResponse.payoutDestinations.length).toBeGreaterThan(0);
 
-        const payoutDestinationId = searchResponse.payoutDestinations[0].payoutDestinationId;
+        const payoutDestinationId =
+            searchResponse.payoutDestinations[0].payoutDestinationId;
 
         // Update the payout destination to be default
         const updatePayload: UpdatePayoutDestinationRequest = {
@@ -201,12 +218,20 @@ describe("PayoutDestination", () => {
         };
 
         try {
-            const response = await payoutDestinationInstance.update(payoutDestinationId, updatePayload);
-            expect(response).toHaveProperty('payoutDestinationId', payoutDestinationId);
-            expect(response).toHaveProperty('isDefault', true);
+            const response = await payoutDestinationInstance.update(
+                payoutDestinationId,
+                updatePayload,
+            );
+            expect(response).toHaveProperty(
+                "payoutDestinationId",
+                payoutDestinationId,
+            );
+            expect(response).toHaveProperty("isDefault", true);
         } catch (error) {
             if (error === "Not Found") {
-                console.log("Skipping update test - payout destination not found");
+                console.log(
+                    "Skipping update test - payout destination not found",
+                );
                 expect(true).toBe(true); // Pass the test
             } else {
                 throw error;
@@ -225,23 +250,30 @@ describe("PayoutDestination", () => {
         };
 
         try {
-            const createResponse = await payoutDestinationInstance.create(createPayload);
+            const createResponse =
+                await payoutDestinationInstance.create(createPayload);
             const payoutDestinationId = createResponse.payoutDestinationId;
 
             // Delete the payout destination
-            const deleteResponse = await payoutDestinationInstance.delete(payoutDestinationId);
+            const deleteResponse =
+                await payoutDestinationInstance.delete(payoutDestinationId);
 
             expect(deleteResponse).toEqual({
                 totalResults: expect.any(Number),
                 payoutDestinations: expect.any(Array),
             });
         } catch (error) {
-            if (error === "Cannot delete the default payout destination. Please set another payout destination as default before deleting this one.") {
-                console.log("Skipping delete test - cannot delete default payout destination");
+            if (
+                error ===
+                "Cannot delete the default payout destination. Please set another payout destination as default before deleting this one."
+            ) {
+                console.log(
+                    "Skipping delete test - cannot delete default payout destination",
+                );
                 expect(true).toBe(true); // Pass the test
             } else {
                 throw error;
             }
         }
     });
-}); 
+});

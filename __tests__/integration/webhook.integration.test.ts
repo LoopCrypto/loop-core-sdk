@@ -1,11 +1,11 @@
 import { WebHook } from "src/resources/webhook";
 import {
+    CreateClassicWebhookRequest,
     CreateWebhookRequest,
     UpdateWebhookRequest,
-    Webhook,
-    WebHookSecretResponse,
-    WebhooksQueryParams,
-    WebHooksResponse,
+    WebhookResponse,
+    WebhookSecretResponse,
+    WebhooksResponse,
 } from "src/resources/webhook/types";
 
 describe("WebHook", () => {
@@ -45,7 +45,7 @@ describe("WebHook", () => {
             events: ["payment.processed"],
         };
 
-        const expectedResponse: WebHooksResponse = {
+        const expectedResponse: WebhooksResponse = {
             totalResults: expect.any(Number),
             webhooks: expect.arrayContaining([
                 expect.objectContaining({
@@ -69,7 +69,7 @@ describe("WebHook", () => {
     });
 
     test("should fetch webhooks with query params", async () => {
-        const expectedResponse: WebHooksResponse = {
+        const expectedResponse: WebhooksResponse = {
             totalResults: expect.any(Number),
             webhooks: expect.arrayContaining([
                 expect.objectContaining({
@@ -97,7 +97,7 @@ describe("WebHook", () => {
             events: ["payin.created"],
         };
 
-        const expectedResponse: WebHooksResponse = {
+        const expectedResponse: WebhooksResponse = {
             totalResults: expect.any(Number),
             webhooks: expect.arrayContaining([
                 expect.objectContaining({
@@ -144,7 +144,7 @@ describe("WebHook", () => {
             events: "payin.created",
         };
 
-        const expectedResponse: Webhook = {
+        const expectedResponse: WebhookResponse = {
             webhookId: webhookId,
             networkId: 1,
             event: "payin.created",
@@ -161,7 +161,7 @@ describe("WebHook", () => {
     });
 
     test("should get webhook secret", async () => {
-        const expectedResponse: WebHookSecretResponse = {
+        const expectedResponse: WebhookSecretResponse = {
             secret: expect.any(String),
         };
 
@@ -172,7 +172,7 @@ describe("WebHook", () => {
     });
 
     test("should generate a new webhook secret", async () => {
-        const expectedResponse: WebHookSecretResponse = {
+        const expectedResponse: WebhookSecretResponse = {
             secret: expect.any(String),
         };
 
@@ -210,13 +210,13 @@ describe("WebHook", () => {
     });
 
     test("should handle classic webhook operations", async () => {
-        const createPayload = {
+        const createPayload: CreateClassicWebhookRequest = {
             postUrl: `${testWebhookUrl}-classic`,
             networkIds: [137],
             events: ["TransferProcessed"],
         };
 
-        const expectedResponse: WebHooksResponse = {
+        const expectedResponse: WebhooksResponse = {
             totalResults: expect.any(Number),
             webhooks: expect.arrayContaining([
                 expect.objectContaining({
@@ -240,7 +240,7 @@ describe("WebHook", () => {
 
         // Test classic webhook search
         const searchResponse = await webhookInstance.searchClassic({
-            event: "TransferProcessed",
+            event: "payment.processed",
             networkId: 137,
         });
 

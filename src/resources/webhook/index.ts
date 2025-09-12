@@ -1,17 +1,17 @@
 import {
     WebhooksQueryParams,
-    WebHooksResponse,
+    WebhooksResponse,
     CreateWebhookRequest,
     UpdateWebhookRequest,
     WebHooksUpdateQueryParams,
-    Webhook,
-    WebHookSecretResponse,
+    WebhookResponse,
+    WebhookSecretResponse,
     CreateClassicWebhookRequest,
 } from "src/resources/webhook/types";
 import { Base } from "src/resources/base";
 
 export class WebHook extends Base {
-    search(queryParams?: WebhooksQueryParams): Promise<WebHooksResponse> {
+    search(queryParams?: WebhooksQueryParams): Promise<WebhooksResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
@@ -22,7 +22,7 @@ export class WebHook extends Base {
 
     searchClassic(
         queryParams?: WebhooksQueryParams,
-    ): Promise<WebHooksResponse> {
+    ): Promise<WebhooksResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
@@ -33,13 +33,13 @@ export class WebHook extends Base {
         });
     }
 
-    create(payLoad: CreateWebhookRequest): Promise<WebHooksResponse> {
+    create(payLoad: CreateWebhookRequest): Promise<WebhooksResponse> {
         return this.request(`/v2/webhook`, { data: payLoad, method: "POST" });
     }
 
     createClassic(
         payLoad: CreateClassicWebhookRequest,
-    ): Promise<WebHooksResponse> {
+    ): Promise<WebhooksResponse> {
         return this.request(`/v2/webhooks/classic`, {
             data: payLoad,
             method: "POST",
@@ -49,7 +49,7 @@ export class WebHook extends Base {
     update(
         payLoad: UpdateWebhookRequest,
         queryParams?: WebHooksUpdateQueryParams,
-    ): Promise<Webhook> {
+    ): Promise<WebhookResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
                   queryParams as Record<string, string>,
@@ -61,15 +61,15 @@ export class WebHook extends Base {
         });
     }
 
-    delete(webhookId: string): Promise<WebHooksResponse> {
+    delete(webhookId: string): Promise<WebhooksResponse> {
         return this.request(`/v2/webhook/${webhookId}`, { method: "DELETE" });
     }
 
-    generateSecret(): Promise<WebHookSecretResponse> {
+    generateSecret(): Promise<WebhookSecretResponse> {
         return this.request(`/v2/webhook/secret`, { method: "PUT" });
     }
 
-    getSecret(): Promise<WebHookSecretResponse> {
+    getSecret(): Promise<WebhookSecretResponse> {
         return this.request(`/v2/webhook/secret`, { method: "GET" });
     }
 }

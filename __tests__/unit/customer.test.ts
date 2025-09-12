@@ -46,7 +46,7 @@ describe("Customer API", () => {
 
         const result = await customerApi.search(queryParams);
         expect(requestMock).toHaveBeenCalledWith(
-            "customers?page=1&limit=10&sortBy=customerId&sortDir=asc",
+            "/v2/customers?page=1&limit=10&sortBy=customerId&sortDir=asc",
             { method: "GET" },
         );
         expect(result).toEqual(mockResponse);
@@ -68,12 +68,7 @@ describe("Customer API", () => {
 
         const mockResponse: MerchantCustomerResponse = {
             customerId: "cust-001",
-            customerRefIds: [
-                {
-                    merchantId: "merch-456",
-                    customerRefId: "ref-001",
-                },
-            ],
+            customerRefId: "ref-001",
             paymentMethods: [],
             dateCreated: 1700000000,
         };
@@ -81,7 +76,7 @@ describe("Customer API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await customerApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("customer", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/customer", {
             data: requestBody,
             method: "POST",
         });
@@ -93,12 +88,7 @@ describe("Customer API", () => {
 
         const mockResponse: MerchantCustomerResponse = {
             customerId: "cust-123",
-            customerRefIds: [
-                {
-                    merchantId: "merch-456",
-                    customerRefId: "ref-001",
-                },
-            ],
+            customerRefId: "ref-001",
             paymentMethods: [],
             dateCreated: 1700000000,
         };
@@ -106,7 +96,7 @@ describe("Customer API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await customerApi.retrieve(customerId);
-        expect(requestMock).toHaveBeenCalledWith(`customer/${customerId}`, {
+        expect(requestMock).toHaveBeenCalledWith(`/v2/customer/${customerId}`, {
             method: "GET",
         });
         expect(result).toEqual(mockResponse);

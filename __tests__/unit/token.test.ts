@@ -37,7 +37,9 @@ describe("Token API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await tokenApi.search();
-        expect(requestMock).toHaveBeenCalledWith("/v2/tokens", { method: "GET" });
+        expect(requestMock).toHaveBeenCalledWith("/v2/tokens", {
+            method: "GET",
+        });
         expect(result).toEqual(mockResponse);
     });
 
@@ -70,6 +72,4 @@ describe("Token API", () => {
         );
         expect(result).toEqual(mockResponse);
     });
-
-
 });

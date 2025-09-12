@@ -32,7 +32,7 @@ describe("Entity API", () => {
                     walletAddress: "0xabcdef1234567890",
                     isDefault: true,
                     payoutDestinationId: "payout-001",
-                    settlementType: "fiat",
+                    settlementType: "Fiat",
                 },
             ],
             paymentTypes: [
@@ -50,13 +50,15 @@ describe("Entity API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await entityApi.retrieve();
-        expect(requestMock).toHaveBeenCalledWith("entity", { method: "GET" });
+        expect(requestMock).toHaveBeenCalledWith("/v2/entity", {
+            method: "GET",
+        });
         expect(result).toEqual(mockResponse);
     });
 
     test("should create a new entity", async () => {
         const requestBody: CreateEntityRequest = {
-            code: "auth-code-123",
+            code: 123,
             entityName: "New Entity",
             email: "new@example.com",
             logoUrl: "https://example.com/logo.png",

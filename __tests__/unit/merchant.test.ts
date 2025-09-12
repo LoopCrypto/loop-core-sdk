@@ -37,9 +37,12 @@ describe("Merchant API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await merchantApi.search(queryParams);
-        expect(requestMock).toHaveBeenCalledWith("merchants?page=1&limit=10", {
-            method: "GET",
-        });
+        expect(requestMock).toHaveBeenCalledWith(
+            "/v2/merchants?page=1&limit=10",
+            {
+                method: "GET",
+            },
+        );
         expect(result).toEqual(mockResponse);
     });
 
@@ -68,7 +71,7 @@ describe("Merchant API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await merchantApi.create(requestBody);
-        expect(requestMock).toHaveBeenCalledWith("merchant", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/merchant", {
             data: requestBody,
             method: "POST",
         });
@@ -89,7 +92,7 @@ describe("Merchant API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await merchantApi.retrieve(merchantId);
-        expect(requestMock).toHaveBeenCalledWith(`merchant/${merchantId}`, {
+        expect(requestMock).toHaveBeenCalledWith(`/v2/merchant/${merchantId}`, {
             method: "GET",
         });
         expect(result).toEqual(mockResponse);
@@ -113,7 +116,7 @@ describe("Merchant API", () => {
         requestMock.mockResolvedValue(mockResponse);
 
         const result = await merchantApi.update(merchantId, updateData);
-        expect(requestMock).toHaveBeenCalledWith(`merchant/${merchantId}`, {
+        expect(requestMock).toHaveBeenCalledWith(`/v2/merchant/${merchantId}`, {
             data: updateData,
             method: "PATCH",
         });

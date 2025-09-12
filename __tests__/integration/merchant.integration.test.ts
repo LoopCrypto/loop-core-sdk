@@ -12,7 +12,7 @@ describe("Merchant API", () => {
 
     const parentApiKey = process.env.PARENT_API_KEY || "";
     const parentEntityId = process.env.PARENT_ENTITY_ID || "";
-    const namePrefix = "SDK"
+    const namePrefix = "SDK";
 
     beforeAll(async () => {
         merchantApi = new Merchant({
@@ -49,7 +49,9 @@ describe("Merchant API", () => {
                 });
                 createdMerchantIds.push(response.merchantId);
             } catch {
-                console.log(`Merchant ${testMerchant.merchantName} might already exist, continuing...`);
+                console.log(
+                    `Merchant ${testMerchant.merchantName} might already exist, continuing...`,
+                );
             }
         }
     });
@@ -61,7 +63,9 @@ describe("Merchant API", () => {
             try {
                 // If delete method exists, uncomment this
                 // await merchantApi.delete(merchantId);
-                console.log(`Merchant ${merchantId} cleanup skipped - delete method may not be implemented`);
+                console.log(
+                    `Merchant ${merchantId} cleanup skipped - delete method may not be implemented`,
+                );
             } catch (error) {
                 console.log(`Failed to delete merchant ${merchantId}:`, error);
             }
@@ -89,8 +93,12 @@ describe("Merchant API", () => {
 
         expect(response).toEqual(expectedResponse);
         expect(response.merchantId).toBeTruthy();
-        expect(response.merchantName).toBe(`${namePrefix} Integration Test Merchant ${randomSuffix}`);
-        expect(response.merchantRefId).toBe(`integration-test-ref-${randomSuffix}`);
+        expect(response.merchantName).toBe(
+            `${namePrefix} Integration Test Merchant ${randomSuffix}`,
+        );
+        expect(response.merchantRefId).toBe(
+            `integration-test-ref-${randomSuffix}`,
+        );
     });
 
     test("should create a merchant with minimal data", async () => {
@@ -112,7 +120,9 @@ describe("Merchant API", () => {
 
         expect(response).toEqual(expectedResponse);
         expect(response.merchantId).toBeTruthy();
-        expect(response.merchantName).toBe(`${namePrefix} Minimal Test Merchant ${randomSuffix}`);
+        expect(response.merchantName).toBe(
+            `${namePrefix} Minimal Test Merchant ${randomSuffix}`,
+        );
         expect(response.merchantRefId).toBeNull();
     });
 
@@ -127,9 +137,9 @@ describe("Merchant API", () => {
 
         const response = await merchantApi.search(queryParams);
 
-        expect(response).toHaveProperty('totalResults');
-        expect(typeof response.totalResults).toBe('number');
-        expect(response).toHaveProperty('merchants');
+        expect(response).toHaveProperty("totalResults");
+        expect(typeof response.totalResults).toBe("number");
+        expect(response).toHaveProperty("merchants");
         expect(Array.isArray(response.merchants)).toBe(true);
         expect(response.totalResults).toBeGreaterThanOrEqual(0);
     });
@@ -137,9 +147,9 @@ describe("Merchant API", () => {
     test("should fetch merchants without query params", async () => {
         const response = await merchantApi.search();
 
-        expect(response).toHaveProperty('totalResults');
-        expect(typeof response.totalResults).toBe('number');
-        expect(response).toHaveProperty('merchants');
+        expect(response).toHaveProperty("totalResults");
+        expect(typeof response.totalResults).toBe("number");
+        expect(response).toHaveProperty("merchants");
         expect(Array.isArray(response.merchants)).toBe(true);
         expect(response.totalResults).toBeGreaterThanOrEqual(0);
     });
@@ -172,8 +182,8 @@ describe("Merchant API", () => {
         if (response.merchants.length > 1) {
             // Note: dateCreated might not be directly accessible in the response
             // This is a basic structure validation
-            expect(response.merchants[0]).toHaveProperty('merchantId');
-            expect(response.merchants[0]).toHaveProperty('merchantName');
+            expect(response.merchants[0]).toHaveProperty("merchantId");
+            expect(response.merchants[0]).toHaveProperty("merchantName");
         }
     });
 
@@ -202,8 +212,12 @@ describe("Merchant API", () => {
 
         expect(response).toEqual(expectedResponse);
         expect(response.merchantId).toBe(merchantId);
-        expect(response.merchantName).toBe(`${namePrefix} Retrieve Test Merchant ${randomSuffix}`);
-        expect(response.merchantRefId).toBe(`retrieve-test-ref-${randomSuffix}`);
+        expect(response.merchantName).toBe(
+            `${namePrefix} Retrieve Test Merchant ${randomSuffix}`,
+        );
+        expect(response.merchantRefId).toBe(
+            `retrieve-test-ref-${randomSuffix}`,
+        );
     });
 
     test("should retrieve merchant with existing merchant ID", async () => {
@@ -224,7 +238,7 @@ describe("Merchant API", () => {
 
             expect(response).toEqual(expectedResponse);
             expect(response.merchantId).toBe(merchantId);
-            expect(typeof response.merchantName).toBe('string');
+            expect(typeof response.merchantName).toBe("string");
             expect(Array.isArray(response.payoutDestinations)).toBe(true);
             expect(Array.isArray(response.paymentTypes)).toBe(true);
         } else {
@@ -235,7 +249,9 @@ describe("Merchant API", () => {
 
     test("should update merchant name", async () => {
         // First, let's get the merchant ID by searching for it
-        const searchResponse = await merchantApi.search({ merchantName: testMerchantNames.testMerchant });
+        const searchResponse = await merchantApi.search({
+            merchantName: testMerchantNames.testMerchant,
+        });
 
         // Assuming the merchant exists and we get at least one result
         expect(searchResponse.totalResults).toBeGreaterThan(0);
@@ -263,13 +279,17 @@ describe("Merchant API", () => {
 
         expect(response).toEqual(expectedResponse);
         expect(response.merchantId).toBe(merchantId);
-        expect(response.merchantName).toBe(`${namePrefix} Updated Test Merchant ${randomSuffix}`);
+        expect(response.merchantName).toBe(
+            `${namePrefix} Updated Test Merchant ${randomSuffix}`,
+        );
         expect(response.merchantName).not.toBe(originalName);
     });
 
     test("should update merchant reference ID", async () => {
         // First, let's get the merchant ID by searching for it
-        const searchResponse = await merchantApi.search({ merchantName: testMerchantNames.newTestMerchant });
+        const searchResponse = await merchantApi.search({
+            merchantName: testMerchantNames.newTestMerchant,
+        });
 
         // Assuming the merchant exists and we get at least one result
         expect(searchResponse.totalResults).toBeGreaterThan(0);
@@ -331,7 +351,11 @@ describe("Merchant API", () => {
 
         expect(response).toEqual(expectedResponse);
         expect(response.merchantId).toBe(merchantId);
-        expect(response.merchantName).toBe(`${namePrefix} Updated Both Test Merchant ${randomSuffix}`);
-        expect(response.merchantRefId).toBe(`updated-both-test-ref-${randomSuffix}`);
+        expect(response.merchantName).toBe(
+            `${namePrefix} Updated Both Test Merchant ${randomSuffix}`,
+        );
+        expect(response.merchantRefId).toBe(
+            `updated-both-test-ref-${randomSuffix}`,
+        );
     });
 });

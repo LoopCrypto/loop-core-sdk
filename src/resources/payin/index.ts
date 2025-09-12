@@ -14,18 +14,18 @@ export class Payin extends Base {
                   queryParams as Record<string, string>,
               ).toString()}`
             : "";
-        return this.request(`payins${queryString}`, { method: "GET" });
+        return this.request(`/v2/payins${queryString}`, { method: "GET" });
     }
 
     create(payload: CreatePayinRequest): Promise<PayinResponse> {
-        return this.request(`payin`, {
+        return this.request(`/v2/payin`, {
             data: payload,
             method: "POST",
         });
     }
 
     retrieve(payinId: string): Promise<PayinResponse> {
-        return this.request(`payin/${payinId}`, {
+        return this.request(`/v2/payin/${payinId}`, {
             method: "GET",
         });
     }
@@ -34,7 +34,7 @@ export class Payin extends Base {
         payinId: string,
         updateData: UpdatePayinRequest,
     ): Promise<PayinsResponse> {
-        return this.request(`payin/${payinId}`, {
+        return this.request(`/v2/payin/${payinId}`, {
             method: "PATCH",
             data: updateData,
         });

@@ -2,10 +2,10 @@ import { WebHook } from "src/resources/webhook";
 import {
     CreateWebhookRequest,
     UpdateWebhookRequest,
-    Webhook,
-    WebHookSecretResponse,
+    WebhookResponse,
+    WebhookSecretResponse,
     WebhooksQueryParams,
-    WebHooksResponse,
+    WebhooksResponse,
     WebHooksUpdateQueryParams,
 } from "src/resources/webhook/types";
 
@@ -20,7 +20,7 @@ describe("WebHook API", () => {
     });
 
     test("should fetch webhooks without query parameters", async () => {
-        const mockResponse: WebHooksResponse = {
+        const mockResponse: WebhooksResponse = {
             totalResults: 1,
             webhooks: [
                 {
@@ -44,7 +44,7 @@ describe("WebHook API", () => {
 
     test("should fetch webhooks with query parameters", async () => {
         const queryParams: WebhooksQueryParams = { page: 1, limit: 10 };
-        const mockResponse: WebHooksResponse = {
+        const mockResponse: WebhooksResponse = {
             totalResults: 1,
             webhooks: [
                 {
@@ -76,7 +76,7 @@ describe("WebHook API", () => {
             events: ["payment.processed"],
         };
 
-        const mockResponse: WebHooksResponse = {
+        const mockResponse: WebhooksResponse = {
             totalResults: 1,
             webhooks: [
                 {
@@ -109,7 +109,7 @@ describe("WebHook API", () => {
             events: "payment.processed",
         };
 
-        const mockResponse: Webhook = {
+        const mockResponse: WebhookResponse = {
             webhookId: "webhook-123",
             networkId: 137,
             event: "payment.processed",
@@ -132,7 +132,7 @@ describe("WebHook API", () => {
 
     test("should delete a webhook", async () => {
         const webhookId = "webhook-123";
-        const mockResponse: WebHooksResponse = {
+        const mockResponse: WebhooksResponse = {
             totalResults: 0,
             webhooks: [],
         };
@@ -147,7 +147,7 @@ describe("WebHook API", () => {
     });
 
     test("should generate a new webhook secret", async () => {
-        const mockResponse: WebHookSecretResponse = {
+        const mockResponse: WebhookSecretResponse = {
             secret: "new-secret-key",
         };
 
@@ -161,7 +161,7 @@ describe("WebHook API", () => {
     });
 
     test("should retrieve the webhook secret", async () => {
-        const mockResponse: WebHookSecretResponse = {
+        const mockResponse: WebhookSecretResponse = {
             secret: "current-secret-key",
         };
 

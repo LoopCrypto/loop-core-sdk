@@ -31,11 +31,22 @@ describe("ApiKey", () => {
         const testApiKeys = [
             {
                 name: testKeyNames.testKey,
-                permissions: ["CreateEntities", "GetEntities", "CreateApiKeys", "GetApiKeys"] as const,
+                permissions: [
+                    "CreateEntities",
+                    "GetEntities",
+                    "CreateApiKeys",
+                    "GetApiKeys",
+                ] as const,
             },
             {
                 name: testKeyNames.newTestKey,
-                permissions: ["CreateEntities", "GetEntities", "CreateApiKeys", "GetApiKeys", "CreateMerchants"] as const,
+                permissions: [
+                    "CreateEntities",
+                    "GetEntities",
+                    "CreateApiKeys",
+                    "GetApiKeys",
+                    "CreateMerchants",
+                ] as const,
             },
         ];
 
@@ -47,7 +58,9 @@ describe("ApiKey", () => {
                 });
                 createdApiKeyIds.push(response.id);
             } catch {
-                console.log(`API key ${testKey.name} might already exist, continuing...`);
+                console.log(
+                    `API key ${testKey.name} might already exist, continuing...`,
+                );
             }
         }
     });
@@ -113,7 +126,9 @@ describe("ApiKey", () => {
             ]),
         };
 
-        const response = await apiKeyInstance.search({ apiKeyName: testKeyNames.newTestKey });
+        const response = await apiKeyInstance.search({
+            apiKeyName: testKeyNames.newTestKey,
+        });
 
         expect(response).toEqual(expectedResponse);
     });
@@ -149,7 +164,9 @@ describe("ApiKey", () => {
 
     test("should update the api key with a new permission", async () => {
         // First, let's get the API key ID by searching for it
-        const searchResponse = await apiKeyInstance.search({ apiKeyName: testKeyNames.testKey });
+        const searchResponse = await apiKeyInstance.search({
+            apiKeyName: testKeyNames.testKey,
+        });
 
         // Assuming the API key exists and we get at least one result
         expect(searchResponse.totalResults).toBeGreaterThan(0);
@@ -182,7 +199,9 @@ describe("ApiKey", () => {
 
     test("should delete the api key with the name test key", async () => {
         // First, let's get the API key ID by searching for it
-        const searchResponse = await apiKeyInstance.search({ apiKeyName: testKeyNames.testKey });
+        const searchResponse = await apiKeyInstance.search({
+            apiKeyName: testKeyNames.testKey,
+        });
 
         // Assuming the API key exists and we get at least one result
         expect(searchResponse.totalResults).toBeGreaterThan(0);
@@ -194,5 +213,4 @@ describe("ApiKey", () => {
 
         expect(deleteResponse).toEqual({} as EmptyResponse);
     });
-
 });

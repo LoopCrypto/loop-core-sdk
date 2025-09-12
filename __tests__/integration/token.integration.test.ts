@@ -38,8 +38,6 @@ describe("Token Integration", () => {
         expect(response.tokens.length).toBeGreaterThan(0);
     });
 
-
-
     test("should fetch USDC tokens on Sepolia network", async () => {
         const queryParams: TokenQueryParams = {
             networkId: sepoliaNetworkId,
@@ -65,7 +63,7 @@ describe("Token Integration", () => {
         expect(response).toEqual(expectedResponse);
 
         // Verify all returned tokens are USDC on Sepolia
-        response.tokens.forEach(token => {
+        response.tokens.forEach((token) => {
             expect(token.networkId).toBe(parseInt(sepoliaNetworkId));
             expect(token.symbol).toBe(usdcSymbol);
         });
@@ -90,10 +88,12 @@ describe("Token Integration", () => {
         // Verify tokens are sorted by symbol in ascending order
         if (response.tokens.length > 1) {
             for (let i = 0; i < response.tokens.length - 1; i++) {
-                expect(response.tokens[i].symbol.localeCompare(response.tokens[i + 1].symbol)).toBeLessThanOrEqual(0);
+                expect(
+                    response.tokens[i].symbol.localeCompare(
+                        response.tokens[i + 1].symbol,
+                    ),
+                ).toBeLessThanOrEqual(0);
             }
         }
     });
-
-
-}); 
+});
