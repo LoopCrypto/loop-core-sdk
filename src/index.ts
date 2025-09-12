@@ -44,15 +44,15 @@ export class LoopCrypto {
 export default LoopCrypto;
 
 export type {
-    WebhooksResponse as WebHooksResponse,
-    WebhookResponse as Webhook,
+    WebhooksResponse,
+    WebhookResponse,
     WebhookEvent,
     WebhookSortBy,
     WebhooksQueryParams,
     CreateWebhookRequest,
     UpdateWebhookRequest,
     WebHooksUpdateQueryParams,
-    WebhookSecretResponse as WebHookSecretResponse,
+    WebhookSecretResponse,
 } from "src/resources/webhook/types.ts";
 
 export type {
