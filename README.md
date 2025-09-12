@@ -7,13 +7,13 @@ LoopCrypto is a TypeScript SDK that provides easy integration with various payme
 Install the SDK via npm or yarn:
 
 ```sh
-npm install loopcrypto-sdk
+npm install @loop-crypto/loop-core-sdk
 ```
 
 or
 
 ```sh
-yarn add loopcrypto-sdk
+yarn add @loop-crypto/loop-core-sdk
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ yarn add loopcrypto-sdk
 Import and initialize the SDK:
 
 ```typescript
-import LoopCrypto from "loopcrypto-sdk";
+import LoopCrypto from "@loop-crypto/loopcrypto-core-sdk";
 
 const sdk = new LoopCrypto({
     apiKey: "your-api-key",
