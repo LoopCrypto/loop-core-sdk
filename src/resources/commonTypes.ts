@@ -18,4 +18,4 @@ export interface SDKOptions {
     entityId: string;
 }
 
-export interface EmptyResponse { }
+export interface EmptyResponse {}

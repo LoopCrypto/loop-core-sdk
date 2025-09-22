@@ -1,4 +1,4 @@
-import { SortDirection } from "src/resources/common-types";
+import { SortDirection } from "src/resources/commonTypes";
 import {
     PaymentTypeRequest,
     PaymentTypeResponse,

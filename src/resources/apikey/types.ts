@@ -1,4 +1,4 @@
-import { SortDirection } from "src/resources/common-types";
+import { SortDirection } from "src/resources/commonTypes";
 
 /**
  * Api Key Common
@@ -128,9 +128,9 @@ export interface ApiKeyResponse {
      */
     name: string;
     /**
-    * The created API key
-    * @example "550e8400-e29b-41d4-a716-446655440000"
-    */
+     * The created API key
+     * @example "550e8400-e29b-41d4-a716-446655440000"
+     */
     apiKey?: string;
     /**
      * The list of permissions that define what operations this API key can perform

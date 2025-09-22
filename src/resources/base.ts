@@ -1,6 +1,6 @@
 // src/resources/base.ts
 import axios, { AxiosRequestConfig } from "axios";
-import { SDKOptions } from "src/resources/common-types";
+import { SDKOptions } from "src/resources/commonTypes";
 
 export abstract class Base {
     private apiKey: string;

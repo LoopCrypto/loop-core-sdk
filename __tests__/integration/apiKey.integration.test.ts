@@ -5,7 +5,7 @@ import {
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
 } from "src/resources/apiKey/types";
-import { EmptyResponse } from "src/resources/common-types";
+import { EmptyResponse } from "src/resources/commonTypes";
 
 describe("ApiKey", () => {
     let apiKeyInstance: ApiKey;
