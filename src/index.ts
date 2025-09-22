@@ -13,7 +13,9 @@ import { Merchant } from "src/resources/merchant/index";
 import { Entity } from "src/resources/entity/index";
 import { Customer } from "src/resources/customer/index";
 import { ApiKey } from "src/resources/apiKey/index";
-import { SDKOptions } from "src/resources/common-types";
+import { SDKOptions } from "src/resources/commonTypes";
+import { CheckoutSession } from "src/resources/stripe/checkoutSession/index";
+import { StripeInvoice } from "src/resources/stripe/invoice/index";
 
 export class LoopCrypto {
     webhooks: WebHook;
@@ -26,6 +28,8 @@ export class LoopCrypto {
     entities: Entity;
     customers: Customer;
     apiKeys: ApiKey;
+    checkoutSession: CheckoutSession;
+    stripeInvoice: StripeInvoice;
 
     constructor(config: SDKOptions) {
         this.webhooks = new WebHook(config);
@@ -38,6 +42,8 @@ export class LoopCrypto {
         this.entities = new Entity(config);
         this.customers = new Customer(config);
         this.apiKeys = new ApiKey(config);
+        this.checkoutSession = new CheckoutSession(config);
+        this.stripeInvoice = new StripeInvoice(config);
     }
 }
 
@@ -121,4 +127,17 @@ export type {
     ApiKeyType,
 } from "src/resources/apiKey/types";
 
-export type { SDKOptions } from "src/resources/common-types";
+export type { SDKOptions } from "src/resources/commonTypes";
+
+export type {
+    CheckoutSessionQueryParams,
+    CreateCheckoutSessionRequest,
+    UpdateCheckoutSessionRequest,
+    CheckoutSessionResponse,
+    CheckoutSessionsResponse,
+} from "src/resources/stripe/checkoutSession/types";
+
+export type {
+    PayStripeAgreementInvoiceRequest,
+    PayAgreementInvoiceResponse,
+} from "src/resources/stripe/invoice/types";

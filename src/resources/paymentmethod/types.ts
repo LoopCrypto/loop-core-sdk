@@ -1,4 +1,4 @@
-import { NetworkIds, SortDirection } from "src/resources/common-types";
+import { NetworkIds, SortDirection } from "src/resources/commonTypes";
 import { MerchantCustomerResponse } from "src/resources/customer/types";
 import { TokenResponse } from "src/resources/token/types";
 

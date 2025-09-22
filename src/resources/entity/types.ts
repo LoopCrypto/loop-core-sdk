@@ -1,4 +1,4 @@
-import { NetworkIds, SettlementType } from "src/resources/common-types";
+import { NetworkIds, SettlementType } from "src/resources/commonTypes";
 import {
     FiatSettlementAccountResponse,
     FiatSettlementSettingsRequest,

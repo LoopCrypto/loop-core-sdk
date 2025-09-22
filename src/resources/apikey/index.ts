@@ -6,14 +6,14 @@ import {
     UpdateApiKeyRequest,
     ApiKeyResponse,
 } from "src/resources/apiKey/types";
-import { EmptyResponse } from "src/resources/common-types";
+import { EmptyResponse } from "src/resources/commonTypes";
 
 export class ApiKey extends Base {
     search(queryParams?: ApiKeyQueryParams): Promise<ApiKeysResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                queryParams as Record<string, string>,
-            ).toString()}`
+                  queryParams as Record<string, string>,
+              ).toString()}`
             : "";
         return this.request(`/v2/api-keys${queryString}`, { method: "GET" });
     }

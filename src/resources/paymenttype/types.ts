@@ -2,7 +2,7 @@ import {
     NetworkIds,
     SettlementType,
     SortDirection,
-} from "src/resources/common-types";
+} from "src/resources/commonTypes";
 
 /**
  * Payment Type Request
