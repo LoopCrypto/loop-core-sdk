@@ -13,16 +13,18 @@ export class PaymentMethod extends Base {
     ): Promise<PaymentMethodsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                queryParams as Record<string, string>,
-            ).toString()}`
+                  queryParams as Record<string, string>,
+              ).toString()}`
             : "";
-        return this.request(`payment-methods${queryString}`, { method: "GET" });
+        return this.request(`/v2/payment-methods${queryString}`, {
+            method: "GET",
+        });
     }
 
     create(
         payload: CreatePaymentMethodRequest,
     ): Promise<PaymentMethodResponse> {
-        return this.request(`payment-method`, {
+        return this.request(`/v2/payment-method`, {
             data: payload,
             method: "POST",
         });
@@ -32,20 +34,20 @@ export class PaymentMethod extends Base {
         paymentMethodId: string,
         updateData: UpdatePaymentMethodRequest,
     ): Promise<PaymentMethodResponse> {
-        return this.request(`payment-method/${paymentMethodId}`, {
+        return this.request(`/v2/payment-method/${paymentMethodId}`, {
             method: "PATCH",
             data: updateData,
         });
     }
 
     retrieve(paymentMethodId: string): Promise<PaymentMethodResponse> {
-        return this.request(`payment-method/${paymentMethodId}`, {
+        return this.request(`/v2/payment-method/${paymentMethodId}`, {
             method: "GET",
         });
     }
 
     delete(paymentMethodId: string): Promise<PaymentMethodsResponse> {
-        return this.request(`payment-method/${paymentMethodId}`, {
+        return this.request(`/v2/payment-method/${paymentMethodId}`, {
             method: "DELETE",
         });
     }
