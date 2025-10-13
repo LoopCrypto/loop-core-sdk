@@ -28,7 +28,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@changesets/changelog-git": "^0.2.1",
         "axios": "^1.7.9",
         "dotenv": "^17.2.2",
         "ts-node": "^10.9.2",
