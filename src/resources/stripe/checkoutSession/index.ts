@@ -7,7 +7,8 @@ import {
     CheckoutSessionQueryParams,
 } from "src/resources/stripe/checkoutSession/types";
 
-const checkoutSessionURI = "/v1/checkout-session";
+const singleCheckoutSessionURI = "/v1/checkout-session";
+const multipleCheckoutSessionsURI = "/v1/checkout-sessions";
 
 export class CheckoutSession extends Base {
     search(
@@ -18,7 +19,7 @@ export class CheckoutSession extends Base {
                   queryParams as Record<string, string>,
               ).toString()}`
             : "";
-        return this.request(`${checkoutSessionURI}${queryString}`, {
+        return this.request(`${multipleCheckoutSessionsURI}${queryString}`, {
             method: "GET",
         });
     }
@@ -26,25 +27,31 @@ export class CheckoutSession extends Base {
     create(
         payload: CreateCheckoutSessionRequest,
     ): Promise<CheckoutSessionResponse> {
-        return this.request(`${checkoutSessionURI}`, {
+        return this.request(`${singleCheckoutSessionURI}`, {
             data: payload,
             method: "POST",
         });
     }
 
     retrieve(checkoutSessionId: string): Promise<CheckoutSessionResponse> {
-        return this.request(`${checkoutSessionURI}/${checkoutSessionId}`, {
-            method: "GET",
-        });
+        return this.request(
+            `${singleCheckoutSessionURI}/${checkoutSessionId}`,
+            {
+                method: "GET",
+            },
+        );
     }
 
     update(
         checkoutSessionId: string,
         payload: UpdateCheckoutSessionRequest,
     ): Promise<CheckoutSessionResponse> {
-        return this.request(`${checkoutSessionURI}/${checkoutSessionId}`, {
-            data: payload,
-            method: "PATCH",
-        });
+        return this.request(
+            `${singleCheckoutSessionURI}/${checkoutSessionId}`,
+            {
+                data: payload,
+                method: "PATCH",
+            },
+        );
     }
 }

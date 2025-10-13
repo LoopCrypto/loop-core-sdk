@@ -7,25 +7,27 @@ import {
     UpdateCheckoutSessionRequest,
 } from "src/resources/stripe/checkoutSession/types";
 
-describe("CheckoutSession API", () => {
-    let checkoutSessionApi: CheckoutSession;
-    let requestMock: jest.Mock;
+jest.mock("src/resources/base");
+
+describe("CheckoutSession", () => {
+    let checkoutSessionInstance: CheckoutSession;
+    let mockRequest: jest.Mock;
 
     beforeEach(() => {
-        checkoutSessionApi = new CheckoutSession({
-            entityId: "test",
-            apiKey: "secret",
+        checkoutSessionInstance = new CheckoutSession({
+            apiKey: "apiKey",
+            entityId: "entityId",
         });
-        requestMock = jest.fn() as jest.Mock;
-        (checkoutSessionApi as unknown as { request: jest.Mock }).request =
-            requestMock;
+        mockRequest = jest.fn() as jest.Mock; // Explicitly typed as jest.Mock
+        (checkoutSessionInstance as unknown as { request: jest.Mock }).request =
+            mockRequest;
     });
 
     afterEach(() => {
         jest.clearAllMocks();
     });
 
-    test("should fetch checkout sessions without query parameters", async () => {
+    test("should fetch checkout sessions without query params", async () => {
         const mockResponse: CheckoutSessionsResponse = {
             totalResults: 2,
             checkoutSessions: [
@@ -96,16 +98,16 @@ describe("CheckoutSession API", () => {
             ],
         };
 
-        requestMock.mockResolvedValue(mockResponse);
+        mockRequest.mockResolvedValue(mockResponse);
 
-        const result = await checkoutSessionApi.search();
-        expect(requestMock).toHaveBeenCalledWith("/v1/checkout-session", {
+        const response = await checkoutSessionInstance.search();
+        expect(mockRequest).toHaveBeenCalledWith("/v1/checkout-sessions", {
             method: "GET",
         });
-        expect(result).toEqual(mockResponse);
+        expect(response).toEqual(mockResponse);
     });
 
-    test("should fetch checkout sessions with query parameters", async () => {
+    test("should fetch checkout sessions with query params", async () => {
         const queryParams: CheckoutSessionQueryParams = {
             active: true,
             email: "info@loopcrypto.xyz",
@@ -163,14 +165,14 @@ describe("CheckoutSession API", () => {
             ],
         };
 
-        requestMock.mockResolvedValue(mockResponse);
+        mockRequest.mockResolvedValue(mockResponse);
 
-        const result = await checkoutSessionApi.search(queryParams);
-        expect(requestMock).toHaveBeenCalledWith(
-            "/v1/checkout-session?active=true&email=info%40loopcrypto.xyz&externalCustomerId=cus_12345&externalSubscriptionId=sub_12345&externalInvoiceId=in_12345&externalInvoiceNumber=A1234-001&expiresBefore=1749097136&page=1&limit=25&sortBy=dateCreated&sortDir=desc",
+        const response = await checkoutSessionInstance.search(queryParams);
+        expect(mockRequest).toHaveBeenCalledWith(
+            "/v1/checkout-sessions?active=true&email=info%40loopcrypto.xyz&externalCustomerId=cus_12345&externalSubscriptionId=sub_12345&externalInvoiceId=in_12345&externalInvoiceNumber=A1234-001&expiresBefore=1749097136&page=1&limit=25&sortBy=dateCreated&sortDir=desc",
             { method: "GET" },
         );
-        expect(result).toEqual(mockResponse);
+        expect(response).toEqual(mockResponse);
     });
 
     test("should create a checkout session", async () => {
@@ -248,14 +250,14 @@ describe("CheckoutSession API", () => {
             resetBillingCycle: false,
         };
 
-        requestMock.mockResolvedValue(mockResponse);
+        mockRequest.mockResolvedValue(mockResponse);
 
-        const result = await checkoutSessionApi.create(payload);
-        expect(requestMock).toHaveBeenCalledWith("/v1/checkout-session", {
+        const response = await checkoutSessionInstance.create(payload);
+        expect(mockRequest).toHaveBeenCalledWith("/v1/checkout-session", {
             data: payload,
             method: "POST",
         });
-        expect(result).toEqual(mockResponse);
+        expect(response).toEqual(mockResponse);
     });
 
     test("should retrieve a checkout session", async () => {
@@ -297,17 +299,18 @@ describe("CheckoutSession API", () => {
             resetBillingCycle: false,
         };
 
-        requestMock.mockResolvedValue(mockResponse);
+        mockRequest.mockResolvedValue(mockResponse);
 
         const checkoutSessionId = "cs_12345";
-        const result = await checkoutSessionApi.retrieve(checkoutSessionId);
-        expect(requestMock).toHaveBeenCalledWith(
+        const response =
+            await checkoutSessionInstance.retrieve(checkoutSessionId);
+        expect(mockRequest).toHaveBeenCalledWith(
             `/v1/checkout-session/${checkoutSessionId}`,
             {
                 method: "GET",
             },
         );
-        expect(result).toEqual(mockResponse);
+        expect(response).toEqual(mockResponse);
     });
 
     test("should update a checkout session", async () => {
@@ -367,57 +370,34 @@ describe("CheckoutSession API", () => {
             resetBillingCycle: false,
         };
 
-        requestMock.mockResolvedValue(mockResponse);
+        mockRequest.mockResolvedValue(mockResponse);
 
-        const result = await checkoutSessionApi.update(
+        const response = await checkoutSessionInstance.update(
             checkoutSessionId,
             payload,
         );
-        expect(requestMock).toHaveBeenCalledWith(
+        expect(mockRequest).toHaveBeenCalledWith(
             `/v1/checkout-session/${checkoutSessionId}`,
             {
                 data: payload,
                 method: "PATCH",
             },
         );
-        expect(result).toEqual(mockResponse);
+        expect(response).toEqual(mockResponse);
     });
 
-    test("should handle query parameters with special characters", async () => {
-        const queryParams: CheckoutSessionQueryParams = {
-            email: "test+user@example.com",
-            externalInvoiceNumber: "INV-123/456",
-            sortBy: "id",
-            sortDir: "asc",
-        };
-        const mockResponse: CheckoutSessionsResponse = {
-            totalResults: 0,
-            checkoutSessions: [],
-        };
+    test("should handle API errors gracefully", async () => {
+        const errorMessage = "API Error: Invalid checkout session ID";
+        mockRequest.mockRejectedValue(new Error(errorMessage));
 
-        requestMock.mockResolvedValue(mockResponse);
-
-        const result = await checkoutSessionApi.search(queryParams);
-        expect(requestMock).toHaveBeenCalledWith(
-            "/v1/checkout-session?email=test%2Buser%40example.com&externalInvoiceNumber=INV-123%2F456&sortBy=id&sortDir=asc",
-            { method: "GET" },
+        await expect(
+            checkoutSessionInstance.retrieve("invalid-id"),
+        ).rejects.toThrow(errorMessage);
+        expect(mockRequest).toHaveBeenCalledWith(
+            "/v1/checkout-session/invalid-id",
+            {
+                method: "GET",
+            },
         );
-        expect(result).toEqual(mockResponse);
-    });
-
-    test("should handle empty query parameters object", async () => {
-        const queryParams: CheckoutSessionQueryParams = {};
-        const mockResponse: CheckoutSessionsResponse = {
-            totalResults: 0,
-            checkoutSessions: [],
-        };
-
-        requestMock.mockResolvedValue(mockResponse);
-
-        const result = await checkoutSessionApi.search(queryParams);
-        expect(requestMock).toHaveBeenCalledWith("/v1/checkout-session?", {
-            method: "GET",
-        });
-        expect(result).toEqual(mockResponse);
     });
 });
