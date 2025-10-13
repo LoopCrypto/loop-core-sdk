@@ -26,5 +26,5 @@ jobs:
             - name: Install dependencies
               run: "yarn install --immutable"
 
-            - name: jest
-              run: yarn jest:unit
+            - name: Run unit tests
+              run: yarn test:unit
