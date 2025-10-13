@@ -28,7 +28,7 @@ export class LoopCrypto {
     entities: Entity;
     customers: Customer;
     apiKeys: ApiKey;
-    checkoutSession: CheckoutSession;
+    checkoutSessions: CheckoutSession;
     stripeInvoice: StripeInvoice;
 
     constructor(config: SDKOptions) {
@@ -42,7 +42,7 @@ export class LoopCrypto {
         this.entities = new Entity(config);
         this.customers = new Customer(config);
         this.apiKeys = new ApiKey(config);
-        this.checkoutSession = new CheckoutSession(config);
+        this.checkoutSessions = new CheckoutSession(config);
         this.stripeInvoice = new StripeInvoice(config);
     }
 }
