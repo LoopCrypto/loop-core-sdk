@@ -4,46 +4,46 @@ import { SortDirection } from "src/resources/commonTypes";
  * Api Key Common
  */
 
-type EntityPermissions =
+export type EntityPermissions =
     | "CreateEntities"
     | "UpdateEntities"
     | "GetEntities"
     | "CreateChildEntities";
 
-type ApiKeyPermissions =
+export type ApiKeyPermissions =
     | "CreateApiKeys"
     | "UpdateApiKey"
     | "GetApiKeys"
     | "DeactivateApiKey";
 
-type MerchantPermissions =
+export type MerchantPermissions =
     | "CreateMerchants"
     | "UpdateMerchants"
     | "GetMerchants";
 
-type PaymentTypePermissions =
+export type PaymentTypePermissions =
     | "CreatePaymentTypes"
     | "UpdatePaymentTypes"
     | "GetPaymentTypes"
     | "DeletePaymentTypes";
 
-type PayoutDestinationPermissions =
+export type PayoutDestinationPermissions =
     | "CreatePayoutDestinations"
     | "UpdatePayoutDestinations"
     | "GetPayoutDestinations"
     | "DeletePayoutDestinations";
 
-type PaymentMethodPermissions =
+export type PaymentMethodPermissions =
     | "CreatePaymentMethods"
     | "UpdatePaymentMethods"
     | "GetPaymentMethods"
     | "DeletePaymentMethods";
 
-type PayinPermissions = "CreatePayins" | "UpdatePayins" | "GetPayins";
+export type PayinPermissions = "CreatePayins" | "UpdatePayins" | "GetPayins";
 
-type CustomerPermissions = "CreateCustomers" | "GetCustomers";
+export type CustomerPermissions = "CreateCustomers" | "GetCustomers";
 
-type WebhookPermissions =
+export type WebhookPermissions =
     | "CreateWebhooks"
     | "GetWebhooks"
     | "DeleteWebhooks"
@@ -51,20 +51,20 @@ type WebhookPermissions =
     | "CreateWebhookSecret"
     | "GetWebhookSecret";
 
-type TokenPermissions = "GetTokens";
+export type TokenPermissions = "GetTokens";
 
-type AuthTokenPermissions = "CreateAuthTokens";
+export type AuthTokenPermissions = "CreateAuthTokens";
 
-type CheckoutSessionPermissions =
+export type CheckoutSessionPermissions =
     | "CreateCheckoutSessions"
     | "UpdateCheckoutSessions"
     | "GetCheckoutSessions"
     | "DeleteCheckoutSessions"
     | "ListCheckoutSessions";
 
-type UserPermissions = "CreateUsers" | "GetUsers" | "DeleteUsers";
+export type UserPermissions = "CreateUsers" | "GetUsers" | "DeleteUsers";
 
-type Permissions =
+export type Permissions =
     | EntityPermissions
     | MerchantPermissions
     | PaymentTypePermissions

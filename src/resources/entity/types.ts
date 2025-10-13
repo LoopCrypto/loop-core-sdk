@@ -8,13 +8,13 @@ import {
  * Entity Request
  */
 
-interface PaymentToken {
+export interface PaymentToken {
     tokenAddress?: string; // Contract address for the token
     tokenSymbol?: string; // Token symbol (e.g., 'USDC', 'ETH')
     isDefault?: boolean; // Whether this token should be set as default
 }
 
-interface PaymentTypeRequest {
+export interface PaymentTypeRequest {
     networkId: NetworkIds;
     settlementType?: SettlementType;
     payoutDestinations: string[]; // Array of wallet addresses for payments
@@ -40,12 +40,12 @@ export interface UpdateEntityRequest {
  * Entity Response
  */
 
-interface Contract {
+export interface Contract {
     networkId: number;
     contractAddress: string;
 }
 
-interface PayoutDestination {
+export interface PayoutDestination {
     payoutDestinationId: string;
     networkId: number;
     settlementType: SettlementType;
@@ -53,7 +53,7 @@ interface PayoutDestination {
     isDefault: boolean;
 }
 
-interface PaymentType {
+export interface PaymentType {
     symbol: string;
     networkId: NetworkIds;
     tokenId: string;
