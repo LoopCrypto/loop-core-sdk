@@ -59,12 +59,17 @@ export type {
     UpdateWebhookRequest,
     WebHooksUpdateQueryParams,
     WebhookSecretResponse,
+    ClassicWebhookEvent,
+    WebhooksClassicQueryParams,
+    CreateClassicWebhookRequest,
 } from "src/resources/webhook/types.ts";
 
 export type {
     TokenQueryParams,
     TokensResponse,
     TokenResponse,
+    TokenExchangeRateResponse,
+    TokenSortBy,
 } from "src/resources/token/types.ts";
 
 export type {
@@ -72,6 +77,9 @@ export type {
     CreatePayoutDestinationRequest,
     PayoutDestinationQueryParams,
     PayoutDestinationsResponse,
+    FiatSettlementSettingsRequest,
+    UpdatePayoutDestinationRequest,
+    FiatSettlementAccountResponse,
 } from "src/resources/payoutDestination/types";
 
 export type {
@@ -80,6 +88,8 @@ export type {
     PaymentTypesResponse,
     PaymentTypeResponse,
     DefaultPaymentTypeRequest,
+    PaymentTypeSortByFields,
+    PaymentTypeTokenRequest,
 } from "src/resources/paymentType/types";
 
 export type {
@@ -88,6 +98,10 @@ export type {
     PaymentMethodResponse,
     CreatePaymentMethodRequest,
     UpdatePaymentMethodRequest,
+    ExchangeRate,
+    PaymentMethodPreAuthorization,
+    Token,
+    PaymentMethodSortByFields,
 } from "src/resources/paymentMethod/types";
 
 export type {
@@ -96,6 +110,9 @@ export type {
     PayinResponse,
     CreatePayinRequest,
     UpdatePayinRequest,
+    PayinPaymentMethodResponse,
+    PreAuthorization,
+    PayinTransactionResponse,
 } from "src/resources/payin/types.ts";
 
 export type {
@@ -110,6 +127,11 @@ export type {
     EntityResponse,
     CreateEntityRequest,
     UpdateEntityRequest,
+    PaymentToken,
+    PaymentTypeRequest,
+    Contract,
+    PayoutDestination,
+    PaymentType,
 } from "src/resources/entity/types.ts";
 
 export type {
@@ -117,6 +139,9 @@ export type {
     MerchantCustomersResponse,
     MerchantCustomerResponse,
     CreateCustomerRequest,
+    MerchantCustomerRef,
+    CustomerResponse,
+    CustomersResponse,
 } from "src/resources/customer/types.ts";
 
 export type {
@@ -125,9 +150,9 @@ export type {
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
     ApiKeyType,
+    ApiKeyResponse,
+    Permissions,
 } from "src/resources/apiKey/types";
-
-export type { SDKOptions } from "src/resources/commonTypes";
 
 export type {
     CheckoutSessionQueryParams,
@@ -141,3 +166,11 @@ export type {
     PayStripeAgreementInvoiceRequest,
     PayAgreementInvoiceResponse,
 } from "src/resources/stripe/invoice/types";
+
+export type {
+    EmptyResponse,
+    NetworkIds,
+    SortDirection,
+    SettlementType,
+    SDKOptions,
+} from "src/resources/commonTypes";

@@ -8,7 +8,7 @@ import {
  * Payment Type Request
  */
 
-export type SortByFields =
+export type PaymentTypeSortByFields =
     | "merchantId"
     | "tokenId"
     | "tokenSymbol"
@@ -23,7 +23,7 @@ export interface PaymentTypeQueryParams {
     merchantId?: string; // Optional merchant ID filter
     page?: number; // Pagination parameter, default is 1
     limit?: number; // Pagination limit, default is 25, max is 100
-    sortBy?: SortByFields; // Sorting field
+    sortBy?: PaymentTypeSortByFields; // Sorting field
     sortDir?: SortDirection; // Sorting direction
 }
 

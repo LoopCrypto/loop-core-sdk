@@ -179,7 +179,7 @@ describe("PaymentMethod API", () => {
             updateData,
         );
         expect(requestMock).toHaveBeenCalledWith(
-            `payment-method/${paymentMethodId}`,
+            `/v2/payment-method/${paymentMethodId}`,
             {
                 method: "PATCH",
                 data: updateData,
