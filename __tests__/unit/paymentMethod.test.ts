@@ -61,7 +61,7 @@ describe("PaymentMethod API", () => {
         requestMock.mockResolvedValue(mockResponse);
         const response = await paymentMethodApi.search(queryParams);
         expect(requestMock).toHaveBeenCalledWith(
-            "payment-methods?page=1&limit=10",
+            "/v2/payment-methods?page=1&limit=10",
             { method: "GET" },
         );
         expect(response).toEqual(mockResponse);
@@ -102,7 +102,7 @@ describe("PaymentMethod API", () => {
 
         requestMock.mockResolvedValue(mockResponse);
         const response = await paymentMethodApi.create(payload);
-        expect(requestMock).toHaveBeenCalledWith("payment-method", {
+        expect(requestMock).toHaveBeenCalledWith("/v2/payment-method", {
             data: payload,
             method: "POST",
         });
@@ -137,7 +137,7 @@ describe("PaymentMethod API", () => {
         requestMock.mockResolvedValue(mockResponse);
         const response = await paymentMethodApi.retrieve(paymentMethodId);
         expect(requestMock).toHaveBeenCalledWith(
-            `payment-method/${paymentMethodId}`,
+            `/v2/payment-method/${paymentMethodId}`,
             { method: "GET" },
         );
         expect(response).toEqual(mockResponse);
@@ -198,7 +198,7 @@ describe("PaymentMethod API", () => {
         requestMock.mockResolvedValue(mockResponse);
         const response = await paymentMethodApi.delete(paymentMethodId);
         expect(requestMock).toHaveBeenCalledWith(
-            `payment-method/${paymentMethodId}`,
+            `/v2/payment-method/${paymentMethodId}`,
             { method: "DELETE" },
         );
         expect(response).toEqual(mockResponse);
