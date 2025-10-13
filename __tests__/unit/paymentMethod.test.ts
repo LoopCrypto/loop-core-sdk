@@ -4,6 +4,7 @@ import {
     PaymentMethodResponse,
     CreatePaymentMethodRequest,
     PaymentMethodsResponse,
+    UpdatePaymentMethodRequest,
 } from "src/resources/paymentMethod/types";
 
 describe("PaymentMethod API", () => {
@@ -138,6 +139,51 @@ describe("PaymentMethod API", () => {
         expect(requestMock).toHaveBeenCalledWith(
             `payment-method/${paymentMethodId}`,
             { method: "GET" },
+        );
+        expect(response).toEqual(mockResponse);
+    });
+
+    test("should update a payment method", async () => {
+        const paymentMethodId = "pay-123";
+        const updateData: UpdatePaymentMethodRequest = {
+            name: "Updated Wallet Name",
+            isDefault: true,
+        };
+
+        const mockResponse: PaymentMethodResponse = {
+            paymentMethodId,
+            merchantId: "mer-123",
+            paymentMethodName: "Updated Wallet Name",
+            networkId: 137,
+            walletAddress: "0x1234567890abcdef",
+            isDefault: true,
+            token: {
+                symbol: "ETH",
+                tokenId: "eth-123",
+                address: "0xabcdef1234567890",
+                decimals: 18,
+                exchangeRates: [],
+            },
+            preAuthorization: null,
+            dateCreated: 1700000000,
+            active: true,
+            customer: {
+                customerId: "cust-123",
+                customerRefId: "cust-123",
+            },
+        };
+
+        requestMock.mockResolvedValue(mockResponse);
+        const response = await paymentMethodApi.update(
+            paymentMethodId,
+            updateData,
+        );
+        expect(requestMock).toHaveBeenCalledWith(
+            `payment-method/${paymentMethodId}`,
+            {
+                method: "PATCH",
+                data: updateData,
+            },
         );
         expect(response).toEqual(mockResponse);
     });

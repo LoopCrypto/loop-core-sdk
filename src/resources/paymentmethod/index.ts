@@ -13,8 +13,8 @@ export class PaymentMethod extends Base {
     ): Promise<PaymentMethodsResponse> {
         const queryString = queryParams
             ? `?${new URLSearchParams(
-                queryParams as Record<string, string>,
-            ).toString()}`
+                  queryParams as Record<string, string>,
+              ).toString()}`
             : "";
         return this.request(`payment-methods${queryString}`, { method: "GET" });
     }
