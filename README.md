@@ -1,6 +1,6 @@
 # LoopCrypto SDK
 
-LoopCrypto is a TypeScript SDK that provides easy integration with various payment and payout functionalities, including webhooks, token management, merchants, entities, and customers.
+This Typescript SDK provides easy integration with various payment and payout functionalities, including webhooks, token management, merchants, entities, and customers. 
 
 ## Installation
 
@@ -384,6 +384,3 @@ BASE_URL="https://loopcrypto.com/"
 
 This SDK is licensed under the MIT License.
 
-## Support
-
-For issues or feature requests, please open a GitHub issue.
