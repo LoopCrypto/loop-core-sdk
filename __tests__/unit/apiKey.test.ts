@@ -7,8 +7,6 @@ import {
     UpdateApiKeyRequest,
 } from "src/resources/apiKey/types";
 
-jest.mock("src/resources/base");
-
 describe("ApiKey", () => {
     let apiKeyInstance: ApiKey;
     let mockRequest: jest.Mock;
@@ -18,10 +16,6 @@ describe("ApiKey", () => {
         mockRequest = jest.fn() as jest.Mock; // Explicitly typed as jest.Mock
         (apiKeyInstance as unknown as { request: jest.Mock }).request =
             mockRequest;
-    });
-
-    afterEach(() => {
-        jest.clearAllMocks();
     });
 
     test("should fetch API keys with query params", async () => {

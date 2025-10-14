@@ -1,6 +1,10 @@
 {
     "name": "@loop-crypto/loop-core-sdk",
     "version": "0.1.4",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/LoopCrypto/loop-core-sdk.git"
+    },
     "description": "Loop Core SDK",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -13,6 +17,7 @@
     "scripts": {
         "build": "tsc -p tsconfig.build.json && tsc-alias",
         "start": "node --loader ts-node/esm src/test.ts",
+        "release": "changeset version && changeset publish",
         "pretty": "prettier --write \"**/*.{ts,json}\"",
         "test": "jest",
         "test:unit": "jest __tests__/unit",
@@ -23,12 +28,14 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@changesets/changelog-git": "^0.2.1",
         "axios": "^1.7.9",
         "dotenv": "^17.2.2",
         "ts-node": "^10.9.2",
         "typescript": "5.8.3"
     },
     "devDependencies": {
+        "@changesets/cli": "^2.29.7",
         "@types/jest": "^29.5.14",
         "@types/node": "^22.13.4",
         "eslint": "9.20.1",

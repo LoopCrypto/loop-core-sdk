@@ -13,7 +13,9 @@ import { Merchant } from "src/resources/merchant/index";
 import { Entity } from "src/resources/entity/index";
 import { Customer } from "src/resources/customer/index";
 import { ApiKey } from "src/resources/apiKey/index";
-import { SDKOptions } from "src/resources/common-types";
+import { SDKOptions } from "src/resources/commonTypes";
+import { CheckoutSession } from "src/resources/stripe/checkoutSession/index";
+import { StripeInvoice } from "src/resources/stripe/invoice/index";
 
 export class LoopCrypto {
     webhooks: WebHook;
@@ -26,6 +28,8 @@ export class LoopCrypto {
     entities: Entity;
     customers: Customer;
     apiKeys: ApiKey;
+    checkoutSessions: CheckoutSession;
+    stripeInvoice: StripeInvoice;
 
     constructor(config: SDKOptions) {
         this.webhooks = new WebHook(config);
@@ -38,6 +42,8 @@ export class LoopCrypto {
         this.entities = new Entity(config);
         this.customers = new Customer(config);
         this.apiKeys = new ApiKey(config);
+        this.checkoutSessions = new CheckoutSession(config);
+        this.stripeInvoice = new StripeInvoice(config);
     }
 }
 
@@ -53,12 +59,17 @@ export type {
     UpdateWebhookRequest,
     WebHooksUpdateQueryParams,
     WebhookSecretResponse,
+    ClassicWebhookEvent,
+    WebhooksClassicQueryParams,
+    CreateClassicWebhookRequest,
 } from "src/resources/webhook/types.ts";
 
 export type {
     TokenQueryParams,
     TokensResponse,
     TokenResponse,
+    TokenExchangeRateResponse,
+    TokenSortBy,
 } from "src/resources/token/types.ts";
 
 export type {
@@ -66,6 +77,9 @@ export type {
     CreatePayoutDestinationRequest,
     PayoutDestinationQueryParams,
     PayoutDestinationsResponse,
+    FiatSettlementSettingsRequest,
+    UpdatePayoutDestinationRequest,
+    FiatSettlementAccountResponse,
 } from "src/resources/payoutDestination/types";
 
 export type {
@@ -74,6 +88,8 @@ export type {
     PaymentTypesResponse,
     PaymentTypeResponse,
     DefaultPaymentTypeRequest,
+    PaymentTypeSortByFields,
+    PaymentTypeTokenRequest,
 } from "src/resources/paymentType/types";
 
 export type {
@@ -82,6 +98,10 @@ export type {
     PaymentMethodResponse,
     CreatePaymentMethodRequest,
     UpdatePaymentMethodRequest,
+    ExchangeRate,
+    PaymentMethodPreAuthorization,
+    Token,
+    PaymentMethodSortByFields,
 } from "src/resources/paymentMethod/types";
 
 export type {
@@ -90,6 +110,9 @@ export type {
     PayinResponse,
     CreatePayinRequest,
     UpdatePayinRequest,
+    PayinPaymentMethodResponse,
+    PreAuthorization,
+    PayinTransactionResponse,
 } from "src/resources/payin/types.ts";
 
 export type {
@@ -104,6 +127,11 @@ export type {
     EntityResponse,
     CreateEntityRequest,
     UpdateEntityRequest,
+    PaymentToken,
+    PaymentTypeRequest,
+    Contract,
+    PayoutDestination,
+    PaymentType,
 } from "src/resources/entity/types.ts";
 
 export type {
@@ -111,6 +139,9 @@ export type {
     MerchantCustomersResponse,
     MerchantCustomerResponse,
     CreateCustomerRequest,
+    MerchantCustomerRef,
+    CustomerResponse,
+    CustomersResponse,
 } from "src/resources/customer/types.ts";
 
 export type {
@@ -119,6 +150,27 @@ export type {
     CreateApiKeyRequest,
     UpdateApiKeyRequest,
     ApiKeyType,
+    ApiKeyResponse,
+    Permissions,
 } from "src/resources/apiKey/types";
 
-export type { SDKOptions } from "src/resources/common-types";
+export type {
+    CheckoutSessionQueryParams,
+    CreateCheckoutSessionRequest,
+    UpdateCheckoutSessionRequest,
+    CheckoutSessionResponse,
+    CheckoutSessionsResponse,
+} from "src/resources/stripe/checkoutSession/types";
+
+export type {
+    PayStripeAgreementInvoiceRequest,
+    PayAgreementInvoiceResponse,
+} from "src/resources/stripe/invoice/types";
+
+export type {
+    EmptyResponse,
+    NetworkIds,
+    SortDirection,
+    SettlementType,
+    SDKOptions,
+} from "src/resources/commonTypes";

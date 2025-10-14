@@ -1,4 +1,4 @@
-import { SettlementType, SortDirection } from "src/resources/common-types";
+import { SettlementType, SortDirection } from "src/resources/commonTypes";
 
 /**
  * Payout Destination Request
