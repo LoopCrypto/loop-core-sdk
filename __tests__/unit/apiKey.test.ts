@@ -18,10 +18,6 @@ describe("ApiKey", () => {
             mockRequest;
     });
 
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
-
     test("should fetch API keys with query params", async () => {
         const mockResponse: ApiKeysResponse = {
             totalResults: 2,
