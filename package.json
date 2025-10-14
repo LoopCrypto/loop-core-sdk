@@ -5,6 +5,9 @@
         "type": "git",
         "url": "https://github.com/LoopCrypto/loop-core-sdk.git"
     },
+    "publishConfig": {
+        "access": "public"
+    },
     "description": "Loop Core SDK",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -28,13 +31,13 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@changesets/changelog-git": "^0.2.1",
         "axios": "^1.7.9",
         "dotenv": "^17.2.2",
         "ts-node": "^10.9.2",
         "typescript": "5.8.3"
     },
     "devDependencies": {
+        "@changesets/changelog-git": "^0.2.1",
         "@changesets/cli": "^2.29.7",
         "@types/jest": "^29.5.14",
         "@types/node": "^22.13.4",
