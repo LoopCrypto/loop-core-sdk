@@ -7,8 +7,6 @@ import {
     UpdateApiKeyRequest,
 } from "src/resources/apiKey/types";
 
-jest.mock("src/resources/base");
-
 describe("ApiKey", () => {
     let apiKeyInstance: ApiKey;
     let mockRequest: jest.Mock;
