@@ -1,4 +1,4 @@
-import { NetworkIds, SortDirection } from "src/resources/common-types";
+import { NetworkIds, SortDirection } from "src/resources/commonTypes";
 import { MerchantCustomerResponse } from "src/resources/customer/types";
 import { TokenResponse } from "src/resources/token/types";
 
@@ -6,7 +6,7 @@ import { TokenResponse } from "src/resources/token/types";
  * Payment Method Request
  */
 
-export type SortByFields =
+export type PaymentMethodSortByFields =
     | "paymentMethodId"
     | "paymentMethodName"
     | "networkId"
@@ -26,7 +26,7 @@ export interface PaymentMethodQueryParams {
     isDefault?: boolean; // Optional filter for default payment methods
     page?: number; // Pagination parameter, default is 1
     limit?: number; // Pagination limit, default is 25, max is 100
-    sortBy?: SortByFields; // Sorting field, default is "dateCreated"
+    sortBy?: PaymentMethodSortByFields; // Sorting field, default is "dateCreated"
     sortDir?: SortDirection; // Sorting direction, default is "desc"
 }
 

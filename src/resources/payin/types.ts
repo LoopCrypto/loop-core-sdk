@@ -1,6 +1,6 @@
 import { TokenExchangeRateResponse } from "src/resources/token/types";
 import { PayoutDestinationResponse } from "src/resources/payoutDestination/types";
-import { SortDirection } from "src/resources/common-types";
+import { SortDirection } from "src/resources/commonTypes";
 import { PaymentMethodResponse } from "src/resources/paymentMethod/types";
 
 /**

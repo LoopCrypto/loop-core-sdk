@@ -1,4 +1,4 @@
-import { NetworkIds, SortDirection } from "src/resources/common-types";
+import { NetworkIds, SortDirection } from "src/resources/commonTypes";
 
 /**
  * Common Webhook Request
