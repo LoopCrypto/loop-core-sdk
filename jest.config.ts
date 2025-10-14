@@ -10,4 +10,7 @@ export default {
     coverageProvider: "v8",
     moduleDirectories: ["<rootDir>", "node_modules"],
     testTimeout: 30000,
+    moduleNameMapper: {
+        "^src/(.*)$": "<rootDir>/src/$1",
+    },
 };
