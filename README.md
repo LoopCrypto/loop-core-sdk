@@ -371,6 +371,28 @@ const updatedApiKey = await sdk.apiKeys.update("api-key-123", {
 await sdk.apiKeys.delete("api-key-456");
 ```
 
+### Checkout Sessions
+
+Create and update Checkout Sessions
+
+```typescript
+// Search for Checkout Sessions with Query Parameters
+const sessions = await sdk.checkoutSessions.search({
+    externalInvoiceId: "in_12345"
+});
+
+// Create a Checkout Session
+const newSession = await sdk.checkoutSessions.create({
+    elements: {
+        externalPriceId: "price_123456"
+    },
+    referenceId: "cust-456",
+    metadata: {
+        orderId: "order-789"
+    }
+});
+````
+
 ## Configuration
 
 The SDK requires an API key for authentication and base url to target environment. You can set it via environment variables:
@@ -383,4 +405,3 @@ BASE_URL="https://loopcrypto.com/"
 ## License
 
 This SDK is licensed under the MIT License.
-
