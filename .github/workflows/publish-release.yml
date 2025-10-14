@@ -12,8 +12,9 @@ jobs:
         name: Release
         runs-on: ubuntu-latest
         permissions:
-            id-token: write
-            contents: write
+            contents: write # to create release (changesets/action)
+            pull-requests: write # to create pull request (changesets/action)
+            id-token: write #  required for provenance and oidc publish
         steps:
             - name: Checkout Repo
               uses: actions/checkout@v4
@@ -23,7 +24,8 @@ jobs:
               with:
                   node-version: 20.x
                   registry-url: "https://registry.npmjs.org"
-
+            - name: update npm
+              run: npm update -g npm
             - name: Install Dependencies
               run: yarn
 
@@ -35,3 +37,4 @@ jobs:
                   publish: yarn release
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_CONFIG_PROVENANCE: true
